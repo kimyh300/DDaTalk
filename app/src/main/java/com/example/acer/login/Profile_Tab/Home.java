@@ -15,6 +15,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.Constants;
+import com.example.acer.login.Profile_Tab.Home_Related.TogetherItem;
+import com.example.acer.login.Profile_Tab.Home_Related.TogetherItemAdapter;
 import com.example.acer.login.Profile_Tab.Network.Writing;
 import com.example.acer.login.R;
 

@@ -1,4 +1,4 @@
-package com.example.acer.login.Profile_Tab;
+package com.example.acer.login.Profile_Tab.Home_Related;
 
 
 public class TogetherItem {
