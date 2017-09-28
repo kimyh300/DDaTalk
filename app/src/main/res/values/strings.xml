@@ -29,5 +29,9 @@
     <string name="search">찾기</string>
     <string name="bell">알람</string>
     <string name="title_activity_login">로그인</string>
+    <string name="textview">TextView</string>
+    <string name="add_reply">댓글달기</string>
+    <string name="delete">Delete</string>
+    <string name="open">Open</string>
 
 </resources>

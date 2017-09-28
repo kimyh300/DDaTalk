@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 
 import com.example.acer.login.R;
 
-public class Write extends Fragment{
+public class Stamp_Fragment extends Fragment{
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.write,container,false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_stamp,container,false);
 
         return rootView;
     }

@@ -11,22 +11,21 @@ import android.widget.Toast;
 
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
-import com.example.acer.login.Profile_Tab.DD119;
-import com.example.acer.login.Profile_Tab.Home;
-import com.example.acer.login.Profile_Tab.Mypage;
-import com.example.acer.login.Profile_Tab.Stamp;
-import com.example.acer.login.Profile_Tab.Write;
+import com.example.acer.login.Profile_Tab.DD119_Fragment;
+import com.example.acer.login.Profile_Tab.Home_Fragment;
+import com.example.acer.login.Profile_Tab.MyPage_Fragment;
+import com.example.acer.login.Profile_Tab.Stamp_Fragment;
+import com.example.acer.login.Profile_Tab.Write_Fragment;
 
 public class ProfileActivity extends AppCompatActivity {
 
     //    private TextView textViewUsername, textViewUserEmail;
     TabLayout tabs;
-    Home home;
-    Stamp stamp;
-    Write write;
-    DD119 dd119;
-    Mypage mypage;
-
+    Home_Fragment homeFragment;
+    Stamp_Fragment stampFragment;
+    Write_Fragment writeFragment;
+    DD119_Fragment dd119FRAGMENT;
+    MyPage_Fragment myPageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +37,16 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class));
         }
 
-        home = new Home();
-        stamp = new Stamp();
-        write = new Write();
-        dd119 = new DD119();
-        mypage = new Mypage();
+        homeFragment = new Home_Fragment();
+        stampFragment = new Stamp_Fragment();
+        writeFragment = new Write_Fragment();
+        dd119FRAGMENT = new DD119_Fragment();
+        myPageFragment = new MyPage_Fragment();
 
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container,home).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, homeFragment).commit();
 
-        tabinit();
+        tabInit();
 
 //        textViewUserEmail = (TextView)findViewById(R.id.textViewUserEmail);
 //        textViewUsername = (TextView)findViewById(R.id.textViewUsername);
@@ -79,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    void tabinit() {
+    void tabInit() {
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.getTabAt(0).setIcon(R.drawable.home_active);
         tabs.getTabAt(1).setIcon(R.drawable.check_disabled);
@@ -94,35 +93,35 @@ public class ProfileActivity extends AppCompatActivity {
 
                 Fragment selected = null;
                 if (position == 0) {
-                    selected = home;
+                    selected = homeFragment;
                     tabs.getTabAt(0).setIcon(R.drawable.home_active);
                     tabs.getTabAt(1).setIcon(R.drawable.check_disabled);
                     tabs.getTabAt(2).setIcon(R.drawable.add_disabled);
                     tabs.getTabAt(3).setIcon(R.drawable.em_119_disabled);
                     tabs.getTabAt(4).setIcon(R.drawable.my_page_disabled);
                 } else if (position == 1) {
-                    selected = stamp;
+                    selected = stampFragment;
                     tabs.getTabAt(0).setIcon(R.drawable.home_disabled);
                     tabs.getTabAt(1).setIcon(R.drawable.check_active);
                     tabs.getTabAt(2).setIcon(R.drawable.add_disabled);
                     tabs.getTabAt(3).setIcon(R.drawable.em_119_disabled);
                     tabs.getTabAt(4).setIcon(R.drawable.my_page_disabled);
                 } else if (position == 2) {
-                    selected = write;
+                    selected = writeFragment;
                     tabs.getTabAt(0).setIcon(R.drawable.home_disabled);
                     tabs.getTabAt(1).setIcon(R.drawable.check_disabled);
                     tabs.getTabAt(2).setIcon(R.drawable.add_active);
                     tabs.getTabAt(3).setIcon(R.drawable.em_119_disabled);
                     tabs.getTabAt(4).setIcon(R.drawable.my_page_disabled);
                 } else if (position == 3) {
-                    selected = dd119;
+                    selected = dd119FRAGMENT;
                     tabs.getTabAt(0).setIcon(R.drawable.home_disabled);
                     tabs.getTabAt(1).setIcon(R.drawable.check_disabled);
                     tabs.getTabAt(2).setIcon(R.drawable.add_disabled);
                     tabs.getTabAt(3).setIcon(R.drawable.em_119_active);
                     tabs.getTabAt(4).setIcon(R.drawable.my_page_disabled);
                 } else if (position == 4) {
-                    selected = mypage;
+                    selected = myPageFragment;
                     tabs.getTabAt(0).setIcon(R.drawable.home_disabled);
                     tabs.getTabAt(1).setIcon(R.drawable.check_disabled);
                     tabs.getTabAt(2).setIcon(R.drawable.add_disabled);

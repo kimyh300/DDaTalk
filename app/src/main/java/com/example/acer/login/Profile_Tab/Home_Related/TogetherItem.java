@@ -2,18 +2,26 @@ package com.example.acer.login.Profile_Tab.Home_Related;
 
 
 public class TogetherItem {
-    String name;
-    String content;
-    int resId;
-    int together, comment;
+    private String name;
+    private String content;
+    private int resId;
+    private int together, comment;
+    private int writing_no;
 
 
-    public TogetherItem(String name, String content, int resId, int together, int comment) {
+    public TogetherItem(int writing_no,String name, String content, int resId, int together, int comment) {
+        this.writing_no = writing_no;
         this.name = name;
         this.content = content;
         this.resId = resId;
         this.together = together;
         this.comment = comment;
+    }
+    public void setWriting_no(int writing_no){
+        this.writing_no = writing_no;
+    }
+    public int getWriting_no(){
+        return this.writing_no;
     }
 
     public int getTogether() {
@@ -23,9 +31,6 @@ public class TogetherItem {
     public void setTogether(int together) {
         this.together = together;
     }
-    public void clickTogether(){
-        this.together +=1;
-    }
 
     public int getComment() {
         return comment;
@@ -34,9 +39,7 @@ public class TogetherItem {
     public void setComment(int comment) {
         this.comment = comment;
     }
-    public void clickComment(){
-        this.comment +=1;
-    }
+
 
     public String getName() {
         return name;

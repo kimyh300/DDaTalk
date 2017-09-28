@@ -28,14 +28,21 @@
             android:textSize="20sp" />
 
     </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#FF000000"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/colorAccent"
         android:text="@string/content"
         android:textSize="20sp" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#FF000000"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

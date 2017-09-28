@@ -17,14 +17,14 @@ import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.Constants;
 import com.example.acer.login.Profile_Tab.Home_Related.TogetherItem;
 import com.example.acer.login.Profile_Tab.Home_Related.TogetherItemAdapter;
-import com.example.acer.login.Profile_Tab.Network.Writing;
+import com.example.acer.login.Profile_Tab.Home_Related.Writing;
 import com.example.acer.login.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Home extends Fragment{
+public class Home_Fragment extends Fragment{
 
     RequestQueue rq;
     String content,date,email;
@@ -34,7 +34,8 @@ public class Home extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.home,container,false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home,container,false);
+
 
 
         ListView together2 = (ListView) rootView.findViewById(R.id.together2);
@@ -42,7 +43,7 @@ public class Home extends Fragment{
         rq = Volley.newRequestQueue(rootView.getContext());
 
 
-        sendJsonRequest();
+        sendJsonRequestToWriting();
         together2.setAdapter(adapter);
 
 
@@ -53,8 +54,8 @@ public class Home extends Fragment{
         return rootView;
     }
 
-    public void sendJsonRequest(){
 
+    public void sendJsonRequestToWriting(){
 
         final JsonArrayRequest jsonArrayRequest;
         jsonArrayRequest = new JsonArrayRequest(Constants.URL_WRITING_INFO, new Response.Listener<JSONArray>() {
@@ -70,7 +71,7 @@ public class Home extends Fragment{
                         with_cnt = obj.getInt("with_cnt");
                         writing_no = obj.getInt("writing_no");
                         Writing w = new Writing(content,reply_cnt,with_cnt,date,writing_no,email);
-                        TogetherItem togetherItem = new TogetherItem(w.getEmail(),w.getContent(),R.drawable.user,w.getWith_cnt(),w.getReply_cnt());
+                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(),w.getEmail(),w.getContent(),R.drawable.user,w.getWith_cnt(),w.getReply_cnt());
                         adapter.addItem(togetherItem);
                     } catch (JSONException e) {
                         e.printStackTrace();
