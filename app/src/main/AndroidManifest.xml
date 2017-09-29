@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login_Related.MainActivity"></activity>
+        <activity android:name=".Login_Related.MainActivity" />
         <activity android:name=".Login_Related.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".Profile_Tab.Home_reply.ReplyActivity"></activity>
+        <activity android:name=".Profile_Tab.Home_reply.ReplyActivity" />
+
+        <!-- 여기서부터 병함 -->
+        <activity android:name=".Profile_Tab.Write_Related.RentalActivity" />
+        <activity android:name=".Profile_Tab.MyPage_Related.MyPage_SubActivity" />
+        <activity android:name=".Profile_Tab.DD119_Related.TabMenu1" />
+        <activity android:name=".Profile_Tab.DD119_Related.TabMenu2" />
+        <activity android:name=".Profile_Tab.DD119_Related.TabMenu3" />
+        <activity android:name=".Profile_Tab.DD119_Related.TabMenu4" />
+        <activity android:name=".Profile_Tab.DD119_Related.TabMenu5" />
+        <activity android:name=".Profile_Tab.DD119_Related.TabMenu6"></activity>
     </application>
 
 </manifest>

@@ -1,12 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tab_name3" />
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/x_Button"
+            android:layout_width="10dp"
+            android:layout_height="25dp"
+
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@android:string/cancel"
+
+            android:onClick="onClickfinish"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/x_mark" />
+
+        <TextView
+            android:id="@+id/writing_title"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+
+            android:layout_weight="5"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:text="@string/write_title"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+            android:textColorLink="@color/colorAccent"
+            android:textSize="25sp" />
+
+        <ImageButton
+            android:id="@+id/v_Button"
+            android:layout_width="10dp"
+            android:layout_height="25dp"
+
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+
+            android:contentDescription="@android:string/ok"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/v_mark"
+            tools:ignore="NestedWeights" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.09"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/writing_sec"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="#e1efe2"
+            android:ems="10"
+            android:gravity="start"
+            android:hint="@string/warning"
+            android:privateImeOptions="defaultInputmode=korean"
+            android:textColorHint="#7f7f7f"
+            android:textSize="17sp"
+            tools:ignore="NestedWeights" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/requestSelect"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/guTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/guTitle"
+                android:textSize="18sp"
+                tools:ignore="MissingConstraints,NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/guView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="2"
+
+                android:background="@drawable/border"
+                android:gravity="start"
+                android:textSize="15sp"
+                tools:ignore="RtlHardcoded" />
+
+            <ImageButton
+                android:id="@+id/search_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:contentDescription=""
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/deyuso_search"
+                tools:ignore="ContentDescription,RtlHardcoded" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/spotTitle"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/spotTitle"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/writing_sec"
+                tools:ignore="MissingConstraints,NestedWeights,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/SpotView"
+                android:layout_width="202dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/border"
+                android:gravity="start"
+                android:textSize="15sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/writing_sec"
+                tools:ignore="RtlHardcoded" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

@@ -15,7 +15,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/region_search_bar"
-        android:drawableStart="@drawable/region_search"
+        android:drawableLeft="@drawable/region_search"
         android:ems="10"
         android:hint="@string/hint"
         android:inputType="text"

@@ -34,4 +34,46 @@
     <string name="delete">Delete</string>
     <string name="open">Open</string>
 
+
+    <!--여기서부터 병합 : 호욱-->
+
+    <string name="plz_gu">구를 선택하세요</string>
+
+    <string name="write_title">글쓰기</string>
+    <string name="warning">목적에 맞지 않는 글은 임의로 삭제될 수 있습니다.</string>
+
+    <string name="rental_spot">대여소</string>
+
+    <string name="guTitle">지역구</string>
+    <string name="spotTitle">대여소명</string>
+
+    <string name="requestSelect">함께타요 장소선택</string>
+
+
+    <!--홍근-->
+
+    <string name="region_search">지역찾기</string>
+    <string name="profile_photo">profile_photo</string>
+    <string name="profile_example">sim2873</string>
+    <string name="profile_name">profile_name</string>
+    <string name="profile_edit">profile_edit</string>
+    <string name="birthday">생일</string>
+    <string name="name">이름</string>
+    <string name="logout">logout</string>
+    <string name="userdelete">userdelete</string>
+    <string name="addwriting">addwriting</string>
+
+    <!--희범-->
+
+    <string name="title_activity_menu5_1">Menu5_1</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_menu4_1">Menu4_1</string>
+    <string name="title_activity_tab_menu">TabMenu</string>
+    <string name="title_activity_tab_menu1">tab_menu1</string>
+    <string name="title_activity_tab_menu3">tab_menu3</string>
+    <string name="title_activity_menu44">menu44</string>
+    <string name="title_activity_menu6_1">menu6_1</string>
+    <string name="title_activity_menu55">menu55</string>
+
 </resources>
