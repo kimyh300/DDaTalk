@@ -75,8 +75,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         obj.getString("email"),
                                         obj.getString("name"),
                                         obj.getString("birthday"),
-                                        obj.getInt("exp"),
-                                        obj.getInt("level"));
+                                        obj.getString("exp"),
+                                        obj.getString("level"));
 
 
                                 Toast.makeText(getApplicationContext(),

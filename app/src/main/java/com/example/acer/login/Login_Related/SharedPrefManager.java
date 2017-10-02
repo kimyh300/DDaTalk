@@ -28,7 +28,7 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public boolean userLogin(String email,String name,String birthday,int exp, int level ){
+    public boolean userLogin(String email,String name,String birthday,String exp, String level ){
 
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -36,8 +36,8 @@ public class SharedPrefManager {
         editor.putString(KEY_USER_EMAIL,email);
         editor.putString(KEY_USERNAME,name);
         editor.putString(KEY_USER_BIRTHDAY,birthday);
-        editor.putInt(KEY_USER_EXP,exp);
-        editor.putInt(KEY_USER_LEVEL,level);
+        editor.putString(KEY_USER_EXP,exp);
+        editor.putString(KEY_USER_LEVEL,level);
 
         editor.apply();
 
@@ -72,6 +72,14 @@ public class SharedPrefManager {
     public boolean isKeyTogetherSwitch(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(KEY_TOGETHER_SWITCH,false);
+    }
+    public String getUserEXP(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_USER_EXP,null);
+    }
+    public String getUserLevel(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_USER_LEVEL,null);
     }
 
 }
