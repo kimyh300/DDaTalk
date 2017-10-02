@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.example.acer.login.ProfileActivity;
+import com.example.acer.login.Profile_Tab.Write_Fragment;
 import com.example.acer.login.R;
 
 import java.io.Serializable;
@@ -302,15 +302,12 @@ public class RentalActivity extends Activity {
 
         //클릭된아이템 데이터넘기기
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
             @Override
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                // 상세정보 화면으로 이동하기(인텐트 날리기)
-                // 1. 다음화면을 만든다
-                // 2. AndroidManifest.xml 에 화면을 등록한다
-                // 3. Intent 객체를 생성하여 날린다
-                Intent intent = new Intent(RentalActivity.this, ProfileActivity.class); // 다음넘어갈 화면
-                // 인텐트 플래그 설정해서 oncreate 안부르기
+                Intent intent = new Intent(RentalActivity.this, Write_Fragment.class); // 다음넘어갈 화면
 
                 // intent 객체에 데이터를 실어서 보내기
                 // 리스트뷰 클릭시 인텐트 (Intent) 생성하고 position 값을 이용하여 인텐트로 넘길값들을 넘긴다

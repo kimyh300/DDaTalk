@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +25,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.R;
-import com.example.acer.login.Profile_Tab.Write_Related.RentalActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ import java.util.Map;
 import static android.content.Context.MODE_PRIVATE;
 
 public class Write_Fragment extends Fragment{
+
     ViewGroup rootView;
     //생명주기 확인용 태그
     private String TAG = "ActivityLifeCycle";
@@ -52,10 +54,17 @@ public class Write_Fragment extends Fragment{
     // SharedPreferences 에디터 선언
     SharedPreferences.Editor editor;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_write,container,false);
+
+        //프래그먼트 전환준비
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
 
         // Volley 준비 작업
 
@@ -66,12 +75,22 @@ public class Write_Fragment extends Fragment{
         requestQueue = Volley.newRequestQueue(rootView.getContext());
         progressDialog = new ProgressDialog(rootView.getContext());
         ImageButton search = (ImageButton)rootView.findViewById(R.id.search_btn);
+
+
+        // 돋보기 버튼 클릭시 장소찾기 화면 가기
+
         search.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
-                // 대여소버튼 클릭시 화면 전환
-                Intent intent = new Intent(getActivity().getApplication(), RentalActivity.class);
-                startActivity(intent);
+                // Create new fragment and transaction
+               Fragment newFragment = new MyPage_Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.container, newFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
             }
         });
 
@@ -223,6 +242,7 @@ public class Write_Fragment extends Fragment{
 
 
     }
+
 
 
 }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.DD119_Fragment;
+import com.example.acer.login.Profile_Tab.FindSpot_Fragment;
 import com.example.acer.login.Profile_Tab.Home_Fragment;
 import com.example.acer.login.Profile_Tab.MyPage_Fragment;
 import com.example.acer.login.Profile_Tab.Stamp_Fragment;
@@ -26,6 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
     Write_Fragment writeFragment;
     DD119_Fragment dd119FRAGMENT;
     MyPage_Fragment myPageFragment;
+    FindSpot_Fragment spotFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
         writeFragment = new Write_Fragment();
         dd119FRAGMENT = new DD119_Fragment();
         myPageFragment = new MyPage_Fragment();
+        spotFragment = new FindSpot_Fragment();
 
 
         getSupportFragmentManager().beginTransaction().add(R.id.container, homeFragment).commit();

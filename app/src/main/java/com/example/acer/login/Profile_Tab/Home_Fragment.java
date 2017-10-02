@@ -47,10 +47,6 @@ public class Home_Fragment extends Fragment{
         together2.setAdapter(adapter);
 
 
-
-
-
-
         return rootView;
     }
 
