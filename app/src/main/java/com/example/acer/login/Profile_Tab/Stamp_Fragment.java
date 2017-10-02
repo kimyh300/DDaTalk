@@ -64,7 +64,7 @@ public class Stamp_Fragment extends Fragment {
         handler.sendEmptyMessageDelayed(10, 0);
 
         UL = Integer.parseInt(userLevel);
-        UL= UL+4;
+//        UL= UL-1;
         switch (UL){
             case 1:
                 wheel.setImageResource(R.drawable.woodwheel);
