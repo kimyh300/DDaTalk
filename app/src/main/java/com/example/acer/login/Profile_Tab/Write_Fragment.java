@@ -2,12 +2,10 @@ package com.example.acer.login.Profile_Tab;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,7 +39,7 @@ public class Write_Fragment extends Fragment{
     EditText Content;
     TextView spot, gu;
 
-    String ContentHolder, Rental_spot_Holder;
+    String ContentHolder, Rental_spot_Holder, receive_spot, receive_gu;
 
     ProgressDialog progressDialog;
 
@@ -57,14 +55,22 @@ public class Write_Fragment extends Fragment{
 
     @Nullable
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            receive_spot = getArguments().getString("rental_spot");
+            receive_gu = getArguments().getString("gu_selected");
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_write,container,false);
 
-        //프래그먼트 전환준비
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //데이터 받아오기
 
-
+        spot = (TextView)rootView.findViewById(R.id.SpotView);
+        gu = (TextView)rootView.findViewById(R.id.guView);
 
         // Volley 준비 작업
 
@@ -83,10 +89,9 @@ public class Write_Fragment extends Fragment{
 
             public void onClick(View v) {
                 // Create new fragment and transaction
-               Fragment newFragment = new MyPage_Fragment();
+               Fragment spotFragment = new FindSpot_Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                transaction.replace(R.id.container, newFragment);
+                transaction.replace(R.id.container, spotFragment);
                 transaction.addToBackStack(null);
 
                 transaction.commit();
@@ -170,6 +175,7 @@ public class Write_Fragment extends Fragment{
         Log.i(TAG, "onCreate()");
         return rootView;
     }
+
     //x버튼 클릭시 종료
 
 //    public void onClickfinish(View v){
@@ -205,16 +211,10 @@ public class Write_Fragment extends Fragment{
     public void onResume(){
         super.onResume();
 
-        //지역구,대여소 인텐트 받아오기
+        //지역구,대여소 번들 받아오기
 
-        Intent intent = getActivity().getIntent(); // 보내온 Intent를 얻는다
-
-        spot = (TextView)rootView.findViewById(R.id.SpotView);
-        gu = (TextView)rootView.findViewById(R.id.guView);
-
-        spot.setText(intent.getStringExtra("rental_spot"));
-        gu.setText(intent.getStringExtra("gu_selected"));
-
+        spot.setText(receive_spot);
+        gu.setText(receive_gu);
 
         //저장된 shared 부르기
         pref = getActivity().getSharedPreferences("content", MODE_PRIVATE);
