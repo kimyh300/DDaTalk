@@ -39,6 +39,8 @@ public class Write_Fragment extends Fragment{
     EditText Content;
     TextView spot, gu;
 
+    ImageButton x_mark;
+
     String ContentHolder, Rental_spot_Holder, receive_spot, receive_gu;
 
     ProgressDialog progressDialog;
@@ -66,6 +68,21 @@ public class Write_Fragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_write,container,false);
+
+        //x버튼 클릭시 이벤트 처리 만들어놈
+        x_mark = (ImageButton)rootView.findViewById(R.id.x_Button);
+
+        x_mark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment newFragment = new Write_Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.remove(newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
 
         //데이터 받아오기
 
@@ -98,6 +115,9 @@ public class Write_Fragment extends Fragment{
 
             }
         });
+
+
+
 
         // v_mark 클릭시 이벤트
         Insert_writing.setOnClickListener(new View.OnClickListener() {
@@ -178,9 +198,7 @@ public class Write_Fragment extends Fragment{
 
     //x버튼 클릭시 종료
 
-//    public void onClickfinish(View v){
-//        MainActivity.this.finish();
-//    }
+
 
     // 벨류값 뽑아내기 메소드
     public void GetValueFromEditText(){
