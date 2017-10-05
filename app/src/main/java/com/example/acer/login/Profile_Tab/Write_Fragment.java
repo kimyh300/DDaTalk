@@ -2,11 +2,11 @@ package com.example.acer.login.Profile_Tab;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +23,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.R;
-import com.example.acer.login.Profile_Tab.Write_Related.RentalActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +30,7 @@ import java.util.Map;
 import static android.content.Context.MODE_PRIVATE;
 
 public class Write_Fragment extends Fragment{
+
     ViewGroup rootView;
     //생명주기 확인용 태그
     private String TAG = "ActivityLifeCycle";
@@ -39,7 +39,7 @@ public class Write_Fragment extends Fragment{
     EditText Content;
     TextView spot, gu;
 
-    String ContentHolder, Rental_spot_Holder;
+    String ContentHolder, Rental_spot_Holder, receive_spot, receive_gu;
 
     ProgressDialog progressDialog;
 
@@ -52,10 +52,25 @@ public class Write_Fragment extends Fragment{
     // SharedPreferences 에디터 선언
     SharedPreferences.Editor editor;
 
+
     @Nullable
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            receive_spot = getArguments().getString("rental_spot");
+            receive_gu = getArguments().getString("gu_selected");
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_write,container,false);
+
+        //데이터 받아오기
+
+        spot = (TextView)rootView.findViewById(R.id.SpotView);
+        gu = (TextView)rootView.findViewById(R.id.guView);
 
         // Volley 준비 작업
 
@@ -66,12 +81,21 @@ public class Write_Fragment extends Fragment{
         requestQueue = Volley.newRequestQueue(rootView.getContext());
         progressDialog = new ProgressDialog(rootView.getContext());
         ImageButton search = (ImageButton)rootView.findViewById(R.id.search_btn);
+
+
+        // 돋보기 버튼 클릭시 장소찾기 화면 가기
+
         search.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
-                // 대여소버튼 클릭시 화면 전환
-                Intent intent = new Intent(getActivity().getApplication(), RentalActivity.class);
-                startActivity(intent);
+                // Create new fragment and transaction
+               Fragment spotFragment = new FindSpot_Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, spotFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
             }
         });
 
@@ -151,6 +175,7 @@ public class Write_Fragment extends Fragment{
         Log.i(TAG, "onCreate()");
         return rootView;
     }
+
     //x버튼 클릭시 종료
 
 //    public void onClickfinish(View v){
@@ -186,16 +211,10 @@ public class Write_Fragment extends Fragment{
     public void onResume(){
         super.onResume();
 
-        //지역구,대여소 인텐트 받아오기
+        //지역구,대여소 번들 받아오기
 
-        Intent intent = getActivity().getIntent(); // 보내온 Intent를 얻는다
-
-        spot = (TextView)rootView.findViewById(R.id.SpotView);
-        gu = (TextView)rootView.findViewById(R.id.guView);
-
-        spot.setText(intent.getStringExtra("rental_spot"));
-        gu.setText(intent.getStringExtra("gu_selected"));
-
+        spot.setText(receive_spot);
+        gu.setText(receive_gu);
 
         //저장된 shared 부르기
         pref = getActivity().getSharedPreferences("content", MODE_PRIVATE);
@@ -223,6 +242,7 @@ public class Write_Fragment extends Fragment{
 
 
     }
+
 
 
 }

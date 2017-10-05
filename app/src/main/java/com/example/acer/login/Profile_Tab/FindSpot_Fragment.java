@@ -1,47 +1,54 @@
-package com.example.acer.login.Profile_Tab.Write_Related;
+package com.example.acer.login.Profile_Tab;
 
-import android.app.Activity;
-import android.content.Intent;
+
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.example.acer.login.Profile_Tab.Write_Fragment;
 import com.example.acer.login.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class RentalActivity extends Activity {
+public class FindSpot_Fragment extends Fragment {
+
+    ViewGroup rootView;
+
     Spinner spinner = null;
     ListView listview;
     ArrayList<String> list;
     ArrayAdapter listadapter;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rental_spot);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        rootView = (ViewGroup)inflater.inflate(R.layout.fragment_findspot,container,false);
+
+
 
         list = new ArrayList<String>();
 
-        listadapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+        listadapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
 
-        listview = (ListView) findViewById(R.id.listview1);
+        listview = (ListView) rootView.findViewById(R.id.listview1);
         listview.setAdapter(listadapter);
 
         //지역구 선택 스피너
-        spinner = (Spinner) findViewById(R.id.gu_select);
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gu_list, android.R.layout.simple_spinner_item);
+        spinner = (Spinner) rootView.findViewById(R.id.gu_select);
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.gu_list, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         //지역구 선택 스피너
@@ -277,7 +284,7 @@ public class RentalActivity extends Activity {
 
 //대여소 목록 검색 필터
 
-        EditText editTextFilter = (EditText) findViewById(R.id.editTextFilter);
+        EditText editTextFilter = (EditText) rootView.findViewById(R.id.editTextFilter);
         editTextFilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable edit) {
@@ -307,18 +314,34 @@ public class RentalActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Intent intent = new Intent(RentalActivity.this, Write_Fragment.class); // 다음넘어갈 화면
+                Bundle bundle = new Bundle();
+                bundle.putString("rental_spot", parent.getAdapter().getItem(position).toString());
+                bundle.putString("gu_selected", spinner.getSelectedItem().toString());
+                Fragment send = new Write_Fragment();
+                send.setArguments(bundle);
 
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, send);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+
+
+
+                /*Intent intent = new Intent(getActivity().getApplicationContext(), ); // 다음넘어갈 화면
                 // intent 객체에 데이터를 실어서 보내기
                 // 리스트뷰 클릭시 인텐트 (Intent) 생성하고 position 값을 이용하여 인텐트로 넘길값들을 넘긴다
-
                 intent.putExtra("rental_spot", (Serializable) parent.getAdapter().getItem(position));
                 intent.putExtra("gu_selected", spinner.getSelectedItem().toString());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                startActivity(intent);*/
+
             }
         });
         //클릭된 아이템 데이터넘기기
 
+return rootView;
     }
+
 }
