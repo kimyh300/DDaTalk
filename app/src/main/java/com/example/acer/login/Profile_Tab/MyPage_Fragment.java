@@ -11,11 +11,17 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_SubActivity;
 import com.example.acer.login.R;
 
 public class MyPage_Fragment extends Fragment{
+
+    //로그인놈 이름가져오기
+    TextView name_view;
+    String name;
 
     /*private static String TAG = "phptest_MainActivity";
 
@@ -43,17 +49,22 @@ public class MyPage_Fragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_mypage,container,false);
+
+        //로그인놈 이름 가져오기 및 표기
+        name = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUsername();
+        name_view = (TextView)rootView.findViewById(R.id.textView);
+        name_view.setText(name);
+
+
         ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView4);
+
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity().getApplication(), MyPage_SubActivity.class);
-//                i.putExtra("name_key",name);
-//                i.putExtra("birthday_key",birthday);
-//                i.putExtra("email_key",email);
                 startActivity(i);
-                //finish();
             }
         });
 

@@ -1,4 +1,4 @@
-package com.example.acer.login.Profile_Tab;
+package com.example.acer.login.Profile_Tab.Write_Related;
 
 
 import android.os.Bundle;
@@ -124,9 +124,10 @@ public class Stamp_Fragment extends Fragment {
                 levelbar.setImageResource(R.drawable.diamondbar);
                 break;
 
+            }
+            return rootView;
         }
-        return rootView;
+
     }
 
-}
 

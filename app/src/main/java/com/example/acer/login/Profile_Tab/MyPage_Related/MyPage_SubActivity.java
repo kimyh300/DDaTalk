@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.R;
 
 import java.io.File;
@@ -23,7 +24,8 @@ public class MyPage_SubActivity extends AppCompatActivity {
     private static String TAG = "phpdeletetest";
 
 
-    TextView mtextView1, mtextView2, mtextView3;
+
+    TextView nameView, mtextView1, mtextView2, mtextView3;
     String name, birthday, email;
 
     private static final int PICK_FROM_CAMERA = 0;
@@ -40,20 +42,32 @@ public class MyPage_SubActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page__sub);
+
+        //로그인놈 정보 가져오기
+        name = SharedPrefManager.getInstance(getApplicationContext()).getUsername();
+        email = SharedPrefManager.getInstance(getApplicationContext()).getUserEmail();
+        birthday = SharedPrefManager.getInstance(getApplicationContext()).getUserBirthday();
+
+        nameView = (TextView)findViewById(R.id.textView);
+        nameView.setText(name);
+
         mtextView1 = (TextView) findViewById(R.id.textView7);
-        mtextView2 = (TextView) findViewById(R.id.textView9);
-        mtextView3 = (TextView) findViewById(R.id.textView11);
-
-        Intent i = getIntent();
-
-        name = i.getStringExtra("name_key");
-        birthday = i.getStringExtra("birthday_key");
-        email = i.getStringExtra("email_key");
-
-
         mtextView1.setText(name);
+
+        mtextView2 = (TextView) findViewById(R.id.textView9);
         mtextView2.setText(birthday);
+
+        mtextView3 = (TextView) findViewById(R.id.textView11);
         mtextView3.setText(email);
+
+
+
+
+
+
+
+
+
 
         ImageButton deleteButton = (ImageButton) findViewById(R.id.deleteButton);
 //        ImageButton logoutButton = (ImageButton) findViewById(R.id.logoutButton);

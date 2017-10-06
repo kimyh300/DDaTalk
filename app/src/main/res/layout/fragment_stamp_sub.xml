@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.techtown.mystampcollect.MainActivity">
+
+    <ImageView
+        android:id="@+id/diamondmap"
+        android:layout_width="123dp"
+        android:layout_height="112dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/silvermap"
+        tools:ignore="RtlHardcoded" />
+
+    <ImageView
+        android:id="@+id/silvermap"
+        android:layout_width="123dp"
+        android:layout_height="112dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stonemap"
+        tools:ignore="RtlHardcoded" />
+
+    <ImageView
+        android:id="@+id/goldmap"
+        android:layout_width="123dp"
+        android:layout_height="112dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiremap"
+        tools:ignore="RtlHardcoded" />
+
+    <ImageView
+        android:id="@+id/tiremap"
+        android:layout_width="123dp"
+        android:layout_height="112dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/woodmap"
+        tools:ignore="RtlHardcoded" />
+
+    <ImageView
+        android:id="@+id/stonemap"
+        android:layout_width="123dp"
+        android:layout_height="112dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlHardcoded" />
+
+    <ImageView
+        android:id="@+id/woodmap"
+        android:layout_width="123dp"
+        android:layout_height="112dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlHardcoded" />
+</android.support.constraint.ConstraintLayout>

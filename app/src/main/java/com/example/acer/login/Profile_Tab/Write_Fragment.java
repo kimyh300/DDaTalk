@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.Write_Related.FindSpot_Fragment;
 import com.example.acer.login.R;
 
@@ -40,7 +41,9 @@ public class Write_Fragment extends Fragment{
     EditText Content;
     TextView spot, gu;
 
-    String ContentHolder, Rental_spot_Holder, receive_spot, receive_gu;
+    ImageButton x_mark;
+
+    String ContentHolder, Rental_spot_Holder, receive_spot, receive_gu, useremail;
 
     ProgressDialog progressDialog;
 
@@ -58,6 +61,11 @@ public class Write_Fragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 로그인한놈 유저메일 가져오기
+        useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
+
+
         if (getArguments() != null) {
             receive_spot = getArguments().getString("rental_spot");
             receive_gu = getArguments().getString("gu_selected");
@@ -67,6 +75,22 @@ public class Write_Fragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_write,container,false);
+
+
+        //x버튼 클릭시 이벤트 처리 만들어놈
+        x_mark = (ImageButton)rootView.findViewById(R.id.x_Button);
+
+        x_mark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment newFragment = new Write_Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.remove(newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
 
         //데이터 받아오기
 
@@ -99,6 +123,9 @@ public class Write_Fragment extends Fragment{
 
             }
         });
+
+
+
 
         // v_mark 클릭시 이벤트
         Insert_writing.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +185,7 @@ public class Write_Fragment extends Fragment{
                         // Adding All values to Params.
                         params.put("content", ContentHolder);
                         params.put("rental_spot", Rental_spot_Holder);
+                        params.put("email", useremail);
 
                         return params;
                     }
@@ -179,9 +207,7 @@ public class Write_Fragment extends Fragment{
 
     //x버튼 클릭시 종료
 
-//    public void onClickfinish(View v){
-//        MainActivity.this.finish();
-//    }
+
 
     // 벨류값 뽑아내기 메소드
     public void GetValueFromEditText(){
