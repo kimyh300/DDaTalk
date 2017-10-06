@@ -126,12 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(v == buttonLogin){
             userLogin();
         }
-<<<<<<< HEAD
-        if( v == textViewLogin){
-
-=======
         if( v == textViewJoin){
->>>>>>> ecc0770e7bbedbcccea49d3c1a0c379e3ab1b0e0
             startActivity(new Intent(this, MainActivity.class));
         }
     }
