@@ -96,7 +96,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/requestSelect"
-            android:textSize="20sp" />
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
