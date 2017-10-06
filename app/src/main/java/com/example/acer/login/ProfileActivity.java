@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.DD119_Fragment;
-import com.example.acer.login.Profile_Tab.FindSpot_Fragment;
+import com.example.acer.login.Profile_Tab.Write_Related.FindSpot_Fragment;
 import com.example.acer.login.Profile_Tab.Home_Fragment;
 import com.example.acer.login.Profile_Tab.MyPage_Fragment;
 import com.example.acer.login.Profile_Tab.Stamp_Fragment;

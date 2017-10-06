@@ -1,4 +1,4 @@
-package com.example.acer.login.Profile_Tab;
+package com.example.acer.login.Profile_Tab.Write_Related;
 
 
 import android.content.res.Resources;
@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.acer.login.Profile_Tab.Write_Fragment;
 import com.example.acer.login.R;
 
 import java.util.ArrayList;
