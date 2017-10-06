@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonLogin;
     private ProgressDialog progressDialog;
 
-    private TextView textViewLogin;
+    private TextView textViewJoin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +42,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(this,ProfileActivity.class));
             return;
         }
+        //noinspection ConstantConditions
+        getSupportActionBar().hide();
 
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         editTextPassword =(EditText)findViewById(R.id.editTextPassword);
         buttonLogin = (Button)findViewById(R.id.buttonLogin);
 
-        textViewLogin = (TextView)findViewById(R.id.textViewLogin);
+        textViewJoin = (TextView)findViewById(R.id.textViewJoin);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
 
         buttonLogin.setOnClickListener(this);
-        textViewLogin.setOnClickListener(this);
+        textViewJoin.setOnClickListener(this);
     }
 
     private void userLogin(){
@@ -124,7 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(v == buttonLogin){
             userLogin();
         }
-        if( v == textViewLogin){
+        if( v == textViewJoin){
             startActivity(new Intent(this, MainActivity.class));
         }
     }

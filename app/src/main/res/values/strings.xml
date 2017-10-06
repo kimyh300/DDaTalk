@@ -7,8 +7,6 @@
     <string name="password_check_enter">비밀번호를 다시 한 번 입력하세요.</string>
     <string name="email">이메일</string>
     <string name="email_enter">이메일을 입력하세요.</string>
-    <string name="already">회원이 아닌가요?? \n 회원가입을 위해 여기를 누르세요.</string>
-    <string name="registerbutton">회원가입</string>
     <string name="birth">생일(YYYY-MM-DD)</string>
     <string name="birth_enter">YYYY-MM-DD</string>
 
@@ -33,6 +31,9 @@
     <string name="add_reply">댓글달기</string>
     <string name="delete">Delete</string>
     <string name="open">Open</string>
+    <string name="logo">로고</string>
+    <string name="imageEmail">로그인이메일</string>
+    <string name="imageKey">로그인비밀번호</string>
 
 
     <!--여기서부터 병합 : 호욱-->

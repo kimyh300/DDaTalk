@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this,ProfileActivity.class));
             return;
         }
+        //noinspection ConstantConditions
+        getSupportActionBar().hide();
 
 
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
