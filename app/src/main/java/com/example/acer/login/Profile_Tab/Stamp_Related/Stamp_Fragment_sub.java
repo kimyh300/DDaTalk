@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.R;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import static com.example.acer.login.R.drawable.woodwheelmap;
 
 public class Stamp_Fragment_sub extends Fragment {
 
+
+    String userLevel;
     ImageView woodmap;
     ImageView stonemap;
     ImageView tiremap;
@@ -35,6 +38,10 @@ public class Stamp_Fragment_sub extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_stamp_sub, container, false);
+
+        //로그인한 유저레벨 가져오기
+        userLevel = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserLevel();
+
 
         Resources res = getResources();
         wheelmapList.add(res.getDrawable(woodwheelmap));
@@ -57,10 +64,10 @@ public class Stamp_Fragment_sub extends Fragment {
         diamondmap = (ImageView) rootView.findViewById(R.id.diamondmap);
 
 
-        int UL = 1;
-        UL = UL++;
-        switch (UL) {
-            case 1:
+
+
+        switch (userLevel) {
+            case "1":
                 woodmap.setImageDrawable(wheelmapList.get(0));
                 stonemap.setImageDrawable(wheelmapList.get(6));
                 tiremap.setImageDrawable(wheelmapList.get(6));
@@ -68,32 +75,46 @@ public class Stamp_Fragment_sub extends Fragment {
                 goldmap.setImageDrawable(wheelmapList.get(6));
                 diamondmap.setImageDrawable(wheelmapList.get(6));
                 break;
-            case 2:
+            case "2":
+                woodmap.setImageDrawable(wheelmapList.get(0));
                 stonemap.setImageDrawable(wheelmapList.get(1));
                 tiremap.setImageDrawable(wheelmapList.get(6));
                 silvermap.setImageDrawable(wheelmapList.get(6));
                 goldmap.setImageDrawable(wheelmapList.get(6));
                 diamondmap.setImageDrawable(wheelmapList.get(6));
                 break;
-            case 3:
+            case "3":
+                woodmap.setImageDrawable(wheelmapList.get(0));
+                stonemap.setImageDrawable(wheelmapList.get(1));
                 tiremap.setImageDrawable(wheelmapList.get(2));
                 silvermap.setImageDrawable(wheelmapList.get(6));
                 goldmap.setImageDrawable(wheelmapList.get(6));
                 diamondmap.setImageDrawable(wheelmapList.get(6));
                 break;
-            case 4:
+            case "4":
+                woodmap.setImageDrawable(wheelmapList.get(0));
+                stonemap.setImageDrawable(wheelmapList.get(1));
+                tiremap.setImageDrawable(wheelmapList.get(2));
                 silvermap.setImageDrawable(wheelmapList.get(3));
                 goldmap.setImageDrawable(wheelmapList.get(6));
                 diamondmap.setImageDrawable(wheelmapList.get(6));
                 break;
-            case 5:
+            case "5":
+                woodmap.setImageDrawable(wheelmapList.get(0));
+                stonemap.setImageDrawable(wheelmapList.get(1));
+                tiremap.setImageDrawable(wheelmapList.get(2));
+                silvermap.setImageDrawable(wheelmapList.get(3));
                 goldmap.setImageDrawable(wheelmapList.get(4));
-                goldmap.setImageDrawable(wheelmapList.get(6));
+                diamondmap.setImageDrawable(wheelmapList.get(6));
                 break;
-            case 6:
-                goldmap.setImageDrawable(wheelmapList.get(5));
+            case "6":
+                woodmap.setImageDrawable(wheelmapList.get(0));
+                stonemap.setImageDrawable(wheelmapList.get(1));
+                tiremap.setImageDrawable(wheelmapList.get(2));
+                silvermap.setImageDrawable(wheelmapList.get(3));
+                goldmap.setImageDrawable(wheelmapList.get(4));
+                diamondmap.setImageDrawable(wheelmapList.get(5));
                 break;
-
 
 
         } return rootView;
