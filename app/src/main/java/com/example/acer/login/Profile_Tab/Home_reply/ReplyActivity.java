@@ -97,9 +97,9 @@ public class ReplyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String Reply_Content = editTextReply.getText().toString();
-                insertContentToReply(Reply_Content,UserEmail_Present,writing_no_param);
-
-                ReplyItem newRow = new ReplyItem(UserEmail_Present,Reply_Content);
+                int param_reply_no = insertContentToReply(Reply_Content,UserEmail_Present,writing_no_param);
+                int writing_no = Integer.parseInt(writing_no_param);
+                ReplyItem newRow = new ReplyItem(param_reply_no,UserEmail_Present,Reply_Content,writing_no);
                 replyItemAdapter.addItem(newRow);
                 replyItemAdapter.notifyDataSetChanged();
             }
@@ -133,7 +133,7 @@ public class ReplyActivity extends AppCompatActivity {
                             email = obj.getString("email");
                             reply_no = obj.getInt("reply_no");
                             writing_no = obj.getInt("writing_no");
-                            ReplyItem reply = new ReplyItem(reply_no,email, content);
+                            ReplyItem reply = new ReplyItem(reply_no,email, content,writing_no);
                             replyItemAdapter.addItem(reply);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -159,13 +159,15 @@ public class ReplyActivity extends AppCompatActivity {
         rq.add(stringRequest);
     }
 
-    public void insertContentToReply(final String Reply_Content, final String shared_email, final String writing_no_param){
+    public int insertContentToReply(final String Reply_Content, final String shared_email, final String writing_no_param){
+        final int[] reply_no = {0};
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REPLY_WRITECONTENT, new Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject obj = new JSONObject(response);
                     if(!obj.getBoolean("error")){
+                        reply_no[0] = obj.getInt("reply_no");
                         Toast.makeText(getApplicationContext(),
                                 "댓글이 성공적으로 작성되었습니다.",
                                 Toast.LENGTH_LONG).show();
@@ -192,5 +194,6 @@ public class ReplyActivity extends AppCompatActivity {
             }
         };
         rq.add(stringRequest);
+        return reply_no[0];
     }
 }

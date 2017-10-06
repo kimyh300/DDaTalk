@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//댓글 삭제 기능 미완성
 class ReplyItemAdapter extends BaseAdapter {
     private ArrayList<ReplyItem> items = new ArrayList<>();
     private static final int VIEW_TYPE_ENABLE = 0;
@@ -74,7 +73,7 @@ class ReplyItemAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // must close normal
                 if(SharedPrefManager.getInstance(context).getUserEmail().equals(item.getEmail())) {
-                    deleteReplyByEmailAndWriting_No(item.getReply_no(),context);
+                    deleteReplyByEmailAndWriting_No(item.getReply_no(),item.getWriting_no(),context);
                     viewHolder.sml.smoothCloseMenu();
                     items.remove(position);
                     notifyDataSetChanged();
@@ -102,7 +101,7 @@ class ReplyItemAdapter extends BaseAdapter {
         }
     }
 
-    private void deleteReplyByEmailAndWriting_No(final int reply_no, final Context context){
+    private void deleteReplyByEmailAndWriting_No(final int reply_no, final int writing_no, final Context context){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REPLY_DELETE_BY_REPLYNO, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -129,6 +128,7 @@ class ReplyItemAdapter extends BaseAdapter {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
                 params.put("reply_no", String.valueOf(reply_no));
+                params.put("writing_no",String.valueOf(writing_no));
                 return params;
             }
         };

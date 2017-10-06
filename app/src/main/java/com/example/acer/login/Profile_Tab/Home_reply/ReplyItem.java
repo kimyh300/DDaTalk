@@ -8,12 +8,14 @@ public class ReplyItem {
     private String email;
     private String content;
     private int reply_no;
+    private int writing_no;
 
-    public ReplyItem(/*int resId,*/ int reply_no,String email, String content) {
+    public ReplyItem(/*int resId,*/ int reply_no,String email, String content,int writing_no) {
 //        this.resId = resId;
         this.reply_no = reply_no;
         this.email = email;
         this.content = content;
+        this.writing_no = writing_no;
     }
     public ReplyItem(String email, String content){
         this.email = email;
@@ -27,6 +29,14 @@ public class ReplyItem {
     public void setResId(int resId) {
         this.resId = resId;
     }*/
+
+    public int getWriting_no() {
+        return writing_no;
+    }
+
+    public void setWriting_no(int writing_no) {
+        this.writing_no = writing_no;
+    }
 
     public int getReply_no() {
         return reply_no;
