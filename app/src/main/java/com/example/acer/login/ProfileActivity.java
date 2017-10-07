@@ -12,11 +12,11 @@ import android.widget.Toast;
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.DD119_Fragment;
-import com.example.acer.login.Profile_Tab.Write_Related.FindSpot_Fragment;
 import com.example.acer.login.Profile_Tab.Home_Fragment;
 import com.example.acer.login.Profile_Tab.MyPage_Fragment;
 import com.example.acer.login.Profile_Tab.Stamp_Fragment;
 import com.example.acer.login.Profile_Tab.Write_Fragment;
+import com.example.acer.login.Profile_Tab.Write_Related.FindSpot_Fragment;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -28,6 +28,8 @@ public class ProfileActivity extends AppCompatActivity {
     DD119_Fragment dd119FRAGMENT;
     MyPage_Fragment myPageFragment;
     FindSpot_Fragment spotFragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         tabInit();
 
-//        textViewUserEmail = (TextView)findViewById(R.id.textViewUserEmail);
-//        textViewUsername = (TextView)findViewById(R.id.textViewUsername);
-//
-//        textViewUserEmail.setText(SharedPrefManager.getInstance(this).getUserEmail());
-//        textViewUsername.setText(SharedPrefManager.getInstance(this).getUsername());
+
     }
 
     @Override
@@ -83,11 +81,17 @@ public class ProfileActivity extends AppCompatActivity {
 
     void tabInit() {
         tabs = (TabLayout) findViewById(R.id.tabs);
+        //noinspection ConstantConditions
         tabs.getTabAt(0).setIcon(R.drawable.home_active);
+        //noinspection ConstantConditions
         tabs.getTabAt(1).setIcon(R.drawable.check_disabled);
+        //noinspection ConstantConditions
         tabs.getTabAt(2).setIcon(R.drawable.add_disabled);
+        //noinspection ConstantConditions
         tabs.getTabAt(3).setIcon(R.drawable.em_119_disabled);
+        //noinspection ConstantConditions
         tabs.getTabAt(4).setIcon(R.drawable.my_page_disabled);
+        //noinspection deprecation
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -97,38 +101,63 @@ public class ProfileActivity extends AppCompatActivity {
                 Fragment selected = null;
                 if (position == 0) {
                     selected = homeFragment;
+                    //noinspection ConstantConditions
                     tabs.getTabAt(0).setIcon(R.drawable.home_active);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(1).setIcon(R.drawable.check_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(2).setIcon(R.drawable.add_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(3).setIcon(R.drawable.em_119_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(4).setIcon(R.drawable.my_page_disabled);
                 } else if (position == 1) {
                     selected = stampFragment;
+                    //noinspection ConstantConditions
                     tabs.getTabAt(0).setIcon(R.drawable.home_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(1).setIcon(R.drawable.check_active);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(2).setIcon(R.drawable.add_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(3).setIcon(R.drawable.em_119_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(4).setIcon(R.drawable.my_page_disabled);
                 } else if (position == 2) {
                     selected = writeFragment;
+                    //noinspection ConstantConditions
                     tabs.getTabAt(0).setIcon(R.drawable.home_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(1).setIcon(R.drawable.check_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(2).setIcon(R.drawable.add_active);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(3).setIcon(R.drawable.em_119_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(4).setIcon(R.drawable.my_page_disabled);
                 } else if (position == 3) {
                     selected = dd119FRAGMENT;
+                    //noinspection ConstantConditions
                     tabs.getTabAt(0).setIcon(R.drawable.home_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(1).setIcon(R.drawable.check_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(2).setIcon(R.drawable.add_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(3).setIcon(R.drawable.em_119_active);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(4).setIcon(R.drawable.my_page_disabled);
                 } else if (position == 4) {
                     selected = myPageFragment;
+                    //noinspection ConstantConditions
                     tabs.getTabAt(0).setIcon(R.drawable.home_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(1).setIcon(R.drawable.check_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(2).setIcon(R.drawable.add_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(3).setIcon(R.drawable.em_119_disabled);
+                    //noinspection ConstantConditions
                     tabs.getTabAt(4).setIcon(R.drawable.my_page_active);
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,selected).commit();
