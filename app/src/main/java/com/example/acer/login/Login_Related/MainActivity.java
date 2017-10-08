@@ -30,7 +30,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonRegister;
     private ProgressDialog progressDialog;
 
+    public void finishToLogin(){
+        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+        intent.putExtra("register",1);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +87,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onResponse(String response) {
                         progressDialog.dismiss();
                         Log.d("메세지",response);
-
-//                        response = response.substring(344,response.length());
-//                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                            finish();
+                            finishToLogin();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
