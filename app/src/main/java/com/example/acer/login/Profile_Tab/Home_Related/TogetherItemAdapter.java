@@ -83,7 +83,7 @@ public class TogetherItemAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context.getApplicationContext(), ReplyActivity.class);
-                intent.putExtra("email",item.getName());
+                intent.putExtra("email",item.getEmail());
                 intent.putExtra("content",item.getContent());
                 intent.putExtra("picture",item.getResId());
                 intent.putExtra("writing_no",item.getWriting_no());
@@ -93,7 +93,7 @@ public class TogetherItemAdapter extends BaseAdapter {
             }
         });
 
-        view.setName(item.getName());
+        view.setName(item.getEmail());
         view.setContent(item.getContent());
         view.setImageView(item.getResId());
         view.setTogether_tv(item.getTogether());

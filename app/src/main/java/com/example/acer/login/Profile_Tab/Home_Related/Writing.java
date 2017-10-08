@@ -10,16 +10,26 @@ public class Writing {
     private String date;
     private int writing_no;
     private String email;
+    private String rental_spot;
 
     public Writing(){}
 
-    public Writing(String content, int reply_cnt, int with_cnt, String date, int writing_no, String email) {
+    public Writing(String content, int reply_cnt, int with_cnt, String date, int writing_no, String email,String rental_spot) {
         this.content = content;
         this.reply_cnt = reply_cnt;
         this.with_cnt = with_cnt;
         this.date = date;
         this.writing_no = writing_no;
         this.email = email;
+        this.rental_spot = rental_spot;
+    }
+
+    public String getRental_spot() {
+        return rental_spot;
+    }
+
+    public void setRental_spot(String rental_spot) {
+        this.rental_spot = rental_spot;
     }
 
     public String getContent() {

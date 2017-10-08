@@ -26,17 +26,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Home_Fragment extends Fragment{
+public class Home_Fragment extends Fragment {
 
     RequestQueue rq;
-    String content,date,email;
-    int reply_cnt,with_cnt,writing_no;
-    final TogetherItemAdapter adapter = new TogetherItemAdapter();
-
+    String content, date, email,rental_spot;
+    int reply_cnt, with_cnt, writing_no;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home,container,false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -47,36 +45,34 @@ public class Home_Fragment extends Fragment{
             }
         });
 
-        ListView together2 = (ListView) rootView.findViewById(R.id.together2);
 
-        rq = Volley.newRequestQueue(rootView.getContext());
-
-
-        sendJsonRequestToWriting();
-        together2.setAdapter(adapter);
+        final TogetherItemAdapter adapter = new TogetherItemAdapter();
 
 
-        return rootView;
-    }
 
 
-    public void sendJsonRequestToWriting(){
+        final ListView together2 = (ListView) rootView.findViewById(R.id.together2);
+
+        rq = Volley.newRequestQueue(getActivity());
+
 
         final JsonArrayRequest jsonArrayRequest;
         jsonArrayRequest = new JsonArrayRequest(Constants.URL_WRITING_INFO, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                for(int i=0; i<response.length();i++){
+                for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject obj = response.getJSONObject(i);
                         content = obj.getString("content");
-                        date =obj.getString("date");
+                        date = obj.getString("date");
                         email = obj.getString("email");
                         reply_cnt = obj.getInt("reply_cnt");
                         with_cnt = obj.getInt("with_cnt");
                         writing_no = obj.getInt("writing_no");
-                        Writing w = new Writing(content,reply_cnt,with_cnt,date,writing_no,email);
-                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(),w.getEmail(),w.getContent(),R.drawable.user,w.getWith_cnt(),w.getReply_cnt());
+                        rental_spot = obj.getString("rental_spot");
+                        Writing w = new Writing(content, reply_cnt, with_cnt, date, writing_no, email,rental_spot);
+                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(), w.getEmail(), w.getContent(),w.getDate(), R.drawable.user,
+                                w.getWith_cnt(), w.getReply_cnt(),w.getRental_spot());
                         adapter.addItem(togetherItem);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -90,6 +86,11 @@ public class Home_Fragment extends Fragment{
             }
         });
         rq.add(jsonArrayRequest);
+
+        together2.setAdapter(adapter);
+
+
+        return rootView;
     }
 
 
