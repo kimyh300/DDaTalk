@@ -82,9 +82,7 @@ public class TogetherItem {
         return resId;
     }
 
-    public void setResId(int resId) {
-        this.resId = resId;
-    }
+    public void setResId(int resId) {this.resId = resId;}
 
     @Override
     public String toString() {

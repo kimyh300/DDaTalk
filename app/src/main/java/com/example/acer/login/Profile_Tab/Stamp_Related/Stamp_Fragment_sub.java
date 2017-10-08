@@ -49,17 +49,17 @@ public class Stamp_Fragment_sub extends Fragment {
         wheelmapList.add(res.getDrawable(R.drawable.tirewheelmap));
         wheelmapList.add(res.getDrawable(R.drawable.silverwheelmap));
         wheelmapList.add(res.getDrawable(R.drawable.goldwheelmap));
-        wheelmapList.add(res.getDrawable(R.drawable.diamondwheelmap));
+        wheelmapList.add(res.getDrawable(R.drawable.diamonwheelmap));
         wheelmapList.add(res.getDrawable(R.drawable.needlevelup));
 
 
         //뷰객체 보여주
 
 
-        woodmap = (ImageView) rootView.findViewById(R.id.woodmap);
-        stonemap = (ImageView) rootView.findViewById(R.id.stonemap);
-        tiremap = (ImageView) rootView.findViewById(R.id.tiremap);
-        silvermap = (ImageView) rootView.findViewById(R.id.silvermap);
+        woodmap = (ImageView) rootView.findViewById(R.id.notice);
+        stonemap = (ImageView) rootView.findViewById(R.id.accident);
+        tiremap = (ImageView) rootView.findViewById(R.id.lost_damage);
+        silvermap = (ImageView) rootView.findViewById(R.id.break_handle);
         goldmap = (ImageView) rootView.findViewById(R.id.goldmap);
         diamondmap = (ImageView) rootView.findViewById(R.id.diamondmap);
 

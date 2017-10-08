@@ -1,79 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:orientation="horizontal">
+    <ImageButton
+        android:id="@+id/notice"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="31dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/notice"
+        tools:ignore="ContentDescription,RtlHardcoded" />
 
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="70dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/lost_damage"
-            android:onClick="onClickedButton10"
+    <ImageButton
+        android:id="@+id/accident"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="31dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/accident"
+        tools:ignore="ContentDescription,RtlHardcoded" />
 
-            tools:ignore="ButtonStyle,NestedWeights" />
+    <ImageButton
+        android:id="@+id/lost_damage"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="30dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notice"
+        app:srcCompat="@drawable/lost_damage"
+        tools:ignore="ContentDescription,RtlHardcoded" />
 
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="70dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/accident"
-            android:onClick="onClickedButton9"
+    <ImageButton
+        android:id="@+id/break_handle"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="30dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accident"
+        app:srcCompat="@drawable/break_handle"
+        tools:ignore="ContentDescription,RtlHardcoded" />
 
-            tools:ignore="ButtonStyle" />
+    <ImageButton
+        android:id="@+id/tire_chain"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="30dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lost_damage"
+        app:srcCompat="@drawable/tire_chain"
+        tools:ignore="ContentDescription,RtlHardcoded" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="70dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/notice"
-            android:onClick="onClickedButton"
+    <ImageButton
+        android:id="@+id/saddle"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="30dp"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/break_handle"
+        app:srcCompat="@drawable/saddle"
+        tools:ignore="ContentDescription,RtlHardcoded" />
 
-            tools:ignore="ButtonStyle" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="0.5">
-
-        <Button
-            android:id="@+id/button13"
-            android:layout_width="70dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/break_handle"
-            android:onClick="onClickedButton13"
-            tools:ignore="ButtonStyle,NestedWeights" />
-
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="70dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/tire_chain"
-            android:onClick="onClickedButton12"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/button11"
-            android:layout_width="70dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:background="@drawable/saddle"
-            android:onClick="onClickedButton11"
-            tools:ignore="ButtonStyle" />
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
