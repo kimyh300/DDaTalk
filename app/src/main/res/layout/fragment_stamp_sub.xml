@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.techtown.mystampcollect.MainActivity">
+    >
 
     <ImageView
         android:id="@+id/diamondmap"
@@ -13,17 +13,17 @@
         android:layout_marginRight="45dp"
         android:layout_marginTop="50dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/silvermap"
+        app:layout_constraintTop_toBottomOf="@+id/break_handle"
         tools:ignore="RtlHardcoded" />
 
     <ImageView
-        android:id="@+id/silvermap"
+        android:id="@+id/break_handle"
         android:layout_width="123dp"
         android:layout_height="112dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="50dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stonemap"
+        app:layout_constraintTop_toBottomOf="@+id/accident"
         tools:ignore="RtlHardcoded" />
 
     <ImageView
@@ -33,21 +33,21 @@
         android:layout_marginLeft="45dp"
         android:layout_marginTop="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiremap"
+        app:layout_constraintTop_toBottomOf="@+id/lost_damage"
         tools:ignore="RtlHardcoded" />
 
     <ImageView
-        android:id="@+id/tiremap"
+        android:id="@+id/lost_damage"
         android:layout_width="123dp"
         android:layout_height="112dp"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/woodmap"
+        app:layout_constraintTop_toBottomOf="@+id/notice"
         tools:ignore="RtlHardcoded" />
 
     <ImageView
-        android:id="@+id/stonemap"
+        android:id="@+id/accident"
         android:layout_width="123dp"
         android:layout_height="112dp"
         android:layout_marginRight="45dp"
@@ -57,7 +57,7 @@
         tools:ignore="RtlHardcoded" />
 
     <ImageView
-        android:id="@+id/woodmap"
+        android:id="@+id/notice"
         android:layout_width="123dp"
         android:layout_height="112dp"
         android:layout_marginLeft="45dp"
