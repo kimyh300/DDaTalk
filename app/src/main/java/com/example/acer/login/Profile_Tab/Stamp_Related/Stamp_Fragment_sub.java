@@ -49,7 +49,7 @@ public class Stamp_Fragment_sub extends Fragment {
         wheelmapList.add(res.getDrawable(R.drawable.tirewheelmap));
         wheelmapList.add(res.getDrawable(R.drawable.silverwheelmap));
         wheelmapList.add(res.getDrawable(R.drawable.goldwheelmap));
-        wheelmapList.add(res.getDrawable(R.drawable.diamondwheelmap));
+        wheelmapList.add(res.getDrawable(R.drawable.diamonwheelmap));
         wheelmapList.add(res.getDrawable(R.drawable.needlevelup));
 
 
