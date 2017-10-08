@@ -14,6 +14,7 @@ public class SharedPrefManager {
     private static final String KEY_USER_BIRTHDAY = "userbirth";
     private static final String KEY_USER_EXP = "userexp";
     private static final String KEY_USER_LEVEL = "userlevel";
+    private static final String KEY_USER_VERIFIED = "userverify";
     private static final String KEY_TOGETHER_SWITCH = "userWith_cntisChecked";
 
 
@@ -28,7 +29,7 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public boolean userLogin(String email,String name,String birthday,String exp, String level ){
+    public boolean userLogin(String email,String name,String birthday,String exp, String level,String verify ){
 
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -38,6 +39,7 @@ public class SharedPrefManager {
         editor.putString(KEY_USER_BIRTHDAY,birthday);
         editor.putString(KEY_USER_EXP,exp);
         editor.putString(KEY_USER_LEVEL,level);
+        editor.putString(KEY_USER_VERIFIED,verify);
 
         editor.apply();
 

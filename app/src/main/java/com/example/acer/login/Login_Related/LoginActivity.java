@@ -33,6 +33,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView textViewJoin;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+       Intent intent =getIntent();
+        if(intent!=null){
+            if(intent.getIntExtra("register",0)==1){
+                Toast.makeText(this,"이메일 인증을 해주세요!",Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -44,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         //noinspection ConstantConditions
         getSupportActionBar().hide();
+
 
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         editTextPassword =(EditText)findViewById(R.id.editTextPassword);
@@ -73,20 +85,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         try {
                             JSONObject obj = new JSONObject(response);
                             if(!obj.getBoolean("error")){
-                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(
-                                        obj.getString("email"),
-                                        obj.getString("name"),
-                                        obj.getString("birthday"),
-                                        obj.getString("exp"),
-                                        obj.getString("level"));
+                                if(obj.getString("Verify").equals("Y")) {
+                                    SharedPrefManager.getInstance(getApplicationContext()).userLogin(
+                                            obj.getString("email"),
+                                            obj.getString("name"),
+                                            obj.getString("birthday"),
+                                            obj.getString("exp"),
+                                            obj.getString("level"),
+                                            obj.getString("Verify"));
 
 
-                                Toast.makeText(getApplicationContext(),
-                                        "User login successful",
-                                        Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
-                                finish();
-
+                                    Toast.makeText(getApplicationContext(),
+                                            "User login successful",
+                                            Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                    finish();
+                                }else{
+                                    Toast.makeText(getApplicationContext(),"이메일을 인증 받으세요!",Toast.LENGTH_LONG).show();
+                                }
                             }else{
                                 Toast.makeText(getApplicationContext(),
                                         obj.getString("message"),
