@@ -14,7 +14,7 @@ import com.example.acer.login.R;
 
 public class TogetherItemView extends LinearLayout {
 
-    TextView spot_View, textView,textView2,together_tv,comment_tv;
+    TextView spot_View, textView,textView2,together_tv,comment_tv,wrting_date;
     ImageView imageView;
 
 
@@ -39,15 +39,16 @@ public class TogetherItemView extends LinearLayout {
         imageView = (ImageView)findViewById(R.id.imageView);
         together_tv = (TextView)findViewById(R.id.together_tv);
         comment_tv = (TextView)findViewById(R.id.comment_tv);
-
+        wrting_date = (TextView)findViewById(R.id.writing_date);
 
 
 
     }
 
+    public void setWrting_date(String date){wrting_date.setText(date);}
 
-    public void setName(String name){
-        textView.setText(name);
+    public void setEmail(String email){
+        textView.setText(email);
     }
 
     public void setRental_spot(String rental_spot) { spot_View.setText(rental_spot);}

@@ -55,6 +55,7 @@ public class ReplyActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
+        //noinspection ConstantConditions
         getSupportActionBar().hide();
         UserEmail_Present = SharedPrefManager.getInstance(this).getUserEmail();
         Intent intent = getIntent();

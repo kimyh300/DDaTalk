@@ -2,6 +2,8 @@ package com.example.acer.login.Profile_Tab.Home_Related;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.PopupMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,8 +19,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.Constants;
 import com.example.acer.login.Login_Related.SharedPrefManager;
-import com.example.acer.login.R;
 import com.example.acer.login.Profile_Tab.Home_reply.ReplyActivity;
+import com.example.acer.login.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,12 +94,40 @@ public class TogetherItemAdapter extends BaseAdapter {
                 Toast.makeText(context,"댓글달기 버튼이 눌렸습니다.",Toast.LENGTH_SHORT).show();
             }
         });
+        final Button options = (Button)view.findViewById(R.id.options);
+        options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final PopupMenu popup = new PopupMenu(context, options);
+                popup.getMenuInflater().inflate(R.menu.writing_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int i = item.getItemId();
+                        if (i == R.id.menuDt) {
+                            //do something
+                            return true;
+                        }
+                        else if (i == R.id.menuUd){
+                            //do something
+                            return true;
+                        }
+                        else {
+                            return onMenuItemClick(item);
+                        }
+                    }
+                });
 
-        view.setName(item.getEmail());
+                popup.show();
+            }
+        });
+
+        view.setEmail(item.getEmail());
         view.setContent(item.getContent());
         view.setImageView(item.getResId());
         view.setTogether_tv(item.getTogether());
         view.setComment_Tv(item.getComment());
+        view.setRental_spot(item.getRental_spot());
+        view.setWrting_date(item.getDate());
 
         return view;
 

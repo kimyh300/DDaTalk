@@ -85,6 +85,8 @@
     <string name="levelname">레벨명</string>
 
     <string name="levelbar">레벨바</string>
+    <string name="update_writing_menu">수정</string>
+    <string name="writing_delete_menu">삭제</string>
 
 
 </resources>

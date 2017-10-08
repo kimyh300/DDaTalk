@@ -31,6 +31,8 @@ public class Home_Fragment extends Fragment {
     RequestQueue rq;
     String content, date, email,rental_spot;
     int reply_cnt, with_cnt, writing_no;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,8 +49,6 @@ public class Home_Fragment extends Fragment {
 
 
         final TogetherItemAdapter adapter = new TogetherItemAdapter();
-
-
 
 
         final ListView together2 = (ListView) rootView.findViewById(R.id.together2);
@@ -86,6 +86,8 @@ public class Home_Fragment extends Fragment {
             }
         });
         rq.add(jsonArrayRequest);
+
+
 
         together2.setAdapter(adapter);
 
