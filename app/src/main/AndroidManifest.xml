@@ -11,16 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login_Related.MainActivity" />
-        <activity android:name=".Login_Related.LoginActivity">
+        <activity android:name=".Login_Related.MainActivity" android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".Login_Related.LoginActivity" android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".Profile_Tab.Home_reply.ReplyActivity" />
+        <activity android:name=".ProfileActivity" android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".Profile_Tab.Home_reply.ReplyActivity" android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <!-- 여기서부터 병함 -->
         <activity android:name=".Profile_Tab.MyPage_Related.MyPage_SubActivity" />
