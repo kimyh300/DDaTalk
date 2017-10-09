@@ -133,7 +133,8 @@
             app:layout_constraintRight_toLeftOf="@+id/comment_tv"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/comment_small"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded"
+            android:layout_marginTop="1dp" />
 
         <TextView
             android:id="@+id/together_tv"
@@ -179,7 +180,7 @@
             android:layout_width="30dp"
             android:layout_height="25dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="2dp"
             android:background="@drawable/together_ride"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -190,6 +191,7 @@
             android:layout_width="27dp"
             android:layout_height="27dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="2dp"
             android:background="@drawable/comment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/together_button"
