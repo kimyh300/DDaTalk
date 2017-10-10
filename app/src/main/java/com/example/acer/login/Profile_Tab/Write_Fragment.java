@@ -2,6 +2,7 @@ package com.example.acer.login.Profile_Tab;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.SharedPrefManager;
+import com.example.acer.login.ProfileActivity;
 import com.example.acer.login.Profile_Tab.Write_Related.FindSpot_Fragment;
 import com.example.acer.login.R;
 
@@ -83,11 +85,17 @@ public class Write_Fragment extends Fragment{
         x_mark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment newFragment = new Write_Fragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.remove(newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                Content.setText("");
+                spot.setText("");
+                gu.setText("");
+                pref = getActivity().getSharedPreferences("content", MODE_PRIVATE);
+                editor = pref.edit();
+                editor.remove("content");
+                editor.commit();
+
+                Intent i = new Intent(getActivity().getApplication(), ProfileActivity.class);
+                startActivity(i);
+
             }
         });
 
@@ -108,7 +116,35 @@ public class Write_Fragment extends Fragment{
         ImageButton search = (ImageButton)rootView.findViewById(R.id.search_btn);
 
 
-        // 돋보기 버튼 클릭시 장소찾기 화면 가기
+        // 돋보기 버튼 및 밑줄 클릭시 장소찾기 화면 가기
+
+        spot.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                // Create new fragment and transaction
+                Fragment spotFragment = new FindSpot_Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, spotFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+            }
+        });
+
+        gu.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                // Create new fragment and transaction
+                Fragment spotFragment = new FindSpot_Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, spotFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+            }
+        });
 
         search.setOnClickListener(new View.OnClickListener() {
 
