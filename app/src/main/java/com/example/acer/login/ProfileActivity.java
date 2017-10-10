@@ -9,12 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
+import com.example.acer.login.Profile_Tab.Alarm_Related.AlarmActivity;
 import com.example.acer.login.Profile_Tab.DD119_Fragment;
 import com.example.acer.login.Profile_Tab.Home_Fragment;
 import com.example.acer.login.Profile_Tab.MyPage_Fragment;
@@ -97,7 +97,16 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
+    public void clickEvent(View v){
+        if (v.getId() == R.id.imageViewAlarm) {
+            Toast.makeText(ProfileActivity.this, "알람을 눌렀쪄염",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(ProfileActivity.this, AlarmActivity.class);
+            startActivity(intent);
+        }
+
+    }
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuLogout:
@@ -111,7 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
         return true;
-    }
+    }*/
 
 
     void tabInit() {

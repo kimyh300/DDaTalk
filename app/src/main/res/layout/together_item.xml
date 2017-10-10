@@ -87,13 +87,13 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="#FF35AD6C"
+        android:gravity="center_horizontal|center_vertical"
         android:paddingLeft="15dp"
         android:paddingTop="10dp"
         android:text="@string/content"
-        android:textSize="25sp"
         android:textColor="#FFFFFFFF"
-        android:gravity="center_horizontal|center_vertical"
-        android:background="#FF35AD6C"
+        android:textSize="25sp"
         tools:ignore="RtlHardcoded,RtlSymmetry" />
 
     <View
@@ -123,18 +123,20 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="8dp"
+            android:layout_marginTop="1dp"
             android:contentDescription="@string/comment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/comment_tv"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/comment_small"
             tools:ignore="RtlHardcoded"
-            android:layout_marginTop="1dp" />
+            android:layout_marginBottom="1dp"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/together_tv"
@@ -169,7 +171,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="#FF808080" />
+        android:background="#FFa9a9a9" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

@@ -29,6 +29,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="15dp"
+        android:onClick="clickEvent"
         app:srcCompat="@drawable/actionbar_notice"
         tools:ignore="ContentDescription,RtlHardcoded" />
 
