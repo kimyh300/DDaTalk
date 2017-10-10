@@ -28,7 +28,10 @@ public class FindSpot_Fragment extends Fragment {
 
     ViewGroup rootView;
 
-    Spinner spinner = null;
+    Spinner spinner;
+    AdapterSpinner adapterSpinner1;
+
+
     ListView listview;
     ArrayList<String> list;
     ArrayAdapter listadapter;
