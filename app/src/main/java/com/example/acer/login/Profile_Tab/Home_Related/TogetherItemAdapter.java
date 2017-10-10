@@ -41,6 +41,14 @@ public class TogetherItemAdapter extends BaseAdapter {
         return items.size();
     }
 
+    public void replaceItem(int writing_no, int reply_cnt){
+        for(int i=0; i<items.size(); i++){
+            if(items.get(i).getWriting_no()==writing_no){
+                items.get(i).setComment(reply_cnt);
+            }
+        }
+    }
+
     public void addItem(TogetherItem item){
         items.add(item);
     }

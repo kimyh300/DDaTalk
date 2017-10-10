@@ -32,6 +32,7 @@ public class Home_Fragment extends Fragment {
     String content, date, email,rental_spot;
     int reply_cnt, with_cnt, writing_no;
 
+    int get_writing_no, get_reply_cnt;
 
     @Nullable
     @Override
@@ -47,10 +48,7 @@ public class Home_Fragment extends Fragment {
             }
         });
 
-
         final TogetherItemAdapter adapter = new TogetherItemAdapter();
-
-
         final ListView together2 = (ListView) rootView.findViewById(R.id.together2);
 
         rq = Volley.newRequestQueue(getActivity());
@@ -86,8 +84,12 @@ public class Home_Fragment extends Fragment {
             }
         });
         rq.add(jsonArrayRequest);
-
-
+        Bundle extra = getArguments();
+        if(extra != null) {
+            get_writing_no = extra.getInt("writing_no");
+            get_reply_cnt = extra.getInt("reply_cnt");
+            adapter.replaceItem(get_writing_no,get_reply_cnt);
+        }
 
         together2.setAdapter(adapter);
 

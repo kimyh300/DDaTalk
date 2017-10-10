@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.R;
 
@@ -59,6 +60,16 @@ public class MyPage_SubActivity extends AppCompatActivity {
 
         mtextView3 = (TextView) findViewById(R.id.textView11);
         mtextView3.setText(email);
+
+        ImageButton LogoutButton = (ImageButton)findViewById(R.id.logoutButton);
+        LogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPrefManager.getInstance(getApplicationContext()).logout();
+                finish();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
 
 
 

@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.Constants;
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
+import com.example.acer.login.ProfileActivity;
 import com.example.acer.login.R;
 
 import org.json.JSONArray;
@@ -45,6 +46,18 @@ public class ReplyActivity extends AppCompatActivity {
     Button buttonWriteReply;
     ListView reply;
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+        intent.putExtra("reply_cnt",replyItemAdapter.getCount());
+        intent.putExtra("writing_no",writing_no_param);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
+        finish();
+//        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

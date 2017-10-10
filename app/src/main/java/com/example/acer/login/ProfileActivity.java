@@ -24,7 +24,6 @@ import com.example.acer.login.Profile_Tab.Write_Related.FindSpot_Fragment;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    //    private TextView textViewUsername, textViewUserEmail;
     TabLayout tabs;
     Home_Fragment homeFragment;
     Stamp_Fragment stampFragment;
@@ -33,7 +32,20 @@ public class ProfileActivity extends AppCompatActivity {
     MyPage_Fragment myPageFragment;
     FindSpot_Fragment spotFragment;
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent =getIntent();
+        if(intent!=null){
+            int get_reply_cnt = intent.getIntExtra("reply_cnt",0);
+            int get_writing_no = intent.getIntExtra("writing_no",0);
+            Home_Fragment frament = new Home_Fragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("reply_cnt", get_reply_cnt);
+            bundle.putInt("writing_no", get_writing_no);
+            frament.setArguments(bundle);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
