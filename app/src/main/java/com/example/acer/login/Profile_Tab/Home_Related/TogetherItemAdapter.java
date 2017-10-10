@@ -93,10 +93,11 @@ public class TogetherItemAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context.getApplicationContext(), ReplyActivity.class);
-                intent.putExtra("email",item.getEmail());
-                intent.putExtra("content",item.getContent());
-                intent.putExtra("picture",item.getResId());
+//                intent.putExtra("email",item.getEmail());
+//                intent.putExtra("content",item.getContent());
+//                intent.putExtra("picture",item.getResId());
                 intent.putExtra("writing_no",item.getWriting_no());
+                intent.putExtra("rental_spot",item.getRental_spot());
                 context.startActivity(intent);
                 finalView.setComment_Tv(item.getComment());
                 Toast.makeText(context,"댓글달기 버튼이 눌렸습니다.",Toast.LENGTH_SHORT).show();

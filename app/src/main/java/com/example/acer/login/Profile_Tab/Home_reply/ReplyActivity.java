@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +29,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -38,11 +40,12 @@ public class ReplyActivity extends AppCompatActivity {
 
     RequestQueue rq;
     ReplyItemAdapter replyItemAdapter;
-    String content,date,email,writing_no_param,UserEmail_Present;
-    int writing_no,reply_no,picture;
+    String content,date,email,writing_no_param,UserEmail_Present,rental_spot;
+    int writing_no,reply_no/*,picture*/;
     EditText editTextReply;
-    TextView textViewEmail, textViewContent;
-    ImageView imageView;
+//    TextView textViewEmail, textViewContent;
+//    ImageView imageView;
+    TextView textViewRental_Spot;
     Button buttonWriteReply;
     ListView reply;
 
@@ -73,21 +76,23 @@ public class ReplyActivity extends AppCompatActivity {
         UserEmail_Present = SharedPrefManager.getInstance(this).getUserEmail();
         Intent intent = getIntent();
 
-        email = String.valueOf(intent.getExtras().get("email"));
-        content = String.valueOf(intent.getExtras().get("content"));
-        picture = (int)intent.getExtras().get("picture");
+//        email = String.valueOf(intent.getExtras().get("email"));
+//        content = String.valueOf(intent.getExtras().get("content"));
+//        picture = (int)intent.getExtras().get("picture");
         writing_no_param = String.valueOf(intent.getExtras().get("writing_no"));
+        rental_spot = String.valueOf(intent.getExtras().get("rental_spot"));
 
-        textViewEmail = (TextView)findViewById(R.id.textViewEmail);
-        textViewContent = (TextView)findViewById(R.id.textViewContent);
-        imageView = (ImageView)findViewById(R.id.imageView);
+//        textViewEmail = (TextView)findViewById(textViewEmail);
+//        textViewContent = (TextView)findViewById(textViewContent);
+//        imageView = (ImageView)findViewById(imageView);
         editTextReply = (EditText)findViewById(R.id.editTextReply);
         buttonWriteReply = (Button)findViewById(R.id.buttonWriteReply);
+        textViewRental_Spot = (TextView)findViewById(R.id.textViewRental_Spot);
 
-        textViewEmail.setText(email);
-        textViewContent.setText(content);
-        imageView.setImageResource(picture);
-
+//        textViewEmail.setText(email);
+//        textViewContent.setText(content);
+//        imageView.setImageResource(picture);
+        textViewRental_Spot.setText(rental_spot);
 
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
@@ -111,9 +116,35 @@ public class ReplyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String Reply_Content = editTextReply.getText().toString();
-                int param_reply_no = insertContentToReply(Reply_Content,UserEmail_Present,writing_no_param);
+                long time = System.currentTimeMillis();
+
+                SimpleDateFormat dayTime = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.KOREAN);
+
+                String cur_date = dayTime.format(new Date(time));
+                String change = cur_date.substring(11,13);
+                int hour = 0;
+                if(change.substring(0).equals("0")){
+                    hour = Integer.parseInt(change.substring(1));
+                }else {
+                    hour = Integer.parseInt(change);
+                }
+                hour+=9;
+                String temp="";
+                if(hour<10){
+                    temp = String.valueOf(hour);
+                    temp = "0"+temp;
+                    cur_date = cur_date.replace(cur_date.substring(11,13),temp);
+
+                }else{
+                    temp = String.valueOf(hour);
+                    cur_date = cur_date.replace(cur_date.substring(11,13),temp);
+                }
+
+                int param_reply_no = insertContentToReply(Reply_Content,UserEmail_Present,writing_no_param,cur_date);
                 int writing_no = Integer.parseInt(writing_no_param);
-                ReplyItem newRow = new ReplyItem(param_reply_no,UserEmail_Present,Reply_Content,writing_no);
+
+
+                ReplyItem newRow = new ReplyItem(param_reply_no,UserEmail_Present,Reply_Content,writing_no,cur_date);
                 replyItemAdapter.addItem(newRow);
                 replyItemAdapter.notifyDataSetChanged();
             }
@@ -147,7 +178,7 @@ public class ReplyActivity extends AppCompatActivity {
                             email = obj.getString("email");
                             reply_no = obj.getInt("reply_no");
                             writing_no = obj.getInt("writing_no");
-                            ReplyItem reply = new ReplyItem(reply_no,email, content,writing_no);
+                            ReplyItem reply = new ReplyItem(reply_no,email, content,writing_no,date);
                             replyItemAdapter.addItem(reply);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -173,7 +204,7 @@ public class ReplyActivity extends AppCompatActivity {
         rq.add(stringRequest);
     }
 
-    public int insertContentToReply(final String Reply_Content, final String shared_email, final String writing_no_param){
+    public int insertContentToReply(final String Reply_Content, final String shared_email, final String writing_no_param, final String cur_date){
         final int[] reply_no = {0};
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REPLY_WRITECONTENT, new Listener<String>() {
             @Override
@@ -204,6 +235,7 @@ public class ReplyActivity extends AppCompatActivity {
                 params.put("writing_no",writing_no_param);
                 params.put("content",Reply_Content);
                 params.put("email",shared_email);
+                params.put("cur_date",cur_date);
                 return params;
             }
         };
