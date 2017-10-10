@@ -29,7 +29,7 @@ public class FindSpot_Fragment extends Fragment {
     ViewGroup rootView;
 
     Spinner spinner;
-    AdapterSpinner adapterSpinner1;
+
 
 
     ListView listview;
@@ -40,7 +40,6 @@ public class FindSpot_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_findspot,container,false);
-
 
 
         list = new ArrayList<String>();
