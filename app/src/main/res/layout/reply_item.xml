@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/textViewContent"
-        android:layout_width="wrap_content"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="69dp"
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="24dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="24dp"
         android:text="@string/reply_time"
         android:textColor="#FF35AD6C"
         app:layout_constraintRight_toRightOf="parent"

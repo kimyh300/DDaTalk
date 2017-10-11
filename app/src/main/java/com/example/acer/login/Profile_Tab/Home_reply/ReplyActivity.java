@@ -1,10 +1,12 @@
 package com.example.acer.login.Profile_Tab.Home_reply;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -48,6 +50,7 @@ public class ReplyActivity extends AppCompatActivity {
     TextView textViewRental_Spot;
     Button buttonWriteReply;
     ListView reply;
+
 
     @Override
     public void onBackPressed() {
@@ -105,11 +108,10 @@ public class ReplyActivity extends AppCompatActivity {
         });
         reply = (ListView)findViewById(R.id.reply);
 
-
         replyItemAdapter = new ReplyItemAdapter();
         rq = Volley.newRequestQueue(getApplicationContext());
-        sendJsonRequestToReply(writing_no_param);
-        reply.setAdapter(replyItemAdapter);
+        sendJsonRequestToReply(writing_no_param,reply);
+
 
 
         buttonWriteReply.setOnClickListener(new View.OnClickListener() {
@@ -129,8 +131,11 @@ public class ReplyActivity extends AppCompatActivity {
 
                 ReplyItem newRow = new ReplyItem(param_reply_no,UserEmail_Present,Reply_Content,writing_no,cur_date);
                 replyItemAdapter.addItem(newRow);
+                reply.setAdapter(replyItemAdapter);
                 replyItemAdapter.notifyDataSetChanged();
                 editTextReply.setText(null);
+                InputMethodManager inputMethodManager =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
             }
         });
 
@@ -139,7 +144,7 @@ public class ReplyActivity extends AppCompatActivity {
 
 
     }
-    public void sendJsonRequestToReply(final String writing_no_param){
+    public void sendJsonRequestToReply(final String writing_no_param, final ListView listView){
 
         final StringRequest stringRequest;
         stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REPLY_INFO, new Listener<String>() {
@@ -164,6 +169,7 @@ public class ReplyActivity extends AppCompatActivity {
                             writing_no = obj.getInt("writing_no");
                             ReplyItem reply = new ReplyItem(reply_no,email, content,writing_no,date);
                             replyItemAdapter.addItem(reply);
+                            listView.setAdapter(replyItemAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
