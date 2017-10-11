@@ -18,4 +18,6 @@ public class Constants {
     public static final String URL_REPLY_WRITECONTENT = ROOT_URL+"replyInsert.php";
 
     public static final String URL_REPLY_DELETE_BY_REPLYNO = ROOT_URL+"deleteReplyByReplyNo.php";
+
+    public static final String URL_WRITING_DELETE_BY_WRITING_NO = ROOT_URL+"deleteWriting.php";
 }

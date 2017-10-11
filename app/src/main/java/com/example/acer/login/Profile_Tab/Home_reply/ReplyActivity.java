@@ -120,33 +120,17 @@ public class ReplyActivity extends AppCompatActivity {
 
                 SimpleDateFormat dayTime = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.KOREAN);
 
-                String cur_date = dayTime.format(new Date(time));
-                String change = cur_date.substring(11,13);
-                int hour = 0;
-                if(change.substring(0).equals("0")){
-                    hour = Integer.parseInt(change.substring(1));
-                }else {
-                    hour = Integer.parseInt(change);
-                }
-                hour+=9;
-                String temp="";
-                if(hour<10){
-                    temp = String.valueOf(hour);
-                    temp = "0"+temp;
-                    cur_date = cur_date.replace(cur_date.substring(11,13),temp);
+                String cur_date = dayTime.format(new Date(time));//9시간 느린문제 해결해야됨
 
-                }else{
-                    temp = String.valueOf(hour);
-                    cur_date = cur_date.replace(cur_date.substring(11,13),temp);
-                }
 
-                int param_reply_no = insertContentToReply(Reply_Content,UserEmail_Present,writing_no_param,cur_date);
+                int param_reply_no = insertContentToReply(Reply_Content,UserEmail_Present,writing_no_param);
                 int writing_no = Integer.parseInt(writing_no_param);
 
 
                 ReplyItem newRow = new ReplyItem(param_reply_no,UserEmail_Present,Reply_Content,writing_no,cur_date);
                 replyItemAdapter.addItem(newRow);
                 replyItemAdapter.notifyDataSetChanged();
+                editTextReply.setText(null);
             }
         });
 
@@ -204,7 +188,7 @@ public class ReplyActivity extends AppCompatActivity {
         rq.add(stringRequest);
     }
 
-    public int insertContentToReply(final String Reply_Content, final String shared_email, final String writing_no_param, final String cur_date){
+    public int insertContentToReply(final String Reply_Content, final String shared_email, final String writing_no_param){
         final int[] reply_no = {0};
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REPLY_WRITECONTENT, new Listener<String>() {
             @Override
@@ -235,7 +219,6 @@ public class ReplyActivity extends AppCompatActivity {
                 params.put("writing_no",writing_no_param);
                 params.put("content",Reply_Content);
                 params.put("email",shared_email);
-                params.put("cur_date",cur_date);
                 return params;
             }
         };

@@ -19,6 +19,12 @@ public class ReplyItem {
         this.writing_no = writing_no;
         this.reply_time = reply_time;
     }
+    public ReplyItem(/*int resId,*/ int reply_no,String email, String content,int writing_no){
+        this.reply_no = reply_no;
+        this.email = email;
+        this.content = content;
+        this.writing_no = writing_no;
+    }
 
     public ReplyItem(String email, String content){
         this.email = email;

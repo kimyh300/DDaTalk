@@ -49,6 +49,11 @@ public class TogetherItemAdapter extends BaseAdapter {
         }
     }
 
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
     public void addItem(TogetherItem item){
         items.add(item);
     }
@@ -104,31 +109,42 @@ public class TogetherItemAdapter extends BaseAdapter {
             }
         });
         final Button options = (Button)view.findViewById(R.id.options);
-        options.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final PopupMenu popup = new PopupMenu(context, options);
-                popup.getMenuInflater().inflate(R.menu.writing_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int i = item.getItemId();
-                        if (i == R.id.menuDt) {
-                            //do something
-                            return true;
-                        }
-                        else if (i == R.id.menuUd){
-                            //do something
-                            return true;
-                        }
-                        else {
-                            return onMenuItemClick(item);
-                        }
-                    }
-                });
+        if(item.getEmail().equals(sharedPrefManager.getUserEmail())) {
+            options.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final PopupMenu popup = new PopupMenu(context, options);
+                    popup.getMenuInflater().inflate(R.menu.writing_menu, popup.getMenu());
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem menuitem) {
+                            int i = menuitem.getItemId();
+                            if (i == R.id.menuDt) {
+                                //do something
+                                deleteWriting(item.getWriting_no(),context);
+                                items.remove(item);
+                                notifyDataSetChanged();
 
-                popup.show();
-            }
-        });
+                                return true;
+                            } else if (i == R.id.menuUd) {
+                                //do something
+                                return true;
+                            } else {
+                                return onMenuItemClick(menuitem);
+                            }
+                        }
+                    });
+
+                    popup.show();
+                }
+            });
+        }else{
+            options.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context,"권한이 없습니다.",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
 
         view.setEmail(item.getEmail());
         view.setContent(item.getContent());
@@ -179,6 +195,39 @@ public class TogetherItemAdapter extends BaseAdapter {
         rq.add(stringRequest);
 
 
+    }
+
+    private void deleteWriting(final int writing_no, final Context context){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_WRITING_DELETE_BY_WRITING_NO, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if(!obj.getBoolean("error")){
+                        Toast.makeText(context,
+                                "글이 성공적으로 삭제되었습니다.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context,
+                        error.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("writing_no",String.valueOf(writing_no));
+                return params;
+            }
+        };
+        rq.add(stringRequest);
     }
 
 
