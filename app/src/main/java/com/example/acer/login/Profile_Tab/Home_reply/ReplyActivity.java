@@ -1,10 +1,12 @@
 package com.example.acer.login.Profile_Tab.Home_reply;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -129,8 +131,11 @@ public class ReplyActivity extends AppCompatActivity {
 
                 ReplyItem newRow = new ReplyItem(param_reply_no,UserEmail_Present,Reply_Content,writing_no,cur_date);
                 replyItemAdapter.addItem(newRow);
+                reply.setAdapter(replyItemAdapter);
                 replyItemAdapter.notifyDataSetChanged();
                 editTextReply.setText(null);
+                InputMethodManager inputMethodManager =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
             }
         });
 
