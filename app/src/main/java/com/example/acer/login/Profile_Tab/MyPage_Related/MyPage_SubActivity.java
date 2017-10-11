@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.acer.login.Login_Related.LoginActivity;
+import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.R;
 
 import java.io.File;
@@ -70,9 +71,9 @@ public class MyPage_SubActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyPage_SubActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
+                SharedPrefManager.getInstance(getApplicationContext()).logout();
+                finish();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 
