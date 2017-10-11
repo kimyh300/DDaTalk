@@ -49,6 +49,7 @@ public class ReplyActivity extends AppCompatActivity {
     Button buttonWriteReply;
     ListView reply;
 
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
@@ -105,11 +106,10 @@ public class ReplyActivity extends AppCompatActivity {
         });
         reply = (ListView)findViewById(R.id.reply);
 
-
         replyItemAdapter = new ReplyItemAdapter();
         rq = Volley.newRequestQueue(getApplicationContext());
-        sendJsonRequestToReply(writing_no_param);
-        reply.setAdapter(replyItemAdapter);
+        sendJsonRequestToReply(writing_no_param,reply);
+
 
 
         buttonWriteReply.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +139,7 @@ public class ReplyActivity extends AppCompatActivity {
 
 
     }
-    public void sendJsonRequestToReply(final String writing_no_param){
+    public void sendJsonRequestToReply(final String writing_no_param, final ListView listView){
 
         final StringRequest stringRequest;
         stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REPLY_INFO, new Listener<String>() {
@@ -164,6 +164,7 @@ public class ReplyActivity extends AppCompatActivity {
                             writing_no = obj.getInt("writing_no");
                             ReplyItem reply = new ReplyItem(reply_no,email, content,writing_no,date);
                             replyItemAdapter.addItem(reply);
+                            listView.setAdapter(replyItemAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
