@@ -154,8 +154,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="9"
-                android:hint="@string/birth_enter"
                 android:gravity="right"
+                android:hint="@string/birth"
                 android:inputType="textEmailAddress" />
         </LinearLayout>
 

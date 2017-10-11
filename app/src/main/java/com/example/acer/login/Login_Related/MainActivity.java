@@ -123,13 +123,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == buttonRegister) {
+            String email = editTextEmail.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
             String password_check = editTextPasswordCheck.getText().toString().trim();
-            if(password.equals(password_check)){
-                registerUser();
-            }else{
-                Toast.makeText(getApplicationContext(),"비밀번호가 일치하지 않습니다!!",Toast.LENGTH_LONG).show();
+            String name = editTextUsername.getText().toString().trim();
+            String birth = editTextBirth.getText().toString().trim();
+            if(email.equals("")){
+                Toast.makeText(getApplicationContext(),"이메일을 입력해주세요!!",Toast.LENGTH_LONG).show();
+            }else {
+                if(email.matches("^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$")){
+                    if (password.equals("")) {
+                        Toast.makeText(getApplicationContext(),"비밀번호를 입력해주세요!!",Toast.LENGTH_LONG).show();
+                    }else {
+                        if (password.equals(password_check)) {
+                            if(name.equals("")){
+                                Toast.makeText(getApplicationContext(),"이름을 입력해주세요!!",Toast.LENGTH_LONG).show();
+                            }else {
+                                if(birth.equals("")){
+                                    Toast.makeText(getApplicationContext(),"생일을 입력해주세요!!",Toast.LENGTH_LONG).show();
+                                }else {
+                                    if(birth.matches("(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])" )) {
+                                        registerUser();
+                                    }else{
+                                        Toast.makeText(getApplicationContext(),"생일을 형식에 맞춰서 입력해주세요!!",Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다!!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(),"email 형식에 맞게 입력하셨나요??",Toast.LENGTH_LONG).show();
+                }
             }
+
 
         }
     }
