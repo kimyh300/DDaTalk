@@ -24,7 +24,7 @@ public class MyPage_SubActivity extends AppCompatActivity {
     private static String TAG = "phpdeletetest";
 
 
-    TextView mtextView1, mtextView2, mtextView3;
+    TextView nameView,mtextView1, mtextView2, mtextView3;
     String name, birthday, email;
 
     private static final int PICK_FROM_CAMERA = 0;
@@ -41,6 +41,8 @@ public class MyPage_SubActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page__sub);
+
+        nameView = (TextView) findViewById(R.id.textView);
         mtextView1 = (TextView) findViewById(R.id.textView7);
         mtextView2 = (TextView) findViewById(R.id.textView9);
         mtextView3 = (TextView) findViewById(R.id.textView11);
@@ -51,7 +53,7 @@ public class MyPage_SubActivity extends AppCompatActivity {
         birthday = i.getStringExtra("birthday_key");
         email = i.getStringExtra("email_key");
 
-
+        nameView.setText(name);
         mtextView1.setText(name);
         mtextView2.setText(birthday);
         mtextView3.setText(email);
