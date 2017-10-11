@@ -2,6 +2,7 @@ package com.example.acer.login.Profile_Tab;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -67,9 +69,6 @@ public class Write_Fragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
         // 로그인한놈 유저메일 가져오기
         useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
 
@@ -84,6 +83,9 @@ public class Write_Fragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_write,container,false);
 
+        //글쓰기 화면으로 오면 키보드 내리기
+        InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(rootView.getWindowToken(),0);
 
         //x버튼 클릭시 이벤트 처리 만들어놈
         x_mark = (ImageButton)rootView.findViewById(R.id.x_Button);
@@ -128,6 +130,8 @@ public class Write_Fragment extends Fragment{
         ImageButton search = (ImageButton)rootView.findViewById(R.id.search_btn);
 
 
+
+
         // 돋보기 버튼 및 밑줄 클릭시 장소찾기 화면 가기
 
         spot.setOnClickListener(new View.OnClickListener() {
@@ -138,8 +142,9 @@ public class Write_Fragment extends Fragment{
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, spotFragment);
                 transaction.addToBackStack(null);
-
                 transaction.commit();
+                InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
 
             }
         });
@@ -152,8 +157,10 @@ public class Write_Fragment extends Fragment{
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, spotFragment);
                 transaction.addToBackStack(null);
-
                 transaction.commit();
+
+                InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
 
             }
         });
@@ -166,8 +173,10 @@ public class Write_Fragment extends Fragment{
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, spotFragment);
                 transaction.addToBackStack(null);
-
                 transaction.commit();
+
+                InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
 
             }
         });
