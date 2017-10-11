@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--tools:context="com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_SubActivity">-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--tools:context="com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_SubActivity">-->
 
 
 
@@ -14,10 +14,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_SubActivity"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context="com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_SubActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,7 +48,7 @@
             android:layout_marginTop="9.67dp"
             android:layout_weight="0"
             android:contentDescription="@string/profile_name"
-            android:gravity="center_horizontal"
+            android:text="@string/profile_example"
             tools:ignore="InefficientWeight,NestedWeights" />
 
         <ImageButton
@@ -68,8 +67,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="313dp"
-        android:orientation="vertical"
-        android:layout_weight="0.52">
+        android:layout_weight="0.52"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"

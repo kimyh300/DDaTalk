@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.acer.login.Login_Related.LoginActivity;
-import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.R;
 
 import java.io.File;
@@ -25,8 +24,7 @@ public class MyPage_SubActivity extends AppCompatActivity {
     private static String TAG = "phpdeletetest";
 
 
-
-    TextView nameView, mtextView1, mtextView2, mtextView3;
+    TextView mtextView1, mtextView2, mtextView3;
     String name, birthday, email;
 
     private static final int PICK_FROM_CAMERA = 0;
@@ -43,45 +41,23 @@ public class MyPage_SubActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page__sub);
-
-        //로그인놈 정보 가져오기
-        name = SharedPrefManager.getInstance(getApplicationContext()).getUsername();
-        email = SharedPrefManager.getInstance(getApplicationContext()).getUserEmail();
-        birthday = SharedPrefManager.getInstance(getApplicationContext()).getUserBirthday();
-
-        nameView = (TextView)findViewById(R.id.textView);
-        nameView.setText(name);
-
         mtextView1 = (TextView) findViewById(R.id.textView7);
-        mtextView1.setText(name);
-
         mtextView2 = (TextView) findViewById(R.id.textView9);
-        mtextView2.setText(birthday);
-
         mtextView3 = (TextView) findViewById(R.id.textView11);
+
+        Intent i = getIntent();
+
+        name = i.getStringExtra("name_key");
+        birthday = i.getStringExtra("birthday_key");
+        email = i.getStringExtra("email_key");
+
+
+        mtextView1.setText(name);
+        mtextView2.setText(birthday);
         mtextView3.setText(email);
 
-        ImageButton LogoutButton = (ImageButton)findViewById(R.id.logoutButton);
-        LogoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPrefManager.getInstance(getApplicationContext()).logout();
-                finish();
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            }
-        });
-
-
-
-
-
-
-
-
-
-
         ImageButton deleteButton = (ImageButton) findViewById(R.id.deleteButton);
-//        ImageButton logoutButton = (ImageButton) findViewById(R.id.logoutButton);
+        ImageButton logoutButton = (ImageButton) findViewById(R.id.logoutButton);
         ImageButton photoButton = (ImageButton) findViewById(R.id.photoButton);
 
         /*subExitButton.setOnClickListener(new View.OnClickListener() {
@@ -91,14 +67,14 @@ public class MyPage_SubActivity extends AppCompatActivity {
             }
         });*/
 
-        /*logoutButton.setOnClickListener(new View.OnClickListener() {
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SubActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MyPage_SubActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
-        });*/
+        });
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
