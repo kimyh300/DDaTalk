@@ -23,16 +23,17 @@
 
     <EditText
         android:id="@+id/editTextFilter"
-        android:layout_width="match_parent"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="105dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
         android:inputType=""
-        tools:ignore="RtlHardcoded" />
+        android:textSize="16sp"
+        tools:ignore="RtlHardcoded"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toRightOf="@+id/textView1"
+        android:layout_toEndOf="@+id/textView1" />
 
     <ListView
         android:id="@+id/listview1"
@@ -52,24 +53,21 @@
         android:id="@+id/gu_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="32dp"
+        android:layout_alignLeft="@+id/editTextFilter"
+        android:layout_alignStart="@+id/editTextFilter"
+        android:layout_alignTop="@+id/textView2"
         tools:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:text="@string/guTitle"
         android:textSize="22sp"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignStart="@+id/textView1" />
 
 </RelativeLayout>

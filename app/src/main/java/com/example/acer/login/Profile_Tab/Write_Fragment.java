@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,9 @@ public class Write_Fragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+
         // 로그인한놈 유저메일 가져오기
         useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
 
@@ -108,6 +112,12 @@ public class Write_Fragment extends Fragment{
         // Volley 준비 작업
 
         Content = (EditText)rootView.findViewById(R.id.writing_sec);
+
+        //밑줄 없애기
+        Content.setRawInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+
+
+
 
         ImageButton Insert_writing = (ImageButton)rootView.findViewById(R.id.v_Button);
 
