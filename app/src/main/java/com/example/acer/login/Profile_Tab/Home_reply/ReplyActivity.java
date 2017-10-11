@@ -120,7 +120,7 @@ public class ReplyActivity extends AppCompatActivity {
 
                 SimpleDateFormat dayTime = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.KOREAN);
 
-                String cur_date = dayTime.format(new Date(time));//9
+                String cur_date = dayTime.format(new Date(time));//9시간 느린문제 해결해야됨
 
 
                 int param_reply_no = insertContentToReply(Reply_Content,UserEmail_Present,writing_no_param);
