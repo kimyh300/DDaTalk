@@ -41,8 +41,10 @@ public class Write_Fragment extends Fragment{
     private String TAG = "ActivityLifeCycle";
 
     //변수 선언
-    EditText Content;
-    TextView spot, gu;
+    EditText Content = null;
+    TextView spot, gu = null;
+
+    boolean content_chk = false;
 
     ImageButton x_mark;
 
@@ -178,6 +180,20 @@ public class Write_Fragment extends Fragment{
             @Override
             public void onClick(View v) {
 
+
+                // 빈내용 있으면 입력 안받게 설정
+                int content_chk, gu_chk, spot_chk = 0;
+
+                content_chk = Content.getText().length();
+                gu_chk = gu.getText().length();
+                spot_chk = spot.getText().length();
+
+                if(content_chk<=0 || gu_chk<=0 || spot_chk<=0){
+                    Toast.makeText(rootView.getContext(), "내용을 입력해주세요!", Toast.LENGTH_LONG).show();
+
+                }
+                else
+                {
                 // Showing progress dialog at user registration time.
                 progressDialog.setMessage("Please Wait, We are Inserting Your Data on Server");
                 progressDialog.show();
@@ -195,7 +211,7 @@ public class Write_Fragment extends Fragment{
                                 progressDialog.dismiss();
 
                                 // Showing response message coming from server.
-                                Toast.makeText(rootView.getContext(), ServerResponse, Toast.LENGTH_LONG).show();
+                                Toast.makeText(rootView.getContext(), "성공적으로 글쓰기 완료!", Toast.LENGTH_LONG).show();
 
                                 //전송다하고 값 초기화
                                 Content.setText("");
@@ -221,6 +237,7 @@ public class Write_Fragment extends Fragment{
                             }
                         })
 
+
                 {
                     @Override
                     protected Map<String, String> getParams() {
@@ -245,7 +262,10 @@ public class Write_Fragment extends Fragment{
 
             }
 
-        });
+        }
+    });
+
+
 
         Log.i(TAG, "onCreate()");
         return rootView;
@@ -306,6 +326,8 @@ public class Write_Fragment extends Fragment{
         pref = getActivity().getSharedPreferences("content",MODE_PRIVATE);
         editor = pref.edit();
         String str = Content.getText().toString(); // 사용자가 입력한 값
+
+
         // Activity 가 종료되기 전에 저장한다
         editor.putString("content", str); // 입력
         editor.commit(); // 파일에 최종 반영함

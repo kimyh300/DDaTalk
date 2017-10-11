@@ -16,14 +16,15 @@
 
         <ImageButton
             android:id="@+id/x_Button"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
 
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:contentDescription="@android:string/cancel"
 
             android:onClick="onClickfinish"
+            android:padding="8dp"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/x_mark" />
 
@@ -43,13 +44,14 @@
 
         <ImageButton
             android:id="@+id/v_Button"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
 
             android:layout_weight="1"
             android:background="@android:color/transparent"
 
             android:contentDescription="@android:string/ok"
+            android:padding="8dp"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/v_mark"
             tools:ignore="NestedWeights" />
