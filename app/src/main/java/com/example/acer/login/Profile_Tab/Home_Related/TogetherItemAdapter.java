@@ -123,6 +123,7 @@ public class TogetherItemAdapter extends BaseAdapter {
                                 deleteWriting(item.getWriting_no(),context);
                                 items.remove(item);
                                 notifyDataSetChanged();
+
                                 return true;
                             } else if (i == R.id.menuUd) {
                                 //do something
@@ -214,7 +215,9 @@ public class TogetherItemAdapter extends BaseAdapter {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(context,
+                        error.getMessage(),
+                        Toast.LENGTH_LONG).show();
             }
         }){
             @Override
