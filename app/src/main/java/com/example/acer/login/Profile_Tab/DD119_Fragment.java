@@ -26,7 +26,7 @@ public class DD119_Fragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_dd119,container,false);
 
-        ImageButton notice_btn = (ImageButton) rootView.findViewById(R.id.notice);
+        ImageButton notice_btn = (ImageButton) rootView.findViewById(R.id.woodwheelmap);
         notice_btn.setOnClickListener(new Button.OnClickListener() {
                                         public void onClick(View v) {
                                             Intent intent = new Intent(getActivity().getApplication(),
@@ -38,7 +38,7 @@ public class DD119_Fragment extends Fragment{
         );
 
 
-        ImageButton accident_btn = (ImageButton) rootView.findViewById(R.id.accident);
+        ImageButton accident_btn = (ImageButton) rootView.findViewById(R.id.stonewheelmap);
         accident_btn.setOnClickListener(new Button.OnClickListener() {
                                           public void onClick(View v) {
                                               Intent intent = new Intent(getActivity().getApplication(),
@@ -49,7 +49,7 @@ public class DD119_Fragment extends Fragment{
                                       }
         );
 
-        ImageButton lost_damage_btn = (ImageButton) rootView.findViewById(R.id.lost_damage);
+        ImageButton lost_damage_btn = (ImageButton) rootView.findViewById(R.id.tirewheelmap);
         lost_damage_btn.setOnClickListener(new Button.OnClickListener() {
                                           public void onClick(View v) {
                                               Intent intent = new Intent(getActivity().getApplication(),
@@ -60,7 +60,7 @@ public class DD119_Fragment extends Fragment{
                                       }
         );
 
-        ImageButton break_handle_btn = (ImageButton) rootView.findViewById(R.id.break_handle);
+        ImageButton break_handle_btn = (ImageButton) rootView.findViewById(R.id.silverwheelmap);
         break_handle_btn.setOnClickListener(new Button.OnClickListener() {
                                           public void onClick(View v) {
                                               Intent intent = new Intent(getActivity().getApplication(),

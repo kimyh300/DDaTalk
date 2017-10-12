@@ -7,7 +7,7 @@
     >
 
     <ImageButton
-        android:id="@+id/notice"
+        android:id="@+id/woodwheelmap"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginLeft="45dp"
@@ -20,7 +20,7 @@
         tools:ignore="ContentDescription,RtlHardcoded" />
 
     <ImageButton
-        android:id="@+id/accident"
+        android:id="@+id/stonewheelmap"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginRight="45dp"
@@ -33,7 +33,7 @@
         tools:ignore="ContentDescription,RtlHardcoded" />
 
     <ImageButton
-        android:id="@+id/lost_damage"
+        android:id="@+id/tirewheelmap"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginLeft="45dp"
@@ -41,12 +41,12 @@
         android:background="#00000000"
         android:scaleType="fitCenter"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notice"
+        app:layout_constraintTop_toBottomOf="@+id/woodwheelmap"
         app:srcCompat="@drawable/lost_damage"
         tools:ignore="ContentDescription,RtlHardcoded" />
 
     <ImageButton
-        android:id="@+id/break_handle"
+        android:id="@+id/silverwheelmap"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginRight="45dp"
@@ -54,7 +54,7 @@
         android:background="#00000000"
         android:scaleType="fitCenter"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accident"
+        app:layout_constraintTop_toBottomOf="@+id/stonewheelmap"
         app:srcCompat="@drawable/break_handle"
         tools:ignore="ContentDescription,RtlHardcoded" />
 
@@ -67,7 +67,7 @@
         android:background="#00000000"
         android:scaleType="fitCenter"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lost_damage"
+        app:layout_constraintTop_toBottomOf="@+id/tirewheelmap"
         app:srcCompat="@drawable/tire_chain"
         tools:ignore="ContentDescription,RtlHardcoded" />
 
@@ -80,7 +80,7 @@
         android:background="#00000000"
         android:scaleType="fitCenter"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/break_handle"
+        app:layout_constraintTop_toBottomOf="@+id/silverwheelmap"
         app:srcCompat="@drawable/saddle"
         tools:ignore="ContentDescription,RtlHardcoded" />
 
