@@ -6,12 +6,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.acer.login.Login_Related.SharedPrefManager;
+import com.example.acer.login.Profile_Tab.Stamp_Fragment;
 import com.example.acer.login.R;
 
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ public class Stamp_Fragment_sub extends Fragment {
     ImageView silvermap;
     ImageView goldmap;
     ImageView diamondmap;
+    ImageButton backtostamp;
 
     Drawable changewheelmap;
     ArrayList<Drawable> wheelmapList = new ArrayList<Drawable>();
@@ -38,6 +42,27 @@ public class Stamp_Fragment_sub extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_stamp_sub, container, false);
+
+        backtostamp = (ImageButton) rootView.findViewById(R.id.backtostamp);
+
+        backtostamp.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                // Create new fragment and transaction
+                Fragment someFragment = new Stamp_Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, someFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+
+            }
+        });
+
+
+
+
+
 
         //로그인한 유저레벨 가져오기
         userLevel = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserLevel();
@@ -54,8 +79,6 @@ public class Stamp_Fragment_sub extends Fragment {
 
 
         //뷰객체 보여주
-
-
         woodmap = (ImageView) rootView.findViewById(R.id.notice);
         stonemap = (ImageView) rootView.findViewById(R.id.accident);
         tiremap = (ImageView) rootView.findViewById(R.id.lost_damage);
