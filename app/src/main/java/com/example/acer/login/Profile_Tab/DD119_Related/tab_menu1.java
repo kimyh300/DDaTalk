@@ -5,18 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.acer.login.R;
 
-
-public class TabMenu4 extends AppCompatActivity {
-
-
+public class tab_menu1 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_menu4);
-
+        setContentView(R.layout.activity_tab_menu1);
 
     }
-
 
 }

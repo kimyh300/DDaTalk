@@ -16,7 +16,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Login_Related.LoginActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".ProfileActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
@@ -26,12 +26,6 @@
 
         <!-- 여기서부터 병함 -->
         <activity android:name=".Profile_Tab.MyPage_Related.MyPage_SubActivity" />
-        <activity android:name=".Profile_Tab.DD119_Related.TabMenu1" />
-        <activity android:name=".Profile_Tab.DD119_Related.TabMenu2" />
-        <activity android:name=".Profile_Tab.DD119_Related.TabMenu3" />
-        <activity android:name=".Profile_Tab.DD119_Related.TabMenu4" />
-        <activity android:name=".Profile_Tab.DD119_Related.TabMenu5" />
-        <activity android:name=".Profile_Tab.DD119_Related.TabMenu6" />
         <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +33,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profile_Tab.Alarm_Related.AlarmActivity"></activity>
+        <activity android:name=".Profile_Tab.Alarm_Related.AlarmActivity" />
+        <activity android:name=".Profile_Tab.DD119_Related.tab_menu1" />
+        <activity android:name=".Profile_Tab.DD119_Related.tab_menu2" />
+        <activity android:name=".Profile_Tab.DD119_Related.tab_menu3" />
+        <activity android:name=".Profile_Tab.DD119_Related.tab_menu4" />
+        <activity android:name=".Profile_Tab.DD119_Related.tab_menu5" />
+        <activity android:name=".Profile_Tab.DD119_Related.tab_menu6"></activity>
     </application>
 
 </manifest>
