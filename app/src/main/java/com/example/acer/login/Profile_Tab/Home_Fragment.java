@@ -115,7 +115,7 @@ public class Home_Fragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 String text = editTextSearch.getText().toString().trim();
-//                adapter.filter(text);
+                adapter.filter(text);
             }
         });
 

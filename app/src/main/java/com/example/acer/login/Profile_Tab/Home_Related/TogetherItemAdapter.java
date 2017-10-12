@@ -36,7 +36,7 @@ public class TogetherItemAdapter extends BaseAdapter {
     private ArrayList<TogetherItem> items = new ArrayList<>();
     private RequestQueue rq;
     private SharedPrefManager sharedPrefManager;
-    private ArrayList<TogetherItem> temp =items;
+    private ArrayList<TogetherItem> temp = new ArrayList<>();
 
     @Override
     public int getCount() {
@@ -58,6 +58,7 @@ public class TogetherItemAdapter extends BaseAdapter {
 
     public void addItem(TogetherItem item){
         items.add(item);
+        temp.add(item);
     }
 
     @Override
