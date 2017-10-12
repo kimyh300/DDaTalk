@@ -6,64 +6,69 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/diamondmap"
+        android:id="@+id/diamondwheelmap"
         android:layout_width="123dp"
         android:layout_height="112dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="45dp"
+        android:contentDescription="diamond"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/break_handle"
+        app:layout_constraintTop_toBottomOf="@+id/silverwheelmap"
         tools:ignore="RtlHardcoded" />
 
     <ImageView
-        android:id="@+id/break_handle"
+        android:id="@+id/silverwheelmap"
         android:layout_width="123dp"
         android:layout_height="112dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="45dp"
+        android:contentDescription="silver"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accident"
+        app:layout_constraintTop_toBottomOf="@+id/stonewheelmap"
         tools:ignore="RtlHardcoded" />
 
     <ImageView
-        android:id="@+id/goldmap"
+        android:id="@+id/goldwheelmap"
         android:layout_width="123dp"
         android:layout_height="112dp"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="45dp"
+        android:contentDescription="gold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lost_damage"
+        app:layout_constraintTop_toBottomOf="@+id/tirewheelmap"
         tools:ignore="RtlHardcoded" />
 
     <ImageView
-        android:id="@+id/lost_damage"
+        android:id="@+id/tirewheelmap"
         android:layout_width="123dp"
         android:layout_height="112dp"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="45dp"
+        android:contentDescription="tire"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notice"
+        app:layout_constraintTop_toBottomOf="@+id/woodwheelmap"
         tools:ignore="RtlHardcoded" />
 
     <ImageView
-        android:id="@+id/accident"
+        android:id="@+id/stonewheelmap"
         android:layout_width="123dp"
         android:layout_height="112dp"
         android:layout_marginRight="45dp"
         android:layout_marginTop="60dp"
+        android:contentDescription="stone"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
     <ImageView
-        android:id="@+id/notice"
+        android:id="@+id/woodwheelmap"
         android:layout_width="123dp"
         android:layout_height="112dp"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="60dp"
+        android:contentDescription="wood"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlHardcoded" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/backtostamp"
@@ -71,7 +76,7 @@
         android:layout_height="55dp"
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/back"
-        tools:ignore="MissingConstraints"
+        tools:ignore="MissingConstraints,RtlHardcoded"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"

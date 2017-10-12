@@ -1,6 +1,10 @@
 package com.example.acer.login.Profile_Tab;
 
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,10 +41,15 @@ public class Stamp_Fragment extends Fragment {
     ImageView levelbar;
     ImageButton stampcollect;
 
+    public void setProgressBarColor(ProgressBar progressBar, int newColor){
+        LayerDrawable ld = (LayerDrawable) progressBar.getProgressDrawable();
+        ClipDrawable d1 = (ClipDrawable) ld.findDrawableByLayerId(R.id.progressBar);
+        d1.setColorFilter(newColor, PorterDuff.Mode.SRC_IN);
+    }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_stamp, container, false);
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
@@ -54,8 +63,11 @@ public class Stamp_Fragment extends Fragment {
         set = "현재레벨은  " + userLevel +"이며, " + "다음레벨까지 " + (maxExp-myExp) +"남았습니다.";
         showLevel.setText(set);
 
-        stampcollect = (ImageButton) rootView.findViewById(R.id.stampcollect);
 
+
+
+// 서브스탬프로 들어가기
+        stampcollect = (ImageButton) rootView.findViewById(R.id.stampcollect);
         stampcollect.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -69,10 +81,6 @@ public class Stamp_Fragment extends Fragment {
 
             }
         });
-
-
-
-
 
 //레벨에 따른 이미지 변경
         handler = new Handler() {
@@ -89,6 +97,18 @@ public class Stamp_Fragment extends Fragment {
         handler.sendEmptyMessageDelayed(10, 0);
 
         UL = Integer.parseInt(userLevel);
+
+
+        if(myExp > maxExp * 0.0 && myExp <= maxExp * 0.33) {
+            setProgressBarColor(progressBar, Color.parseColor("#edb043"));
+        } else if(myExp > maxExp*0.33 && myExp <= maxExp * 0.66) {
+            setProgressBarColor(progressBar, Color.parseColor("#af740b"));
+        } else if(myExp > maxExp*0.66 && myExp <= maxExp * 1.0) {
+            setProgressBarColor(progressBar, Color.parseColor("#7a520a"));
+
+        }
+
+
 
 
         switch (UL){
