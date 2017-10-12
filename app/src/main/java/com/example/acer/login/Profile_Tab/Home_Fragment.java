@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ public class Home_Fragment extends Fragment {
 
     int get_writing_no, get_reply_cnt;
 
+    EditText editTextSearch;
     ProgressDialog progressDialog;
 
     @Nullable
@@ -50,12 +54,10 @@ public class Home_Fragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-
         final TogetherItemAdapter adapter = new TogetherItemAdapter();
         final ListView together2 = (ListView) rootView.findViewById(R.id.together2);
         progressDialog = new ProgressDialog(rootView.getContext());
         rq = Volley.newRequestQueue(getActivity());
-
 
         progressDialog.setMessage("로딩중.. 좀만 기둘려주떼염");
         progressDialog.show();
@@ -98,8 +100,24 @@ public class Home_Fragment extends Fragment {
             adapter.replaceItem(get_writing_no,get_reply_cnt);
         }
 
+        editTextSearch = (EditText)rootView.findViewById(R.id.editTextSearch);
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = editTextSearch.getText().toString().trim();
+//                adapter.filter(text);
+            }
+        });
 
         return rootView;
     }

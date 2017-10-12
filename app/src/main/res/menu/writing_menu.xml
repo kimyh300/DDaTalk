@@ -6,8 +6,4 @@
         android:title="@string/writing_delete_menu"
         />
 
-    <item
-        android:id="@+id/menuUd"
-        android:title="@string/update_writing_menu"
-        />
 </menu>

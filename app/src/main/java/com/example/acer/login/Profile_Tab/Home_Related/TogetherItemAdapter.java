@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -35,6 +36,7 @@ public class TogetherItemAdapter extends BaseAdapter {
     private ArrayList<TogetherItem> items = new ArrayList<>();
     private RequestQueue rq;
     private SharedPrefManager sharedPrefManager;
+    private ArrayList<TogetherItem> temp =items;
 
     @Override
     public int getCount() {
@@ -124,9 +126,6 @@ public class TogetherItemAdapter extends BaseAdapter {
                                 items.remove(item);
                                 notifyDataSetChanged();
 
-                                return true;
-                            } else if (i == R.id.menuUd) {
-                                //do something
                                 return true;
                             } else {
                                 return onMenuItemClick(menuitem);
@@ -231,4 +230,19 @@ public class TogetherItemAdapter extends BaseAdapter {
     }
 
 
+    public void filter(String text) {
+        text = text.toLowerCase(Locale.getDefault());
+
+        items.clear();
+        if (text.length() == 0) {
+            items.addAll(temp);
+        }else {
+            for (TogetherItem t : temp) {
+                if (t.getRental_spot().toLowerCase().contains(text)) {
+                    items.add(t);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 }
