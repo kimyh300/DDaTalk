@@ -56,10 +56,10 @@ public class Stamp_Fragment_sub extends Fragment {
         //뷰객체 보여주
 
 
-        woodmap = (ImageView) rootView.findViewById(R.id.woodmap);
-        stonemap = (ImageView) rootView.findViewById(R.id.stonemap);
-        tiremap = (ImageView) rootView.findViewById(R.id.tiremap);
-        silvermap = (ImageView) rootView.findViewById(R.id.silvermap);
+        woodmap = (ImageView) rootView.findViewById(R.id.notice);
+        stonemap = (ImageView) rootView.findViewById(R.id.accident);
+        tiremap = (ImageView) rootView.findViewById(R.id.lost_damage);
+        silvermap = (ImageView) rootView.findViewById(R.id.break_handle);
         goldmap = (ImageView) rootView.findViewById(R.id.goldmap);
         diamondmap = (ImageView) rootView.findViewById(R.id.diamondmap);
 

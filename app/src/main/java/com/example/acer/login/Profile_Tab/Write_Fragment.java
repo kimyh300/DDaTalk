@@ -2,15 +2,19 @@ package com.example.acer.login.Profile_Tab;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -23,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.SharedPrefManager;
+import com.example.acer.login.ProfileActivity;
 import com.example.acer.login.Profile_Tab.Write_Related.FindSpot_Fragment;
 import com.example.acer.login.R;
 
@@ -38,8 +43,10 @@ public class Write_Fragment extends Fragment{
     private String TAG = "ActivityLifeCycle";
 
     //변수 선언
-    EditText Content;
-    TextView spot, gu;
+    EditText Content = null;
+    TextView spot, gu = null;
+
+    boolean content_chk = false;
 
     ImageButton x_mark;
 
@@ -76,6 +83,9 @@ public class Write_Fragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_write,container,false);
 
+        //글쓰기 화면으로 오면 키보드 내리기
+        InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(rootView.getWindowToken(),0);
 
         //x버튼 클릭시 이벤트 처리 만들어놈
         x_mark = (ImageButton)rootView.findViewById(R.id.x_Button);
@@ -83,11 +93,17 @@ public class Write_Fragment extends Fragment{
         x_mark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment newFragment = new Write_Fragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.remove(newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                Content.setText("");
+                spot.setText("");
+                gu.setText("");
+                pref = getActivity().getSharedPreferences("content", MODE_PRIVATE);
+                editor = pref.edit();
+                editor.remove("content");
+                editor.commit();
+
+                Intent i = new Intent(getActivity().getApplication(), ProfileActivity.class);
+                startActivity(i);
+
             }
         });
 
@@ -101,6 +117,12 @@ public class Write_Fragment extends Fragment{
 
         Content = (EditText)rootView.findViewById(R.id.writing_sec);
 
+        //밑줄 없애기
+        Content.setRawInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+
+
+
+
         ImageButton Insert_writing = (ImageButton)rootView.findViewById(R.id.v_Button);
 
         requestQueue = Volley.newRequestQueue(rootView.getContext());
@@ -108,7 +130,40 @@ public class Write_Fragment extends Fragment{
         ImageButton search = (ImageButton)rootView.findViewById(R.id.search_btn);
 
 
-        // 돋보기 버튼 클릭시 장소찾기 화면 가기
+
+
+        // 돋보기 버튼 및 밑줄 클릭시 장소찾기 화면 가기
+
+        spot.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                // Create new fragment and transaction
+                Fragment spotFragment = new FindSpot_Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, spotFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
+
+            }
+        });
+
+        gu.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                // Create new fragment and transaction
+                Fragment spotFragment = new FindSpot_Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, spotFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+                InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
+
+            }
+        });
 
         search.setOnClickListener(new View.OnClickListener() {
 
@@ -118,8 +173,10 @@ public class Write_Fragment extends Fragment{
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, spotFragment);
                 transaction.addToBackStack(null);
-
                 transaction.commit();
+
+                InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
 
             }
         });
@@ -132,6 +189,20 @@ public class Write_Fragment extends Fragment{
             @Override
             public void onClick(View v) {
 
+
+                // 빈내용 있으면 입력 안받게 설정
+                int content_chk, gu_chk, spot_chk = 0;
+
+                content_chk = Content.getText().length();
+                gu_chk = gu.getText().length();
+                spot_chk = spot.getText().length();
+
+                if(content_chk<=0 || gu_chk<=0 || spot_chk<=0){
+                    Toast.makeText(rootView.getContext(), "내용을 입력해주세요!", Toast.LENGTH_LONG).show();
+
+                }
+                else
+                {
                 // Showing progress dialog at user registration time.
                 progressDialog.setMessage("Please Wait, We are Inserting Your Data on Server");
                 progressDialog.show();
@@ -149,7 +220,7 @@ public class Write_Fragment extends Fragment{
                                 progressDialog.dismiss();
 
                                 // Showing response message coming from server.
-                                Toast.makeText(rootView.getContext(), ServerResponse, Toast.LENGTH_LONG).show();
+                                Toast.makeText(rootView.getContext(), "성공적으로 글쓰기 완료!", Toast.LENGTH_LONG).show();
 
                                 //전송다하고 값 초기화
                                 Content.setText("");
@@ -175,6 +246,7 @@ public class Write_Fragment extends Fragment{
                             }
                         })
 
+
                 {
                     @Override
                     protected Map<String, String> getParams() {
@@ -199,7 +271,10 @@ public class Write_Fragment extends Fragment{
 
             }
 
-        });
+        }
+    });
+
+
 
         Log.i(TAG, "onCreate()");
         return rootView;
@@ -260,6 +335,8 @@ public class Write_Fragment extends Fragment{
         pref = getActivity().getSharedPreferences("content",MODE_PRIVATE);
         editor = pref.edit();
         String str = Content.getText().toString(); // 사용자가 입력한 값
+
+
         // Activity 가 종료되기 전에 저장한다
         editor.putString("content", str); // 입력
         editor.commit(); // 파일에 최종 반영함

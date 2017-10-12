@@ -9,14 +9,23 @@ public class ReplyItem {
     private String content;
     private int reply_no;
     private int writing_no;
+    private String reply_time;
 
-    public ReplyItem(/*int resId,*/ int reply_no,String email, String content,int writing_no) {
+    public ReplyItem(/*int resId,*/ int reply_no,String email, String content,int writing_no,String reply_time) {
 //        this.resId = resId;
         this.reply_no = reply_no;
         this.email = email;
         this.content = content;
         this.writing_no = writing_no;
+        this.reply_time = reply_time;
     }
+    public ReplyItem(/*int resId,*/ int reply_no,String email, String content,int writing_no){
+        this.reply_no = reply_no;
+        this.email = email;
+        this.content = content;
+        this.writing_no = writing_no;
+    }
+
     public ReplyItem(String email, String content){
         this.email = email;
         this.content = content;
@@ -29,6 +38,14 @@ public class ReplyItem {
     public void setResId(int resId) {
         this.resId = resId;
     }*/
+
+    public String getReply_time() {
+        return reply_time;
+    }
+
+    public void setReply_time(String reply_time) {
+        this.reply_time = reply_time;
+    }
 
     public int getWriting_no() {
         return writing_no;

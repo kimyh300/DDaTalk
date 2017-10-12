@@ -1,13 +1,14 @@
 package com.example.acer.login.Profile_Tab.Home_reply;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,13 +24,17 @@ import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.Constants;
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
+import com.example.acer.login.ProfileActivity;
 import com.example.acer.login.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -37,14 +42,28 @@ public class ReplyActivity extends AppCompatActivity {
 
     RequestQueue rq;
     ReplyItemAdapter replyItemAdapter;
-    String content,date,email,writing_no_param,UserEmail_Present;
-    int writing_no,reply_no,picture;
+    String content,date,email,writing_no_param,UserEmail_Present,rental_spot;
+    int writing_no,reply_no/*,picture*/;
     EditText editTextReply;
-    TextView textViewEmail, textViewContent;
-    ImageView imageView;
+//    TextView textViewEmail, textViewContent;
+//    ImageView imageView;
+    TextView textViewRental_Spot;
     Button buttonWriteReply;
     ListView reply;
 
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+        intent.putExtra("reply_cnt",replyItemAdapter.getCount());
+        intent.putExtra("writing_no",writing_no_param);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
+        finish();
+//        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,25 +74,28 @@ public class ReplyActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
+        //noinspection ConstantConditions
         getSupportActionBar().hide();
         UserEmail_Present = SharedPrefManager.getInstance(this).getUserEmail();
         Intent intent = getIntent();
 
-        email = String.valueOf(intent.getExtras().get("email"));
-        content = String.valueOf(intent.getExtras().get("content"));
-        picture = (int)intent.getExtras().get("picture");
+//        email = String.valueOf(intent.getExtras().get("email"));
+//        content = String.valueOf(intent.getExtras().get("content"));
+//        picture = (int)intent.getExtras().get("picture");
         writing_no_param = String.valueOf(intent.getExtras().get("writing_no"));
+        rental_spot = String.valueOf(intent.getExtras().get("rental_spot"));
 
-        textViewEmail = (TextView)findViewById(R.id.textViewEmail);
-        textViewContent = (TextView)findViewById(R.id.textViewContent);
-        imageView = (ImageView)findViewById(R.id.imageView);
+//        textViewEmail = (TextView)findViewById(textViewEmail);
+//        textViewContent = (TextView)findViewById(textViewContent);
+//        imageView = (ImageView)findViewById(imageView);
         editTextReply = (EditText)findViewById(R.id.editTextReply);
         buttonWriteReply = (Button)findViewById(R.id.buttonWriteReply);
+        textViewRental_Spot = (TextView)findViewById(R.id.textViewRental_Spot);
 
-        textViewEmail.setText(email);
-        textViewContent.setText(content);
-        imageView.setImageResource(picture);
-
+//        textViewEmail.setText(email);
+//        textViewContent.setText(content);
+//        imageView.setImageResource(picture);
+        textViewRental_Spot.setText(rental_spot);
 
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
@@ -86,22 +108,34 @@ public class ReplyActivity extends AppCompatActivity {
         });
         reply = (ListView)findViewById(R.id.reply);
 
-
         replyItemAdapter = new ReplyItemAdapter();
         rq = Volley.newRequestQueue(getApplicationContext());
-        sendJsonRequestToReply(writing_no_param);
-        reply.setAdapter(replyItemAdapter);
+        sendJsonRequestToReply(writing_no_param,reply);
+
 
 
         buttonWriteReply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String Reply_Content = editTextReply.getText().toString();
+                long time = System.currentTimeMillis();
+
+                SimpleDateFormat dayTime = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.KOREAN);
+
+                String cur_date = dayTime.format(new Date(time));//9시간 느린문제 해결해야됨
+
+
                 int param_reply_no = insertContentToReply(Reply_Content,UserEmail_Present,writing_no_param);
                 int writing_no = Integer.parseInt(writing_no_param);
-                ReplyItem newRow = new ReplyItem(param_reply_no,UserEmail_Present,Reply_Content,writing_no);
+
+
+                ReplyItem newRow = new ReplyItem(param_reply_no,UserEmail_Present,Reply_Content,writing_no,cur_date);
                 replyItemAdapter.addItem(newRow);
+                reply.setAdapter(replyItemAdapter);
                 replyItemAdapter.notifyDataSetChanged();
+                editTextReply.setText(null);
+                InputMethodManager inputMethodManager =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
             }
         });
 
@@ -110,7 +144,7 @@ public class ReplyActivity extends AppCompatActivity {
 
 
     }
-    public void sendJsonRequestToReply(final String writing_no_param){
+    public void sendJsonRequestToReply(final String writing_no_param, final ListView listView){
 
         final StringRequest stringRequest;
         stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REPLY_INFO, new Listener<String>() {
@@ -133,8 +167,9 @@ public class ReplyActivity extends AppCompatActivity {
                             email = obj.getString("email");
                             reply_no = obj.getInt("reply_no");
                             writing_no = obj.getInt("writing_no");
-                            ReplyItem reply = new ReplyItem(reply_no,email, content,writing_no);
+                            ReplyItem reply = new ReplyItem(reply_no,email, content,writing_no,date);
                             replyItemAdapter.addItem(reply);
+                            listView.setAdapter(replyItemAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

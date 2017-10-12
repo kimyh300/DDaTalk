@@ -1,6 +1,7 @@
 package com.example.acer.login.Profile_Tab;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,11 @@ public class Home_Fragment extends Fragment {
     RequestQueue rq;
     String content, date, email,rental_spot;
     int reply_cnt, with_cnt, writing_no;
+
+    int get_writing_no, get_reply_cnt;
+
+    ProgressDialog progressDialog;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,21 +51,19 @@ public class Home_Fragment extends Fragment {
             }
         });
 
-
         final TogetherItemAdapter adapter = new TogetherItemAdapter();
-
-
-
-
         final ListView together2 = (ListView) rootView.findViewById(R.id.together2);
-
+        progressDialog = new ProgressDialog(rootView.getContext());
         rq = Volley.newRequestQueue(getActivity());
 
 
+        progressDialog.setMessage("로딩중.. 좀만 기둘려주떼염");
+        progressDialog.show();
         final JsonArrayRequest jsonArrayRequest;
         jsonArrayRequest = new JsonArrayRequest(Constants.URL_WRITING_INFO, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                progressDialog.dismiss();
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject obj = response.getJSONObject(i);
@@ -74,6 +78,7 @@ public class Home_Fragment extends Fragment {
                         TogetherItem togetherItem = new TogetherItem(w.getWriting_no(), w.getEmail(), w.getContent(),w.getDate(), R.drawable.user,
                                 w.getWith_cnt(), w.getReply_cnt(),w.getRental_spot());
                         adapter.addItem(togetherItem);
+                        together2.setAdapter(adapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -86,8 +91,14 @@ public class Home_Fragment extends Fragment {
             }
         });
         rq.add(jsonArrayRequest);
+        Bundle extra = getArguments();
+        if(extra != null) {
+            get_writing_no = extra.getInt("writing_no");
+            get_reply_cnt = extra.getInt("reply_cnt");
+            adapter.replaceItem(get_writing_no,get_reply_cnt);
+        }
 
-        together2.setAdapter(adapter);
+
 
 
         return rootView;

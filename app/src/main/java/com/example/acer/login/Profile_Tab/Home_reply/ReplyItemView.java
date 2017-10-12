@@ -13,7 +13,7 @@ import com.example.acer.login.R;
 public class ReplyItemView extends LinearLayout {
 
     ImageView imageView;
-    TextView textViewEmail, textViewContent;
+    TextView textViewEmail, textViewContent, textViewTime;
     public ReplyItemView(Context context) {
         super(context);
         init(context);
@@ -30,6 +30,7 @@ public class ReplyItemView extends LinearLayout {
 
         textViewEmail = (TextView)findViewById(R.id.textViewEmail);
         textViewContent = (TextView)findViewById(R.id.textViewContent);
+        textViewTime = (TextView)findViewById(R.id.textViewTime);
         imageView = (ImageView)findViewById(R.id.imageView);
 
 
@@ -45,4 +46,6 @@ public class ReplyItemView extends LinearLayout {
     public void setImageView(int resId){
         imageView.setImageResource(resId);
     }
+
+    public void setTime(String time){textViewTime.setText(time);}
 }

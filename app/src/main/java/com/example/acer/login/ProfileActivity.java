@@ -4,13 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
+import com.example.acer.login.Profile_Tab.Alarm_Related.AlarmActivity;
 import com.example.acer.login.Profile_Tab.DD119_Fragment;
 import com.example.acer.login.Profile_Tab.Home_Fragment;
 import com.example.acer.login.Profile_Tab.MyPage_Fragment;
@@ -20,7 +24,6 @@ import com.example.acer.login.Profile_Tab.Write_Related.FindSpot_Fragment;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    //    private TextView textViewUsername, textViewUserEmail;
     TabLayout tabs;
     Home_Fragment homeFragment;
     Stamp_Fragment stampFragment;
@@ -29,7 +32,20 @@ public class ProfileActivity extends AppCompatActivity {
     MyPage_Fragment myPageFragment;
     FindSpot_Fragment spotFragment;
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent =getIntent();
+        if(intent!=null){
+            int get_reply_cnt = intent.getIntExtra("reply_cnt",0);
+            int get_writing_no = intent.getIntExtra("writing_no",0);
+            Home_Fragment frament = new Home_Fragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("reply_cnt", get_reply_cnt);
+            bundle.putInt("writing_no", get_writing_no);
+            frament.setArguments(bundle);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
+
 
         homeFragment = new Home_Fragment();
         stampFragment = new Stamp_Fragment();
@@ -58,11 +75,38 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+//        getMenuInflater().inflate(R.menu.menu, menu);
+        ActionBar actionBar = getSupportActionBar();
+
+        assert actionBar != null;
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
+        actionBar.setDisplayShowTitleEnabled(false);        //액션바에 표시되는 제목의 표시유무를 설정합니다.
+        actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
+
+
+        //layout을 가지고 와서 actionbar에 포팅을 시킵니다.
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        View actionbar = inflater.inflate(R.layout.actionbar_layout, null);
+
+        actionBar.setCustomView(actionbar);
+
+        //액션바 양쪽 공백 없애기
+        Toolbar parent = (Toolbar)actionbar.getParent();
+        parent.setContentInsetsAbsolute(0,0);
         return true;
     }
 
-    @Override
+    public void clickEvent(View v){
+        if (v.getId() == R.id.imageViewAlarm) {
+            Toast.makeText(ProfileActivity.this, "알람을 눌렀쪄염",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(ProfileActivity.this, AlarmActivity.class);
+            startActivity(intent);
+        }
+
+    }
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuLogout:
@@ -76,7 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
         return true;
-    }
+    }*/
 
 
     void tabInit() {

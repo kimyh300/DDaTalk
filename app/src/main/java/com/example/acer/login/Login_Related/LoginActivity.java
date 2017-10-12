@@ -1,8 +1,10 @@
 package com.example.acer.login.Login_Related;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -39,7 +41,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
        Intent intent =getIntent();
         if(intent!=null){
             if(intent.getIntExtra("register",0)==1){
-                Toast.makeText(this,"이메일 인증을 해주세요!",Toast.LENGTH_LONG).show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.setMessage("이메일을 인증해주세요!");
+                alert.show();
             }
         }
     }

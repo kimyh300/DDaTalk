@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import com.example.acer.login.Profile_Tab.Write_Fragment;
 import com.example.acer.login.R;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -27,8 +28,7 @@ import java.util.Collections;
 public class FindSpot_Fragment extends Fragment {
 
     ViewGroup rootView;
-
-    Spinner spinner = null;
+    Spinner spinner;
     ListView listview;
     ArrayList<String> list;
     ArrayAdapter listadapter;
@@ -38,22 +38,28 @@ public class FindSpot_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_findspot,container,false);
 
-
-
         list = new ArrayList<String>();
-
         listadapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
-
         listview = (ListView) rootView.findViewById(R.id.listview1);
         listview.setAdapter(listadapter);
 
         //지역구 선택 스피너
         spinner = (Spinner) rootView.findViewById(R.id.gu_select);
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.gu_list, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.gu_list, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        //지역구 선택 스피너
+        spinner.setSelection(0);
 
+        //스피너 크기조절
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(spinner);
+            popupWindow.setHeight(800);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            //fail
+        }
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -284,7 +290,6 @@ public class FindSpot_Fragment extends Fragment {
 
 
 //대여소 목록 검색 필터
-
         EditText editTextFilter = (EditText) rootView.findViewById(R.id.editTextFilter);
         editTextFilter.addTextChangedListener(new TextWatcher() {
             @Override
@@ -295,7 +300,6 @@ public class FindSpot_Fragment extends Fragment {
                 } else {
                     listview.clearTextFilter();
                 }
-
             }
 
             @Override
@@ -306,7 +310,7 @@ public class FindSpot_Fragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
-//대여소 목록 검색 필터
+
 
         //클릭된아이템 데이터넘기기
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -328,15 +332,6 @@ public class FindSpot_Fragment extends Fragment {
                 transaction.commit();
 
 
-
-
-                /*Intent intent = new Intent(getActivity().getApplicationContext(), ); // 다음넘어갈 화면
-                // intent 객체에 데이터를 실어서 보내기
-                // 리스트뷰 클릭시 인텐트 (Intent) 생성하고 position 값을 이용하여 인텐트로 넘길값들을 넘긴다
-                intent.putExtra("rental_spot", (Serializable) parent.getAdapter().getItem(position));
-                intent.putExtra("gu_selected", spinner.getSelectedItem().toString());
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);*/
 
             }
         });

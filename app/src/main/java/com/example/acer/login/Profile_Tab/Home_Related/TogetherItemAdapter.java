@@ -2,6 +2,8 @@ package com.example.acer.login.Profile_Tab.Home_Related;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.PopupMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,8 +19,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.Constants;
 import com.example.acer.login.Login_Related.SharedPrefManager;
-import com.example.acer.login.R;
 import com.example.acer.login.Profile_Tab.Home_reply.ReplyActivity;
+import com.example.acer.login.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +39,19 @@ public class TogetherItemAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items.size();
+    }
+
+    public void replaceItem(int writing_no, int reply_cnt){
+        for(int i=0; i<items.size(); i++){
+            if(items.get(i).getWriting_no()==writing_no){
+                items.get(i).setComment(reply_cnt);
+            }
+        }
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 
     public void addItem(TogetherItem item){
@@ -83,21 +98,61 @@ public class TogetherItemAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context.getApplicationContext(), ReplyActivity.class);
-                intent.putExtra("email",item.getEmail());
-                intent.putExtra("content",item.getContent());
-                intent.putExtra("picture",item.getResId());
+//                intent.putExtra("email",item.getEmail());
+//                intent.putExtra("content",item.getContent());
+//                intent.putExtra("picture",item.getResId());
                 intent.putExtra("writing_no",item.getWriting_no());
+                intent.putExtra("rental_spot",item.getRental_spot());
                 context.startActivity(intent);
                 finalView.setComment_Tv(item.getComment());
                 Toast.makeText(context,"댓글달기 버튼이 눌렸습니다.",Toast.LENGTH_SHORT).show();
             }
         });
+        final Button options = (Button)view.findViewById(R.id.options);
+        if(item.getEmail().equals(sharedPrefManager.getUserEmail())) {
+            options.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final PopupMenu popup = new PopupMenu(context, options);
+                    popup.getMenuInflater().inflate(R.menu.writing_menu, popup.getMenu());
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem menuitem) {
+                            int i = menuitem.getItemId();
+                            if (i == R.id.menuDt) {
+                                //do something
+                                deleteWriting(item.getWriting_no(),context);
+                                items.remove(item);
+                                notifyDataSetChanged();
 
-        view.setName(item.getEmail());
+                                return true;
+                            } else if (i == R.id.menuUd) {
+                                //do something
+                                return true;
+                            } else {
+                                return onMenuItemClick(menuitem);
+                            }
+                        }
+                    });
+
+                    popup.show();
+                }
+            });
+        }else{
+            options.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context,"권한이 없습니다.",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+        view.setEmail(item.getEmail());
         view.setContent(item.getContent());
         view.setImageView(item.getResId());
         view.setTogether_tv(item.getTogether());
         view.setComment_Tv(item.getComment());
+        view.setRental_spot(item.getRental_spot());
+        view.setWrting_date(item.getDate());
 
         return view;
 
@@ -140,6 +195,39 @@ public class TogetherItemAdapter extends BaseAdapter {
         rq.add(stringRequest);
 
 
+    }
+
+    private void deleteWriting(final int writing_no, final Context context){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_WRITING_DELETE_BY_WRITING_NO, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if(!obj.getBoolean("error")){
+                        Toast.makeText(context,
+                                "글이 성공적으로 삭제되었습니다.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context,
+                        error.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("writing_no",String.valueOf(writing_no));
+                return params;
+            }
+        };
+        rq.add(stringRequest);
     }
 
 

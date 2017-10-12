@@ -10,17 +10,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Login_Related.MainActivity" />
-        <activity android:name=".Login_Related.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".Profile_Tab.Home_reply.ReplyActivity" />
+        android:theme="@style/Theme.AppCompat.Light">
+        <activity
+            android:name=".Login_Related.MainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".Login_Related.LoginActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".Profile_Tab.Home_reply.ReplyActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <!-- 여기서부터 병함 -->
         <activity android:name=".Profile_Tab.MyPage_Related.MyPage_SubActivity" />
@@ -29,7 +31,15 @@
         <activity android:name=".Profile_Tab.DD119_Related.TabMenu3" />
         <activity android:name=".Profile_Tab.DD119_Related.TabMenu4" />
         <activity android:name=".Profile_Tab.DD119_Related.TabMenu5" />
-        <activity android:name=".Profile_Tab.DD119_Related.TabMenu6"></activity>
+        <activity android:name=".Profile_Tab.DD119_Related.TabMenu6" />
+        <activity android:name=".IntroActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Profile_Tab.Alarm_Related.AlarmActivity"></activity>
     </application>
 
 </manifest>
