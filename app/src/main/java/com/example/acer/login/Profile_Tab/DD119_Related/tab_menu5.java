@@ -1,23 +1,15 @@
 package com.example.acer.login.Profile_Tab.DD119_Related;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
 import com.example.acer.login.R;
 
-
-public class TabMenu1 extends AppCompatActivity {
-
+public class tab_menu5 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_menu1);
-
-
-
+        setContentView(R.layout.activity_tab_menu5);
     }
-
-
-
 }
