@@ -18,16 +18,19 @@
 
     <TextView
         android:id="@+id/textView31"
-        android:layout_width="55dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:text="@string/first"
-        android:textSize="24sp"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="분실"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="분실/파손된 부분이 어디인지" />
+        android:layout_marginStart="10dp"
+        android:text="1.자전거의 분실된 부분이 어디인지 확인합니다" />
 
 
 </LinearLayout>

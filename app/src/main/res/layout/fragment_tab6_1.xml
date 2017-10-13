@@ -18,16 +18,35 @@
 
     <TextView
         android:id="@+id/textView37"
-        android:layout_width="55dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:text="@string/first"
-        android:textSize="24sp"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/tab6contents"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textView25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="안장의 잠금장치 느슨하지 않은지?" />
+        android:layout_marginStart="15dp"
+        android:text="1.QR레버를 풉니다 \n\n2.안장을 자신의 앉은 키에 맞게 조절합니다 \n\n3.QR레버를 잠급니다. \n\nQR레버를 잠궜는데도 움직인다면 반대편에 있는 볼트를 \n조여줍니다" />
+
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="적절한 안장 높이"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="남성의 경우 \n\n한쪽발로 페달을 밟고 오른쪽 발의 반정도가 땅에 닿을 정도 \n\n여성의 경우 \n\n편안한 자세로 안장에 앉아 양쪽발의 반정도가 땅을 밟을 수 \n있을 정도" />
 
 
 </LinearLayout>
