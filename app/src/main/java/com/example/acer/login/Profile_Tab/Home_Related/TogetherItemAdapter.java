@@ -101,7 +101,7 @@ public class TogetherItemAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context.getApplicationContext(), ReplyActivity.class);
-//                intent.putExtra("email",item.getEmail());
+                intent.putExtra("email",item.getEmail());
 //                intent.putExtra("content",item.getContent());
 //                intent.putExtra("picture",item.getResId());
                 intent.putExtra("writing_no",item.getWriting_no());

@@ -42,7 +42,7 @@ public class ReplyActivity extends AppCompatActivity {
 
     RequestQueue rq;
     ReplyItemAdapter replyItemAdapter;
-    String content,date,email,writing_no_param,UserEmail_Present,rental_spot;
+    String content,date,email,emailOfWriting,writing_no_param,UserEmail_Present,rental_spot;
     int writing_no,reply_no/*,picture*/;
     EditText editTextReply;
 //    TextView textViewEmail, textViewContent;
@@ -79,7 +79,7 @@ public class ReplyActivity extends AppCompatActivity {
         UserEmail_Present = SharedPrefManager.getInstance(this).getUserEmail();
         Intent intent = getIntent();
 
-//        email = String.valueOf(intent.getExtras().get("email"));
+        emailOfWriting = String.valueOf(intent.getExtras().get("email"));
 //        content = String.valueOf(intent.getExtras().get("content"));
 //        picture = (int)intent.getExtras().get("picture");
         writing_no_param = String.valueOf(intent.getExtras().get("writing_no"));
@@ -125,7 +125,7 @@ public class ReplyActivity extends AppCompatActivity {
                 String cur_date = dayTime.format(new Date(time));//9시간 느린문제 해결해야됨
 
 
-                int param_reply_no = insertContentToReply(Reply_Content,UserEmail_Present,writing_no_param);
+                int param_reply_no = insertContentToReply(Reply_Content,UserEmail_Present,writing_no_param,emailOfWriting);
                 int writing_no = Integer.parseInt(writing_no_param);
 
 
@@ -194,7 +194,7 @@ public class ReplyActivity extends AppCompatActivity {
         rq.add(stringRequest);
     }
 
-    public int insertContentToReply(final String Reply_Content, final String shared_email, final String writing_no_param){
+    public int insertContentToReply(final String Reply_Content, final String shared_email, final String writing_no_param,final String emailOfWriting){
         final int[] reply_no = {0};
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REPLY_WRITECONTENT, new Listener<String>() {
             @Override
@@ -225,6 +225,7 @@ public class ReplyActivity extends AppCompatActivity {
                 params.put("writing_no",writing_no_param);
                 params.put("content",Reply_Content);
                 params.put("email",shared_email);
+                params.put("emailOfWriting",emailOfWriting);
                 return params;
             }
         };
