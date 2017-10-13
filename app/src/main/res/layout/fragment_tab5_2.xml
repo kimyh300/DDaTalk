@@ -5,40 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.acer.login.Profile_Tab.DD119_Related.tab_menu2">
+    tools:context="com.example.acer.login.Profile_Tab.DD119_Related.Tab5">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView13"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginLeft="150dp"
         android:layout_marginRight="150dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/accident" />
+        android:background="@drawable/tire_chain" />
+
+
 
     <TextView
-        android:id="@+id/textView29"
-        android:layout_width="55dp"
-        android:layout_height="45dp"
-        android:text="@string/first"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="주변에 차/자전거가 다니지 않는 안전한 곳으로 이동" />
-
-    <TextView
-        android:id="@+id/textView30"
+        android:id="@+id/textView36"
         android:layout_width="55dp"
         android:layout_height="45dp"
         android:text="@string/second"
-        android:textSize="24sp" />
+        android:textSize="24sp"/>
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/textView24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="자신과 상대방의 상태를 확인한다" />
+        android:text="체인이 풀려있지 않은지?" />
 </LinearLayout>

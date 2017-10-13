@@ -34,12 +34,30 @@
             </intent-filter>
         </activity>
         <activity android:name=".Profile_Tab.Alarm_Related.AlarmActivity" />
-        <activity android:name=".Profile_Tab.DD119_Related.tab_menu1" />
-        <activity android:name=".Profile_Tab.DD119_Related.tab_menu2" />
-        <activity android:name=".Profile_Tab.DD119_Related.tab_menu3" />
-        <activity android:name=".Profile_Tab.DD119_Related.tab_menu4" />
-        <activity android:name=".Profile_Tab.DD119_Related.tab_menu5" />
-        <activity android:name=".Profile_Tab.DD119_Related.tab_menu6"></activity>
+        <activity
+            android:name=".Profile_Tab.DD119_Related.Tab1"
+            android:label="@string/title_activity_tab1"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Profile_Tab.DD119_Related.Tab2"
+            android:label="@string/title_activity_tab2"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Profile_Tab.DD119_Related.Tab3"
+            android:label="@string/title_activity_tab3"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Profile_Tab.DD119_Related.Tab4"
+            android:label="@string/title_activity_tab4"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Profile_Tab.DD119_Related.Tab5"
+            android:label="@string/title_activity_tab5"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Profile_Tab.DD119_Related.Tab6"
+            android:label="@string/title_activity_tab6"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

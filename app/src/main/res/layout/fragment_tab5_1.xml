@@ -5,41 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.acer.login.Profile_Tab.DD119_Related.tab_menu1">
+    tools:context="com.example.acer.login.Profile_Tab.DD119_Related.Tab5">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView13"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginLeft="150dp"
         android:layout_marginRight="150dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/notice" />
+        android:background="@drawable/tire_chain" />
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/textView35"
         android:layout_width="55dp"
         android:layout_height="45dp"
         android:text="@string/first"
-        android:textSize="24sp" />
+        android:textSize="24sp"/>
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/textView23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="기본적인 안전장비를 착용" />
+        android:text="타이어의 바람은 충분한지?" />
 
-    <TextView
-        android:id="@+id/textView28"
-        android:layout_width="55dp"
-        android:layout_height="45dp"
-        android:text="@string/second"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="자전거의 상태를 확인" />
 
 </LinearLayout>

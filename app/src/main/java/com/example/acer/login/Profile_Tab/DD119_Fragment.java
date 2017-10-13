@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.example.acer.login.Profile_Tab.DD119_Related.tab_menu1;
-import com.example.acer.login.Profile_Tab.DD119_Related.tab_menu2;
-import com.example.acer.login.Profile_Tab.DD119_Related.tab_menu3;
-import com.example.acer.login.Profile_Tab.DD119_Related.tab_menu4;
-import com.example.acer.login.Profile_Tab.DD119_Related.tab_menu5;
-import com.example.acer.login.Profile_Tab.DD119_Related.tab_menu6;
+import com.example.acer.login.Profile_Tab.DD119_Related.Tab1;
+import com.example.acer.login.Profile_Tab.DD119_Related.Tab2;
+import com.example.acer.login.Profile_Tab.DD119_Related.Tab3;
+import com.example.acer.login.Profile_Tab.DD119_Related.Tab4;
+import com.example.acer.login.Profile_Tab.DD119_Related.Tab5;
+import com.example.acer.login.Profile_Tab.DD119_Related.Tab6;
 import com.example.acer.login.R;
 
 public class DD119_Fragment extends Fragment{
@@ -30,7 +30,7 @@ public class DD119_Fragment extends Fragment{
         notice_btn.setOnClickListener(new Button.OnClickListener() {
                                         public void onClick(View v) {
                                             Intent intent = new Intent(getActivity().getApplication(),
-                                                    tab_menu1.class);
+                                                    Tab1.class);
                                             startActivity(intent);
 
                                         }
@@ -42,7 +42,7 @@ public class DD119_Fragment extends Fragment{
         accident_btn.setOnClickListener(new Button.OnClickListener() {
                                           public void onClick(View v) {
                                               Intent intent = new Intent(getActivity().getApplication(),
-                                                      tab_menu2.class);
+                                                      Tab2.class);
                                               startActivity(intent);
 
                                           }
@@ -53,7 +53,7 @@ public class DD119_Fragment extends Fragment{
         lost_damage_btn.setOnClickListener(new Button.OnClickListener() {
                                           public void onClick(View v) {
                                               Intent intent = new Intent(getActivity().getApplication(),
-                                                      tab_menu3.class);
+                                                      Tab3.class);
                                               startActivity(intent);
 
                                           }
@@ -64,7 +64,7 @@ public class DD119_Fragment extends Fragment{
         break_handle_btn.setOnClickListener(new Button.OnClickListener() {
                                           public void onClick(View v) {
                                               Intent intent = new Intent(getActivity().getApplication(),
-                                                      tab_menu4.class);
+                                                      Tab4.class);
                                               startActivity(intent);
 
                                           }
@@ -75,7 +75,7 @@ public class DD119_Fragment extends Fragment{
         tire_chain_btn.setOnClickListener(new Button.OnClickListener() {
                                           public void onClick(View v) {
                                               Intent intent = new Intent(getActivity().getApplication(),
-                                                      tab_menu5.class);
+                                                      Tab5.class);
                                               startActivity(intent);
 
                                           }
@@ -87,7 +87,7 @@ public class DD119_Fragment extends Fragment{
         saddle_btn.setOnClickListener(new Button.OnClickListener() {
                                           public void onClick(View v) {
                                               Intent intent = new Intent(getActivity().getApplication(),
-                                                      tab_menu6.class);
+                                                      Tab6.class);
                                               startActivity(intent);
 
                                           }
