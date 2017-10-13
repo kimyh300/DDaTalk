@@ -17,19 +17,29 @@
         android:background="@drawable/notice" />
 
 
-
     <TextView
         android:id="@+id/textView28"
-        android:layout_width="55dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:text="@string/second"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="자전거 이용시 팁"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="자전거의 상태를 확인" />
+        android:layout_marginStart="15dp"
+        android:text="지하철 이용수칙 \n\n1.전동차의 맨 앞칸, 맨 뒷칸만 이용 가능합니다 \n\n2.역구내, 전동차 내에서 자전거 탑승 이동 금지 \n\n3.자전거 휴대 상태로 엘리베이터, 에스컬레이터 이용 금지" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:text="라이딩 팁 \n\n1.횡단보도를 이용할 때에는 자전거를 끌고 보행합니다 \n\n2.교차로에서 좌회전을 할 경우, 미리 도로 우측 가장자리에 \n   붙어 서행하면서 교차로 가장자리로 좌회전합니다" />
 
 </LinearLayout>
 

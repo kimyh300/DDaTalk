@@ -17,17 +17,19 @@
         android:background="@drawable/tire_chain" />
 
 
-
     <TextView
         android:id="@+id/textView36"
-        android:layout_width="55dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:text="@string/second"
-        android:textSize="24sp"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="체인"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textView24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:text="체인이 풀려있지 않은지?" />
 </LinearLayout>

@@ -17,11 +17,12 @@
         android:background="@drawable/accident" />
 
 
-
     <TextView
         android:id="@+id/textView30"
-        android:layout_width="55dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:text="@string/second"
         android:textSize="24sp" />
 
@@ -29,5 +30,6 @@
         android:id="@+id/textView18"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:text="자신과 상대방의 상태를 확인한다" />
 </LinearLayout>

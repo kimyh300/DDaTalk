@@ -138,7 +138,9 @@ public class Tab3 extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "첫째";
+                case 1:
+                    return "둘째";
 
             }
             return null;
