@@ -92,7 +92,8 @@ public class TogetherItemAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 int writing_no = item.getWriting_no();
-                checkToWithButton(writing_no,context,sharedPrefManager,item,finalView);
+                String emailOfWriting = item.getEmail();
+                checkToWithButton(writing_no,context,sharedPrefManager,item,finalView,emailOfWriting);
                 Toast.makeText(context,"함께타요 버튼이 눌렸습니다.",Toast.LENGTH_SHORT).show();
             }
         });
@@ -158,7 +159,8 @@ public class TogetherItemAdapter extends BaseAdapter {
 
     }
 
-    private void checkToWithButton(int writing_no, Context context, SharedPrefManager sharedPrefManager, final TogetherItem item,final TogetherItemView togetherItemView){
+    private void checkToWithButton(int writing_no, Context context, SharedPrefManager sharedPrefManager, final TogetherItem item,final TogetherItemView togetherItemView,
+                                   final String emailOfWriting){
         final String post_email = sharedPrefManager.getInstance(context).getUserEmail();
         final int post_writing_no = writing_no;
         final StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_ISCHECKED_WITH, new Response.Listener<String>() {
@@ -189,6 +191,7 @@ public class TogetherItemAdapter extends BaseAdapter {
                 Map<String,String> params = new HashMap<>();
                 params.put("email",post_email);
                 params.put("writing_no",String.valueOf(post_writing_no));
+                params.put("emailOfWriting",emailOfWriting);
                 return params;
             }
         };
