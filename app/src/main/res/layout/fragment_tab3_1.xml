@@ -5,40 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.acer.login.Profile_Tab.DD119_Related.tab_menu5">
+    tools:context="com.example.acer.login.Profile_Tab.DD119_Related.Tab3">
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textView6"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginLeft="150dp"
         android:layout_marginRight="150dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/tire_chain" />
+        android:background="@drawable/lost_damage" />
 
     <TextView
-        android:id="@+id/textView35"
+        android:id="@+id/textView31"
         android:layout_width="55dp"
         android:layout_height="45dp"
         android:text="@string/first"
         android:textSize="24sp"/>
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/textView19"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="타이어의 바람은 충분한지?" />
+        android:text="분실/파손된 부분이 어디인지" />
 
-    <TextView
-        android:id="@+id/textView36"
-        android:layout_width="55dp"
-        android:layout_height="45dp"
-        android:text="@string/second"
-        android:textSize="24sp"/>
 
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="체인이 풀려있지 않은지?" />
 </LinearLayout>

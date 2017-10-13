@@ -5,40 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.acer.login.Profile_Tab.DD119_Related.tab_menu6">
+    tools:context="com.example.acer.login.Profile_Tab.DD119_Related.Tab2">
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/textView4"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginLeft="150dp"
         android:layout_marginRight="150dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/saddle" />
+        android:background="@drawable/accident" />
+
+
 
     <TextView
-        android:id="@+id/textView37"
-        android:layout_width="55dp"
-        android:layout_height="45dp"
-        android:text="@string/first"
-        android:textSize="24sp"/>
-
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="안장의 잠금장치 느슨하지 않은지?" />
-
-    <TextView
-        android:id="@+id/textView38"
+        android:id="@+id/textView30"
         android:layout_width="55dp"
         android:layout_height="45dp"
         android:text="@string/second"
-        android:textSize="24sp"/>
+        android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/textView18"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="자기 키에 맞게 높이조절하기" />
+        android:text="자신과 상대방의 상태를 확인한다" />
 </LinearLayout>

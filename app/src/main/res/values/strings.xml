@@ -100,6 +100,12 @@
     <string name="writing_delete_menu">삭제</string>
     <string name="reply_time">작성시간</string>
     <string name="reply_rental_spot">대여소장소</string>
+    <string name="title_activity_tab1">Tab1</string>
+    <string name="title_activity_tab2">Tab2</string>
+    <string name="title_activity_tab3">Tab3</string>
+    <string name="title_activity_tab4">Tab4</string>
+    <string name="title_activity_tab5">Tab5</string>
+    <string name="title_activity_tab6">Tab6</string>
 
 
 </resources>
