@@ -2,6 +2,8 @@ package com.example.acer.login.Profile_Tab.Alarm_Related;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -93,6 +95,14 @@ public class AlarmActivity extends AppCompatActivity {
                 }
         };
         rq.add(stringRequest);
+
+        Button buttonExit = (Button)findViewById(R.id.buttonExit);
+        buttonExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 }

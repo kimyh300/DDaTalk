@@ -106,6 +106,7 @@
     <string name="title_activity_tab4">Tab4</string>
     <string name="title_activity_tab5">Tab5</string>
     <string name="title_activity_tab6">Tab6</string>
+    <string name="alarm_textView">알림판</string>
 
 
 </resources>

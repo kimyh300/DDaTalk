@@ -6,7 +6,35 @@
     android:orientation="vertical"
     tools:context="com.example.acer.login.Profile_Tab.Alarm_Related.AlarmActivity">
 
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonExit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/exit"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/textViewAlarm"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/alarm_textView"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
     <ListView
+        android:layout_marginTop="5dp"
         android:id="@+id/listViewAlarm"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

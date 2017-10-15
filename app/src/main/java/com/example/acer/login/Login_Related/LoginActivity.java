@@ -150,7 +150,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if(v == buttonLogin){
-            userLogin();
+            if (editTextEmail.getText().toString().equals("")) {
+                Toast.makeText(getApplicationContext(),"email 을 입력하세요!",Toast.LENGTH_LONG).show();
+            }else{
+                if(editTextPassword.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"비밀번호를 입력하세요!",Toast.LENGTH_LONG).show();
+                }else{
+                    userLogin();
+                }
+
+            }
+
         }
         if( v == textViewJoin){
             startActivity(new Intent(this, MainActivity.class));
