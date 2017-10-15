@@ -87,6 +87,7 @@ public class TogetherItemAdapter extends BaseAdapter {
         }
         final TogetherItemView finalView = view;
         final TogetherItem item = items.get(position);
+
         Button together_button = (Button)view.findViewById(R.id.together_button);
         together_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +113,7 @@ public class TogetherItemAdapter extends BaseAdapter {
                 Toast.makeText(context,"댓글달기 버튼이 눌렸습니다.",Toast.LENGTH_SHORT).show();
             }
         });
+
         final Button options = (Button)view.findViewById(R.id.options);
         if(item.getEmail().equals(sharedPrefManager.getUserEmail())) {
             options.setOnClickListener(new View.OnClickListener() {

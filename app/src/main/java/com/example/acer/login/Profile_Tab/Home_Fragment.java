@@ -32,6 +32,7 @@ import org.json.JSONObject;
 
 public class Home_Fragment extends Fragment {
 
+
     RequestQueue rq;
     String content, date, email,rental_spot;
     int reply_cnt, with_cnt, writing_no;
@@ -77,8 +78,11 @@ public class Home_Fragment extends Fragment {
                         writing_no = obj.getInt("writing_no");
                         rental_spot = obj.getString("rental_spot");
                         Writing w = new Writing(content, reply_cnt, with_cnt, date, writing_no, email,rental_spot);
-                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(), w.getEmail(), w.getContent(),w.getDate(), R.drawable.user,
-                                w.getWith_cnt(), w.getReply_cnt(),w.getRental_spot());
+
+
+                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(), w.getEmail(), w.getContent(), w.getDate(), R.drawable.user,
+                                w.getWith_cnt(), w.getReply_cnt(), w.getRental_spot());
+
                         adapter.addItem(togetherItem);
                         together2.setAdapter(adapter);
                     } catch (JSONException e) {
