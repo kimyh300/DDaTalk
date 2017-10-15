@@ -22,13 +22,14 @@
 
         <TextView
             android:id="@+id/textViewAlarm"
-            android:layout_marginRight="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:text="@string/alarm_textView"
             android:textAlignment="center"
+            android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="@string/alarm_textView"
             tools:ignore="RtlHardcoded" />
 
     </LinearLayout>

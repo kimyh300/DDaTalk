@@ -153,11 +153,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (editTextEmail.getText().toString().equals("")) {
                 Toast.makeText(getApplicationContext(),"email 을 입력하세요!",Toast.LENGTH_LONG).show();
             }else{
-                if(editTextPassword.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(),"비밀번호를 입력하세요!",Toast.LENGTH_LONG).show();
+                if(editTextEmail.getText().toString().matches("^[_a-zA-Z0-9-.]+@[.a-zA-Z0-9-]+\\.[a-zA-Z]+$")){
+                    if(editTextPassword.getText().toString().equals("")){
+                        Toast.makeText(getApplicationContext(),"비밀번호를 입력하세요!",Toast.LENGTH_LONG).show();
+                    }else{
+                        userLogin();
+                    }
                 }else{
-                    userLogin();
+                    Toast.makeText(getApplicationContext(),"email 형식이 이상합니다!",Toast.LENGTH_LONG).show();
                 }
+
 
             }
 

@@ -1,6 +1,5 @@
 package com.example.acer.login.Login_Related;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText editTextUsername, editTextEmail, editTextBirth,editTextPassword, editTextPasswordCheck;
     private Button buttonRegister;
-    private ProgressDialog progressDialog;
 
     public void finishToLogin(){
         Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
@@ -66,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
 
-        progressDialog = new ProgressDialog(this);
-
         buttonRegister.setOnClickListener(this);
 
     }
@@ -78,14 +74,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final String password = editTextPassword.getText().toString().trim();
         final String birthday = editTextBirth.getText().toString().trim();
 
-        progressDialog.setMessage("Registering user...");
-        progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_REGISTER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         Log.d("메세지",response);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -100,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        progressDialog.hide();
+//                        progressDialog.hide();
                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
@@ -116,8 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        requestQueue.add(stringRequest);
     }
 
     @Override
@@ -131,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(email.equals("")){
                 Toast.makeText(getApplicationContext(),"이메일을 입력해주세요!!",Toast.LENGTH_LONG).show();
             }else {
-                if(email.matches("^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$")){
+                if(email.matches("^[_a-zA-Z0-9-.]+@[.a-zA-Z0-9-]+\\.[a-zA-Z]+$")){
                     if (password.equals("")) {
                         Toast.makeText(getApplicationContext(),"비밀번호를 입력해주세요!!",Toast.LENGTH_LONG).show();
                     }else {
