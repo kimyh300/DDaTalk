@@ -87,7 +87,7 @@ public class Write_Fragment extends Fragment{
         InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(rootView.getWindowToken(),0);
 
-        //x버튼 클릭시 이벤트 처리 만들어놈
+        //x버튼 클릭시 이벤트 처리
         x_mark = (ImageButton)rootView.findViewById(R.id.x_Button);
 
         x_mark.setOnClickListener(new View.OnClickListener() {
@@ -197,9 +197,12 @@ public class Write_Fragment extends Fragment{
                 gu_chk = gu.getText().length();
                 spot_chk = spot.getText().length();
 
-                if(content_chk<=0 || gu_chk<=0 || spot_chk<=0){
+                if(content_chk<=0){
                     Toast.makeText(rootView.getContext(), "내용을 입력해주세요!", Toast.LENGTH_LONG).show();
 
+                }
+                else if(gu_chk<=0 || spot_chk<=0){
+                    Toast.makeText(rootView.getContext(), "함께타요 장소선택을 해주세요!", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
