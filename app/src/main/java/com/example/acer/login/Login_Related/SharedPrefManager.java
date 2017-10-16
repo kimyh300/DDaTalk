@@ -16,6 +16,7 @@ public class SharedPrefManager {
     private static final String KEY_USER_LEVEL = "userlevel";
     private static final String KEY_USER_VERIFIED = "userverify";
     private static final String KEY_TOGETHER_SWITCH = "userWith_cntisChecked";
+    private static final String KEY_USER_IMG = "userImg";
 
 
     private SharedPrefManager(Context context) {
@@ -29,7 +30,7 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public boolean userLogin(String email,String name,String birthday,String exp, String level,String verify ){
+    public boolean userLogin(String email,String name,String birthday,String exp, String level,String verify, String userimg ){
 
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -40,6 +41,7 @@ public class SharedPrefManager {
         editor.putString(KEY_USER_EXP,exp);
         editor.putString(KEY_USER_LEVEL,level);
         editor.putString(KEY_USER_VERIFIED,verify);
+        editor.putString(KEY_USER_IMG, userimg);
 
         editor.apply();
 
@@ -61,6 +63,8 @@ public class SharedPrefManager {
         editor.apply();
         return true;
     }
+
+
 
     public String getUserBirthday(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -87,6 +91,11 @@ public class SharedPrefManager {
     public String getUserLevel(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_USER_LEVEL,null);
+    }
+
+    public String getKeyUserImg(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_USER_IMG,null);
     }
 
 }
