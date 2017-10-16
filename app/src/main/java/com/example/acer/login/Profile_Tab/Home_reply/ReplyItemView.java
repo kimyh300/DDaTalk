@@ -31,7 +31,7 @@ public class ReplyItemView extends LinearLayout {
         textViewEmail = (TextView)findViewById(R.id.textViewEmail);
         textViewContent = (TextView)findViewById(R.id.textViewContent);
         textViewTime = (TextView)findViewById(R.id.textViewTime);
-        imageView = (ImageView)findViewById(R.id.imageView);
+        imageView = (ImageView)findViewById(R.id.user_profile);
 
 
     }

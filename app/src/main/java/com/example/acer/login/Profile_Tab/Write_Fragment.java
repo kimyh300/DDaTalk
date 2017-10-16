@@ -46,7 +46,6 @@ public class Write_Fragment extends Fragment{
     EditText Content = null;
     TextView spot, gu = null;
 
-    boolean content_chk = false;
 
     ImageButton x_mark;
 

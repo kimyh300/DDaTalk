@@ -102,7 +102,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             obj.getString("birthday"),
                                             obj.getString("exp"),
                                             obj.getString("level"),
-                                            obj.getString("Verify"));
+                                            obj.getString("Verify"),
+                                            obj.getString("userimg")
+                                    );
+
 
 
                                     Toast.makeText(getApplicationContext(),

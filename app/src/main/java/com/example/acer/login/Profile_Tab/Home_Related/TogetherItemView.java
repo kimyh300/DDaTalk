@@ -36,7 +36,7 @@ public class TogetherItemView extends LinearLayout {
         textView = (TextView)findViewById(R.id.textView);
         spot_View = (TextView)findViewById(R.id.spot_View);
         textView2 = (TextView)findViewById(R.id.textView2);
-        imageView = (ImageView)findViewById(R.id.imageView);
+        imageView = (ImageView)findViewById(R.id.user_profile);
         together_tv = (TextView)findViewById(R.id.together_tv);
         comment_tv = (TextView)findViewById(R.id.comment_tv);
         wrting_date = (TextView)findViewById(R.id.writing_date);

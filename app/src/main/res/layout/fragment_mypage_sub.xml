@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--xmlns:tools="http://schemas.android.com/tools"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-<!--tools:context="com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_SubActivity">-->
-
-
-
-<!--</LinearLayout>-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1"
-    tools:context="com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_SubActivity">
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +20,7 @@
         tools:ignore="InefficientWeight,UseCompoundDrawables">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/user_profile"
             android:layout_width="59dp"
             android:layout_height="59dp"
             android:layout_gravity="center_horizontal"
@@ -48,6 +37,7 @@
             android:layout_marginTop="9.67dp"
             android:layout_weight="0"
             android:contentDescription="@string/profile_name"
+            android:gravity="center_horizontal"
             android:text="@string/profile_example"
             tools:ignore="InefficientWeight,NestedWeights" />
 
@@ -203,7 +193,24 @@
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/out"
                 tools:ignore="RtlHardcoded" />
+
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="0.45"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/back" />
     </LinearLayout>
 
 

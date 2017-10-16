@@ -2,13 +2,19 @@ package com.example.acer.login.Profile_Tab;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -26,13 +32,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.Home_Related.Writing;
-import com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_SubActivity;
+import com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_Fragment_Sub;
 import com.example.acer.login.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,7 +60,7 @@ public class MyPage_Fragment extends Fragment{
 
     ArrayList<HashMap<String, String>> mArrayList;
 
-    ImageView imageView;
+    ImageView imageView, user_profile;
     ImageButton mimageButton;
 
     TextView textView;
@@ -61,7 +68,7 @@ public class MyPage_Fragment extends Fragment{
     ProgressDialog progressDialog;
     RequestQueue requestQueue;
 
-    String username, userbirth, useremail;
+    String username, userbirth, useremail, user_imagePath;
 
     @Nullable
     @Override
@@ -73,6 +80,7 @@ public class MyPage_Fragment extends Fragment{
         writingList = new ArrayList<>();
         mArrayList = new ArrayList<>();
 
+        user_profile = (ImageView)rootView.findViewById(R.id.user_profile);
         imageView = (ImageView) rootView.findViewById(R.id.imageView4);
         mimageButton = (ImageButton) rootView.findViewById(R.id.imageButton11);
 
@@ -81,28 +89,62 @@ public class MyPage_Fragment extends Fragment{
         requestQueue = Volley.newRequestQueue(rootView.getContext());
         progressDialog = new ProgressDialog(rootView.getContext());
 
+        user_imagePath = SharedPrefManager.getInstance(getActivity().getApplication()).getKeyUserImg();
         username = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUsername();
         userbirth = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserBirthday();
         useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
+
+        //이미지 셋팅
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(user_imagePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (exif != null) {
+            int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            int exifDegree = exifOrientationToDegrees(exifOrientation);
+
+            Bitmap bitmap = BitmapFactory.decodeFile(user_imagePath);//경로를 통해 비트맵으로 전환
+
+            try {
+                user_profile.setImageBitmap(rotate(bitmap, exifDegree));
+            }//이미지 뷰에 비트맵 넣기
+            catch (Exception e) {
+                Toast.makeText(getActivity().getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+            }
+        }
+
+
 
         textView.setText(username);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity().getApplication(), MyPage_SubActivity.class);
-                i.putExtra("name_key",username);
-                i.putExtra("birthday_key",userbirth);
-                i.putExtra("email_key",useremail);
-                startActivity(i);
+
+                Fragment mypage_sub = new MyPage_Fragment_Sub();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, mypage_sub);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
+
             }
         });
 
         mimageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity().getApplication(), Write_Fragment.class);
-                startActivity(i);
+                Fragment writeFrag = new Write_Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, writeFrag);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
             }
         });
 
@@ -191,6 +233,29 @@ public class MyPage_Fragment extends Fragment{
 
 
         return rootView;
+    }
+
+    public Bitmap rotate(Bitmap src, float degree) {
+
+        // Matrix 객체 생성
+        Matrix matrix = new Matrix();
+        // 회전 각도 셋팅
+        matrix.postRotate(degree);
+        // 이미지와 Matrix 를 셋팅해서 Bitmap 객체 생성
+        return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
+                src.getHeight(), matrix, true);
+    }
+
+
+    public int exifOrientationToDegrees(int exifOrientation) {
+        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            return 90;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            return 180;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            return 270;
+        }
+        return 0;
     }
 
 }

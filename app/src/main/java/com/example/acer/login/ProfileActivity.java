@@ -32,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
     MyPage_Fragment myPageFragment;
     FindSpot_Fragment spotFragment;
 
+
     @Override
     protected void onResume() {
         super.onResume();
