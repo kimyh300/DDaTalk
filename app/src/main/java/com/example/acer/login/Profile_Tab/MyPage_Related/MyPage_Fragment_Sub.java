@@ -2,25 +2,23 @@ package com.example.acer.login.Profile_Tab.MyPage_Related;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,103 +27,90 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.acer.login.BuildConfig;
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.MyPage_Fragment;
 import com.example.acer.login.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
 public class MyPage_Fragment_Sub extends Fragment {
 
+    private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+
+    private static final int PICK_FROM_CAMERA = 0;
+    private static final int PICK_FROM_ALBUM = 1;
+    private static final int CROP_FROM_IMAGE = 2;
+
+    private static final int MULTIPLE_PERMISSIONS = 101;
+
+    private Uri mImageCaptureUri;
     TextView nameView,mtextView1, mtextView2, mtextView3;
-    String name, birthday, email, user_imagePath;
+    String name, birthday, email, absolutepath;
+
     String HttpUrl = "http://104.198.211.126/insertUserimgUri.php";
     String httpUrl2 = "http://104.198.211.126/getUserimgUri.php";
+
     ImageView user_profile;
+    ImageButton photo_btn;
 
     ProgressDialog progressDialog;
     RequestQueue requestQueue, queue;
 
-    private static final int PICK_FROM_CAMERA = 0;
-    private static final int PICK_FROM_ALBUM = 1;
-    //private static final int PICK_FROM_IMAGE = 2;
-
-    private static final int REQUEST_CAMERA = 1;
-    private static final int REQUEST_EXTERNAL_STORAGE = 2;
-
-
-
     @Nullable
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        checkPermissions();
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_mypage_sub, container, false);
+
 
         //발리 준비작업
         requestQueue = Volley.newRequestQueue(rootView.getContext());
         queue = Volley.newRequestQueue(rootView.getContext());
         progressDialog = new ProgressDialog(rootView.getContext());
 
-
+        photo_btn = (ImageButton)rootView.findViewById(R.id.photoButton);
         nameView = (TextView)rootView.findViewById(R.id.textView);
         mtextView1 = (TextView)rootView.findViewById(R.id.textView7);
         mtextView2 = (TextView)rootView.findViewById(R.id.textView9);
         mtextView3 = (TextView)rootView.findViewById(R.id.textView11);
-
         user_profile = (ImageView)rootView.findViewById(R.id.user_profile);
 
-        user_imagePath = SharedPrefManager.getInstance(getActivity().getApplication()).getKeyUserImg();
         name = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUsername();
         birthday = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserBirthday();
         email = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
 
-        //이미지 셋팅
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(user_imagePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (exif != null) {
-            int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-            int exifDegree = exifOrientationToDegrees(exifOrientation);
-
-            Bitmap bitmap = BitmapFactory.decodeFile(user_imagePath);//경로를 통해 비트맵으로 전환
-
-            try {
-                user_profile.setImageBitmap(rotate(bitmap, exifDegree));
-            }//이미지 뷰에 비트맵 넣기
-            catch (Exception e) {
-                Toast.makeText(getActivity().getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-            }
-        }
 
         nameView.setText(name);
         mtextView1.setText(name);
         mtextView2.setText(birthday);
         mtextView3.setText(email);
 
-
         ImageButton back_btn = (ImageButton)rootView.findViewById(R.id.back_btn);
         ImageButton deleteButton = (ImageButton)rootView.findViewById(R.id.deleteButton);
         ImageButton logoutButton = (ImageButton)rootView.findViewById(R.id.logoutButton);
         ImageButton photoButton = (ImageButton)rootView.findViewById(R.id.photoButton);
 
+        //뒤로가기
         back_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -136,6 +121,41 @@ public class MyPage_Fragment_Sub extends Fragment {
                 transaction.commit();
             }
 
+        });
+
+
+        //카메라 버튼 누르면
+        photoButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        doTakePhotoAction();
+                    }
+                };
+
+                DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        doTakeAlbumAction();
+                    }
+                };
+
+                DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                };
+                new AlertDialog.Builder(getContext())
+                        .setTitle("업로드할 이미지 선택")
+                        .setPositiveButton("사진촬영", cameraListener)
+                        .setNeutralButton("앨범선택",albumListener)
+                        .setNegativeButton("취소",cancelListener)
+                        .show();
+            }
         });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -155,117 +175,56 @@ public class MyPage_Fragment_Sub extends Fragment {
             }
         });
 
-        photoButton.setOnClickListener(new View.OnClickListener() {
 
-
-
-            @Override
-            public void onClick(View v) {
-                int permissionReadStorage = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
-                int permissionWriteStorage = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                if(permissionReadStorage == PackageManager.PERMISSION_DENIED || permissionWriteStorage == PackageManager.PERMISSION_DENIED) {
-                    ActivityCompat.requestPermissions((Activity) getActivity().getApplicationContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE);
-                }
-
-
-                DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        int permissionCamera = ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.CAMERA);
-                        if(permissionCamera == PackageManager.PERMISSION_DENIED) {
-                            ActivityCompat.requestPermissions((Activity) getActivity().getApplicationContext(), new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
-                        }
-
-                        doTakePhotoAction();
-                    }
-                };
-
-                DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        doTakeAlbumAction();
-                    }
-                };
-
-                DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                };
-
-                new AlertDialog.Builder(getContext())
-                        .setTitle("업로드할 이미지 선택")
-                        .setPositiveButton("사진촬영", cameraListener)
-                        .setNeutralButton("앨범선택", albumListener)
-                        .setNegativeButton("취소", cancelListener)
-                        .show();
-            }
-        });
 
 
         return rootView;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_CAMERA:
-                for (int i = 0; i < permissions.length; i++) {
-                    String permission = permissions[i];
-                    int grantResult = grantResults[i];
-                    if (permission.equals(Manifest.permission.CAMERA)) {
-                        if(grantResult == PackageManager.PERMISSION_GRANTED) {
-                            //resultText.setText("camera permission authorized");
-                        } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "camera permission denied", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }
-                break;
-            case REQUEST_EXTERNAL_STORAGE:
-                for (int i = 0; i < permissions.length; i++) {
-                    String permission = permissions[i];
-                    int grantResult = grantResults[i];
-                    if (permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                        if(grantResult == PackageManager.PERMISSION_GRANTED) {
-                            Toast.makeText(getActivity().getApplicationContext(), "read/write storage permission authorized", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "read/write storage permission denied", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }
-                break;
-        }
-    }
 
-
-    public void doTakePhotoAction() {
+    public void doTakePhotoAction()
+    {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        /*String url = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
-        mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
+        File photoFile = null;
 
-        intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);*/
+        try {
+            photoFile = createImageFile();
+        } catch (IOException e) {
+            Toast.makeText(getActivity().getApplicationContext(), "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+        }
 
-        startActivityForResult(intent, PICK_FROM_CAMERA);
+        if (photoFile != null) {
+            mImageCaptureUri = FileProvider.getUriForFile(getActivity().getApplicationContext(),BuildConfig.APPLICATION_ID+".provider", photoFile);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageCaptureUri); //사진을 찍어 해당 Content uri를 photoUri에 적용시키기 위함
+            startActivityForResult(intent, PICK_FROM_CAMERA);
+        }
+
     }
 
-    public void doTakeAlbumAction() {
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("HHmmss").format(new Date());
+        String imageFileName = "IP" + timeStamp + "_";
+        File storageDir = new File(Environment.getExternalStorageDirectory() + "/test/"); //test라는 경로에 이미지를 저장하기 위함
+        if (!storageDir.exists()) {
+            storageDir.mkdirs();
+        }
+        File image = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir
+        );
+        return image;
+    }
 
+    public void doTakeAlbumAction()
+    {
         Intent intent = new Intent(Intent.ACTION_PICK);
-        //intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*");
-        //startActivityForResult(intent, PICK_FROM_ALBUM);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_FROM_ALBUM);
-
+        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+        startActivityForResult(intent, PICK_FROM_ALBUM);
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -274,157 +233,136 @@ public class MyPage_Fragment_Sub extends Fragment {
         if(resultCode != RESULT_OK)
             return;
 
-        switch (requestCode) {
-            case PICK_FROM_ALBUM: {
-                /*mImageCaptureUri = data.getData();
-                Log.d("SmartWheel", mImageCaptureUri.getPath().toString());*/
-                try{
-                    SendPicture(data);
+        switch (requestCode)
+        {
+            case PICK_FROM_ALBUM:
+            {
+                    try{
+                    mImageCaptureUri = data.getData();
+                    Log.d("smartWheel", mImageCaptureUri.getPath().toString());
+                        }
+                        catch (Exception e) { Toast.makeText(getActivity().getApplicationContext(), "앨범선택시에러", Toast.LENGTH_LONG).show();}
+
+            }
+            case PICK_FROM_CAMERA:
+            {
+
+                Intent intent = new Intent("com.android.camera.action.CROP");
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setDataAndType(mImageCaptureUri, "image/*");
+                intent.putExtra("outputX",200);
+                intent.putExtra("outputY",200);
+                intent.putExtra("aspectX",1);
+                intent.putExtra("aspectY",1);
+                intent.putExtra("scale",true);
+                intent.putExtra("return-data",true);
+                startActivityForResult(intent, CROP_FROM_IMAGE);
+                break;
+            }
+            case CROP_FROM_IMAGE:
+            {
+                if(resultCode != RESULT_OK)
+                {
+                    return;
                 }
-                catch (Exception e) { Toast.makeText(getActivity().getApplicationContext(), "얘아니네", Toast.LENGTH_LONG).show();}
+                final Bundle extras = data.getExtras();
+                //crop된 이미지를 저장하기 위한 file경로
+                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"SmartWheel/"+System.currentTimeMillis()+".jpg";
 
-                break;
+                if(extras != null)
+                {
+                    Bitmap photo = extras.getParcelable("data");
+                    user_profile.setImageBitmap(photo);
+
+                    storeCropImage(photo, filePath);
+                    absolutepath = filePath;
+                    break;
+                }
+                File f = new File(mImageCaptureUri.getPath());
+                if(f.exists())
+                {
+                    f.delete();
+                }
             }
-            case PICK_FROM_CAMERA: {
-                /*Intent intent = new Intent("com.android.camera.actio.CROP");
-                intent.setDataAndType(mImageCaptureUri, "image*//*");
-
-                intent.putExtra("outputX", 200);
-                intent.putExtra("outputY", 200);
-                intent.putExtra("aspectX", 1);
-                intent.putExtra("aspectY", 1);
-                intent.putExtra("scale", true);
-                intent.putExtra("return-data", true);
-                //startActivityForResult(intent, CROP_FROM_IMAGE);*/
-                SendPicture(data);
-                break;
-            }
-
         }
     }
 
-    private void SendPicture(Intent data) {
+    private void storeCropImage(Bitmap bitmap, String filePath){
+        //SmartWheel 폴더를 생성하여 이미지를 저장하는방식이다.
+        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SmartWheel";
+        File directory_SmartWheel = new File(dirPath);
 
-        Uri imgUri = data.getData();
-        final String imagePath = getRealPathFromURI(imgUri); // path 경로
+        if(!directory_SmartWheel.exists()){
+            directory_SmartWheel.mkdir();
 
-        //사진 uri 디비로 쏘기
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String ServerResponse) {
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(getActivity().getApplicationContext(), volleyError.toString(), Toast.LENGTH_LONG).show();
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("email", email);
-                params.put("userimg", imagePath);
-                return params;
+            File copyFile = new File(filePath);
+            BufferedOutputStream out = null;
+        try{
+            copyFile.createNewFile();
+            out = new BufferedOutputStream(new FileOutputStream(copyFile));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
+            getActivity().getApplicationContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
+
+            out.flush();
+            out.close();
+        }catch(Exception e){
+                e.printStackTrace();
             }
-        };
-        requestQueue.add(stringRequest);
+        }
+    }
 
-        //디비에서 사진 가져오기
-        StringRequest request2 = new StringRequest(Request.Method.POST, httpUrl2,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String ServerResponse) {
-                        try {
-                            JSONObject  jsonobject=new JSONObject(ServerResponse);
-                            JSONArray  jsonarray=jsonobject.getJSONArray("user");
-                            JSONObject data = jsonarray.getJSONObject(0);
-                            email = data.getString("email");
-                            user_imagePath = data.getString("userimg");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+    //권한요청
+    public boolean checkPermissions() {
+        int result;
+        List<String> permissionList = new ArrayList<>();
+        for (String pm : permissions) {
+            result = ContextCompat.checkSelfPermission(getContext(), pm);
+            if (result != PackageManager.PERMISSION_GRANTED) { //사용자가 해당 권한을 가지고 있지 않을 경우 리스트에 해당 권한명 추가
+                permissionList.add(pm);
+            }
+        }
+        if (!permissionList.isEmpty()) { //권한이 추가되었으면 해당 리스트가 empty가 아니므로 request 즉 권한을 요청합니다.
+            ActivityCompat.requestPermissions(getActivity(), permissionList.toArray(new String[permissionList.size()]), MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MULTIPLE_PERMISSIONS: {
+                if (grantResults.length > 0) {
+                    for (int i = 0; i < permissions.length; i++) {
+                        if (permissions[i].equals(this.permissions[0])) {
+                            if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                                showNoPermissionToastAndFinish();
+                            }
+                        } else if (permissions[i].equals(this.permissions[1])) {
+                            if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                                showNoPermissionToastAndFinish();
+
+                            }
+                        } else if (permissions[i].equals(this.permissions[2])) {
+                            if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                                showNoPermissionToastAndFinish();
+
+                            }
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(getActivity().getApplicationContext(), volleyError.toString(), Toast.LENGTH_LONG).show();
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("email", email);
-                return params;
-            }
-        };
-        requestQueue.add(request2);
-
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(user_imagePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (exif != null) {
-            int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-            int exifDegree = exifOrientationToDegrees(exifOrientation);
-
-            Bitmap bitmap = BitmapFactory.decodeFile(user_imagePath);//경로를 통해 비트맵으로 전환
-
-            try {
-                user_profile.setImageBitmap(rotate(bitmap, exifDegree));
-            }//이미지 뷰에 비트맵 넣기
-            catch (Exception e) {
-                Toast.makeText(getActivity().getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                } else {
+                    showNoPermissionToastAndFinish();
+                }
+                return;
             }
         }
-
-        //프래그먼트 리프레쉬
-        Fragment mypage2 = new MyPage_Fragment_Sub();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.detach(mypage2);
-        transaction.attach(mypage2);
-        transaction.commit();
-        Toast.makeText(getActivity().getApplicationContext(), "이미지 선택 완료!", Toast.LENGTH_LONG).show();
     }
 
-    public Bitmap rotate(Bitmap src, float degree) {
-
-        // Matrix 객체 생성
-        Matrix matrix = new Matrix();
-        // 회전 각도 셋팅
-        matrix.postRotate(degree);
-        // 이미지와 Matrix 를 셋팅해서 Bitmap 객체 생성
-        return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
-                src.getHeight(), matrix, true);
+    private void showNoPermissionToastAndFinish() {
+        Toast.makeText(getContext(), "권한 요청에 동의 해주셔야 이용 가능합니다. 설정에서 권한 허용 하시기 바랍니다.", Toast.LENGTH_SHORT).show();
     }
-
-
-    public int exifOrientationToDegrees(int exifOrientation) {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
-        }
-        return 0;
-    }
-
-    public String getRealPathFromURI(Uri contentUri) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getActivity().getContentResolver().query(contentUri, proj, null, null, null);  //managedQuery(contentUri, proj, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-    }
-
 
 
 
