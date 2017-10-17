@@ -35,8 +35,10 @@
     </LinearLayout>
 
     <ListView
-        android:layout_marginTop="5dp"
         android:id="@+id/listViewAlarm"
+        android:dividerHeight="1dp"
+        android:divider="#ffababab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp" />
 </LinearLayout>

@@ -28,7 +28,7 @@ import java.util.Map;
 public class AlarmActivity extends AppCompatActivity {
 
     RequestQueue rq;
-    String content,triger_email,email,date;
+    String content,/*triger_email*email,*/date,name;
     int alarm_no,writing_no;
     SharedPrefManager sharedPrefManager;
     String email_param;
@@ -66,11 +66,12 @@ public class AlarmActivity extends AppCompatActivity {
                             JSONObject obj = arr.getJSONObject(i);
                             content = obj.getString("content");
                             date = obj.getString("date");
-                            email = obj.getString("email");
-                            triger_email = obj.getString("triger_email");
+//                            email = obj.getString("email");
+                            name = obj.getString("name");
+//                            triger_email = obj.getString("triger_email");
                             alarm_no = obj.getInt("alarm_no");
                             writing_no = obj.getInt("writing_no");
-                            AlarmItem alarmItem = new AlarmItem(alarm_no, content, date, triger_email, writing_no, email);
+                            AlarmItem alarmItem = new AlarmItem(alarm_no, content, date, name, writing_no, sharedPrefManager.getUsername());
                             adapter.addItem(alarmItem);
                             listViewAlarm.setAdapter(adapter);
                         } catch (JSONException e) {
