@@ -71,7 +71,6 @@ public class Write_Fragment extends Fragment{
         // 로그인한놈 유저메일 가져오기
         useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
 
-
         if (getArguments() != null) {
             receive_spot = getArguments().getString("rental_spot");
             receive_gu = getArguments().getString("gu_selected");
