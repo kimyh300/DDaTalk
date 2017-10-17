@@ -165,7 +165,7 @@ public class MyPage_Fragment extends Fragment{
                         try {
                             JSONObject obj = new JSONObject(response);
 
-                            JSONArray writingArray = obj.getJSONArray("webnautes");
+                            JSONArray writingArray = obj.getJSONArray("writing");
 
                             if(writingArray.get(0) != "") {
                                 mimageButton.setVisibility(View.GONE);
@@ -198,7 +198,7 @@ public class MyPage_Fragment extends Fragment{
 
                             ListAdapter adapter = new SimpleAdapter(
                                     getActivity().getApplication(), mArrayList, R.layout.list_items,
-                                    new String[]{"content","with_cnt", "date"},
+                                    new String[]{"with_cnt","content", "date"},
                                     new int[]{R.id.textViewContent, R.id.textViewWith_cnt, R.id.textViewDate}
                             );
 

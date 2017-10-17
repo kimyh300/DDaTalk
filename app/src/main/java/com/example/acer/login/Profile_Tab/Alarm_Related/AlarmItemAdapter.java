@@ -43,7 +43,7 @@ public class AlarmItemAdapter extends BaseAdapter {
         final AlarmItem item = items.get(position);
 
         view.setAlarmEmail(item.getTrigger_email()+"님이");
-        view.setAlarmContent(item.getEmail()+"님의 글에"+item.getContent()+item.getDate());
+        view.setAlarmContent(item.getEmail()+"님의 글에 "+item.getContent()+"\n"+item.getDate());
         return view;
     }
 }
