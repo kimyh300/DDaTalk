@@ -48,8 +48,8 @@ public class Stamp_Fragment extends Fragment {
     ImageView levelbar;
     ImageButton stampcollect;
 
-    String L,E;
-    int maxExp;
+    String L,E,showExp;
+    int maxExp,Ll,Ee ;
 
 
     public void setProgressBarColor(ProgressBar progressBar, int newColor){
@@ -101,10 +101,10 @@ public class Stamp_Fragment extends Fragment {
                             JSONObject obj =  arr.getJSONObject(i);
                             L=obj.getString("level");
                             E=obj.getString("exp");
-                            int Ee = Integer.parseInt(E);
-                            int Ll = Integer.parseInt(L);
+                            Ee = Integer.parseInt(E);
+                            Ll = Integer.parseInt(L);
                             maxExp = 100 + 30 * (Integer.parseInt(L)- 1) * (Integer.parseInt(L) + 6);
-                            String showExp = String.valueOf(maxExp - Integer.parseInt(E));
+                            showExp = String.valueOf(maxExp - Integer.parseInt(E));
 
                             progressBar.setMax(maxExp);
                             progressBar.setProgress(Ee);
