@@ -2,6 +2,7 @@ package com.example.acer.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,14 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.acer.login.Login_Related.Constants;
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.Alarm_Related.AlarmActivity;
@@ -21,6 +30,14 @@ import com.example.acer.login.Profile_Tab.MyPage_Fragment;
 import com.example.acer.login.Profile_Tab.Stamp_Fragment;
 import com.example.acer.login.Profile_Tab.Write_Fragment;
 import com.example.acer.login.Profile_Tab.Write_Related.FindSpot_Fragment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -32,6 +49,14 @@ public class ProfileActivity extends AppCompatActivity {
     MyPage_Fragment myPageFragment;
     FindSpot_Fragment spotFragment;
 
+
+    //알람 관련 작업
+    Handler handler;
+    Timer timerMTimer;
+    RequestQueue rq;
+    String email_param;
+    int original =0;
+    int original2=0;
 
     @Override
     protected void onResume() {
@@ -57,6 +82,91 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
+
+        email_param = SharedPrefManager.getInstance(getApplicationContext()).getUserEmail();
+        rq = Volley.newRequestQueue(getApplicationContext());
+        timerMTimer = new Timer(true);
+
+        handler = new Handler();
+        timerMTimer.schedule(new TimerTask() {
+
+            @Override
+
+            public void run() {
+
+                handler.post(new Runnable(){
+
+                    public void run(){
+                        if(original==0) {
+                            StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_ALARM_INFO, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    if (!response.equals("0 results")) {
+                                        JSONArray arr = null;
+                                        try {
+                                            arr = new JSONArray(response);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        assert arr != null;
+                                        original = arr.length();
+                                        Toast.makeText(getApplicationContext(),String.valueOf(original),Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getApplicationContext(),
+                                            error.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }) {
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("email", email_param);
+                                    return params;
+                                }
+                            };
+                            rq.add(stringRequest);
+                        }else{
+                            StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_ALARM_INFO, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    if (!response.equals("0 results")) {
+                                        JSONArray arr = null;
+                                        try {
+                                            arr = new JSONArray(response);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        assert arr != null;
+                                        original2 = arr.length();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getApplicationContext(),
+                                            error.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }) {
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("email", email_param);
+                                    return params;
+                                }
+                            };
+                            rq.add(stringRequest);
+                            if(original2>original){
+                                Toast.makeText(getApplicationContext(),"누군가 함께타요 버튼이나 댓글을 달았습니다!",Toast.LENGTH_LONG).show();
+                            }
+                            original = original2;
+                        }
+                    }
+                });
+            }
+        }, 1000/*1000 = 액티비티 onCreate 호출 후 1초후에*/, 60000*5/*1000 = 1초마다 작업 실행, 현재는 5분마다 실행*/);
 
 
         homeFragment = new Home_Fragment();
