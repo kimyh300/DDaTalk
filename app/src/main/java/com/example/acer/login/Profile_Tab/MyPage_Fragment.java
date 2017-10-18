@@ -39,7 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,6 +54,7 @@ public class MyPage_Fragment extends Fragment{
     ViewGroup rootView;
 
     private static final String JSON_URL = "http://104.198.211.126/getwriting.php";
+    String HttpUrl2 = "http://104.198.211.126/getUserimgUri.php";
 
     ListView listView;
     List<Writing> writingList;
@@ -89,33 +90,11 @@ public class MyPage_Fragment extends Fragment{
         requestQueue = Volley.newRequestQueue(rootView.getContext());
         progressDialog = new ProgressDialog(rootView.getContext());
 
-        user_imagePath = SharedPrefManager.getInstance(getActivity().getApplication()).getKeyUserImg();
         username = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUsername();
         userbirth = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserBirthday();
         useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
 
-        //이미지 셋팅
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(user_imagePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (exif != null) {
-            int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-            int exifDegree = exifOrientationToDegrees(exifOrientation);
-
-            Bitmap bitmap = BitmapFactory.decodeFile(user_imagePath);//경로를 통해 비트맵으로 전환
-
-            try {
-                user_profile.setImageBitmap(rotate(bitmap, exifDegree));
-            }//이미지 뷰에 비트맵 넣기
-            catch (Exception e) {
-                Toast.makeText(getActivity().getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-            }
-        }
-
+        ReceiveImg();
 
 
         textView.setText(username);
@@ -257,5 +236,52 @@ public class MyPage_Fragment extends Fragment{
         }
         return 0;
     }
+
+    //디비에서 유저이미지 가져오기 메소드
+    public void ReceiveImg(){
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl2, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonobject = new JSONObject(response);
+                    JSONArray jsonArray = jsonobject.getJSONArray("user");
+                    JSONObject data = jsonArray.getJSONObject(0);
+
+                    String userimg = data.getString("userimg");
+
+                    //이미지 셋팅
+                    //서버에서 가져온 이미지 셋팅
+                    File imgFile = new File(userimg);
+                    if(imgFile.exists())
+                    {
+                        Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                        user_profile.setImageBitmap(myBitmap);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Something went wrong",Toast.LENGTH_LONG).show();
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parameters = new HashMap<String, String>();
+                parameters.put("email", useremail);
+                return parameters;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+
 
 }

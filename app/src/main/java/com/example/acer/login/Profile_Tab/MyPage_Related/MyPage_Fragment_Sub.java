@@ -7,6 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,13 +30,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.BuildConfig;
 import com.example.acer.login.Login_Related.LoginActivity;
 import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.MyPage_Fragment;
 import com.example.acer.login.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -42,7 +54,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -61,7 +75,7 @@ public class MyPage_Fragment_Sub extends Fragment {
     String name, birthday, email, absolutepath;
 
     String HttpUrl = "http://104.198.211.126/insertUserimgUri.php";
-    String httpUrl2 = "http://104.198.211.126/getUserimgUri.php";
+    String HttpUrl2 = "http://104.198.211.126/getUserimgUri.php";
 
     ImageView user_profile;
     ImageButton photo_btn;
@@ -71,9 +85,9 @@ public class MyPage_Fragment_Sub extends Fragment {
 
     @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-
         checkPermissions();
 
     }
@@ -109,6 +123,9 @@ public class MyPage_Fragment_Sub extends Fragment {
         ImageButton deleteButton = (ImageButton)rootView.findViewById(R.id.deleteButton);
         ImageButton logoutButton = (ImageButton)rootView.findViewById(R.id.logoutButton);
         ImageButton photoButton = (ImageButton)rootView.findViewById(R.id.photoButton);
+
+        //유저 이미지 가져오기 실행
+        ReceiveImg();
 
         //뒤로가기
         back_btn.setOnClickListener(new View.OnClickListener(){
@@ -182,8 +199,7 @@ public class MyPage_Fragment_Sub extends Fragment {
     }
 
 
-    public void doTakePhotoAction()
-    {
+    public void doTakePhotoAction() {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -197,6 +213,9 @@ public class MyPage_Fragment_Sub extends Fragment {
 
         if (photoFile != null) {
             mImageCaptureUri = FileProvider.getUriForFile(getActivity().getApplicationContext(),BuildConfig.APPLICATION_ID+".provider", photoFile);
+
+
+
             intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageCaptureUri); //사진을 찍어 해당 Content uri를 photoUri에 적용시키기 위함
             startActivityForResult(intent, PICK_FROM_CAMERA);
         }
@@ -207,7 +226,7 @@ public class MyPage_Fragment_Sub extends Fragment {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("HHmmss").format(new Date());
         String imageFileName = "IP" + timeStamp + "_";
-        File storageDir = new File(Environment.getExternalStorageDirectory() + "/test/"); //test라는 경로에 이미지를 저장하기 위함
+        File storageDir = new File(Environment.getExternalStorageDirectory() + "/DDaTalk/"); //DDaTalk이라는 경로에 이미지 저장.
         if (!storageDir.exists()) {
             storageDir.mkdirs();
         }
@@ -239,9 +258,11 @@ public class MyPage_Fragment_Sub extends Fragment {
             {
                     try{
                     mImageCaptureUri = data.getData();
-                    Log.d("smartWheel", mImageCaptureUri.getPath().toString());
+                    Log.d("ddaTalk", mImageCaptureUri.getPath().toString());
                         }
-                        catch (Exception e) { Toast.makeText(getActivity().getApplicationContext(), "앨범선택시에러", Toast.LENGTH_LONG).show();}
+                        catch (Exception e) {
+                            Toast.makeText(getActivity().getApplicationContext(), "앨범선택시에러", Toast.LENGTH_LONG).show();
+                        }
 
             }
             case PICK_FROM_CAMERA:
@@ -268,7 +289,11 @@ public class MyPage_Fragment_Sub extends Fragment {
                 }
                 final Bundle extras = data.getExtras();
                 //crop된 이미지를 저장하기 위한 file경로
-                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"SmartWheel/"+System.currentTimeMillis()+".jpg";
+                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DDaTalk/"+System.currentTimeMillis()+".jpg";
+
+                //파일경로를 db로 보내기
+                SendImg(filePath);
+
 
                 if(extras != null)
                 {
@@ -289,15 +314,16 @@ public class MyPage_Fragment_Sub extends Fragment {
     }
 
     private void storeCropImage(Bitmap bitmap, String filePath){
-        //SmartWheel 폴더를 생성하여 이미지를 저장하는방식이다.
-        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SmartWheel";
-        File directory_SmartWheel = new File(dirPath);
+        //DDaTalk 폴더를 생성하여 이미지를 저장하는방식이다.
+        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DDaTalk/";
+        File directory_DDaTalk = new File(dirPath);
 
-        if(!directory_SmartWheel.exists()){
-            directory_SmartWheel.mkdir();
+        if(!directory_DDaTalk.exists()){
+            directory_DDaTalk.mkdir();
 
             File copyFile = new File(filePath);
             BufferedOutputStream out = null;
+
         try{
             copyFile.createNewFile();
             out = new BufferedOutputStream(new FileOutputStream(copyFile));
@@ -311,6 +337,25 @@ public class MyPage_Fragment_Sub extends Fragment {
                 e.printStackTrace();
             }
         }
+        else{
+            File copyFile = new File(filePath);
+            BufferedOutputStream out = null;
+
+            try{
+                copyFile.createNewFile();
+                out = new BufferedOutputStream(new FileOutputStream(copyFile));
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
+                getActivity().getApplicationContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
+
+                out.flush();
+                out.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
     //권한요청
@@ -363,6 +408,103 @@ public class MyPage_Fragment_Sub extends Fragment {
     private void showNoPermissionToastAndFinish() {
         Toast.makeText(getContext(), "권한 요청에 동의 해주셔야 이용 가능합니다. 설정에서 권한 허용 하시기 바랍니다.", Toast.LENGTH_SHORT).show();
     }
+
+
+    //디비에 유저이미지 저장하기 메소드
+    public void SendImg(final String userimg) {
+
+        requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest request = new StringRequest(Request.Method.POST, HttpUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("email",email);
+                parameters.put("userimg",userimg);
+                return parameters;
+            }
+        };
+        requestQueue.add(request);
+
+
+    }
+
+    //디비에서 유저이미지 가져오기 메소드
+    public void ReceiveImg(){
+
+        queue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl2, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonobject = new JSONObject(response);
+                    JSONArray jsonArray = jsonobject.getJSONArray("user");
+                    JSONObject data = jsonArray.getJSONObject(0);
+
+                    String userimg = data.getString("userimg");
+
+                    //서버에서 가져온 이미지 셋팅
+                        Bitmap myBitmap = BitmapFactory.decodeFile(userimg);
+                        user_profile.setImageBitmap(myBitmap);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Something went wrong",Toast.LENGTH_LONG).show();
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parameters = new HashMap<String, String>();
+                parameters.put("email", email);
+                return parameters;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    //이미지 셋팅작업
+    public Bitmap rotate(Bitmap src, float degree) {
+
+        // Matrix 객체 생성
+        Matrix matrix = new Matrix();
+        // 회전 각도 셋팅
+        matrix.postRotate(degree);
+        // 이미지와 Matrix 를 셋팅해서 Bitmap 객체 생성
+        return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
+                src.getHeight(), matrix, true);
+    }
+
+    public int exifOrientationToDegrees(int exifOrientation) {
+        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            return 90;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            return 180;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            return 270;
+        }
+        return 0;
+    }
+
+
+
+
+
 
 
 

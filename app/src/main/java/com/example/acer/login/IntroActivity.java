@@ -19,7 +19,7 @@ public class IntroActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }else {
-            //noinspection ConstantConditions\
+            //noinspection ConstantConditions
 
             getSupportActionBar().hide();
             Handler handler = new Handler();
