@@ -5,10 +5,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -59,6 +59,7 @@ public class MyPage_Fragment extends Fragment{
     ListView listView;
     List<Writing> writingList;
 
+
     ArrayList<HashMap<String, String>> mArrayList;
 
     ImageView imageView, user_profile;
@@ -69,7 +70,7 @@ public class MyPage_Fragment extends Fragment{
     ProgressDialog progressDialog;
     RequestQueue requestQueue;
 
-    String username, userbirth, useremail, user_imagePath;
+    String username, userbirth, useremail;
 
     @Nullable
     @Override
@@ -82,8 +83,10 @@ public class MyPage_Fragment extends Fragment{
         mArrayList = new ArrayList<>();
 
         user_profile = (ImageView)rootView.findViewById(R.id.user_profile);
+
         imageView = (ImageView) rootView.findViewById(R.id.imageView4);
         mimageButton = (ImageButton) rootView.findViewById(R.id.imageButton11);
+
 
         textView = (TextView) rootView.findViewById(R.id.textView);
 
@@ -127,12 +130,13 @@ public class MyPage_Fragment extends Fragment{
             }
         });
 
-        progressDialog.setMessage("Please Wait, We are getting Your Data on Server");
+        progressDialog.setMessage("데이터 불러오는중...");
         progressDialog.show();
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL,
                 new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public void onResponse(String response) {
 
@@ -141,10 +145,11 @@ public class MyPage_Fragment extends Fragment{
                         LayoutInflater inflater = LayoutInflater.from(getContext());
                         View listViewItem = inflater.inflate(R.layout.list_items, null, true);
 
+
                         try {
                             JSONObject obj = new JSONObject(response);
-
                             JSONArray writingArray = obj.getJSONArray("writing");
+
 
                             if(writingArray.get(0) != "") {
                                 mimageButton.setVisibility(View.GONE);
@@ -159,6 +164,8 @@ public class MyPage_Fragment extends Fragment{
                                 String content = writingObject.getString("content");
                                 String with_cnt = writingObject.getString("with_cnt");
                                 String date = writingObject.getString("date");
+
+
 
                                 Date tr1 = trans.parse(date);
                                 date = format.format(tr1);
@@ -175,13 +182,16 @@ public class MyPage_Fragment extends Fragment{
 
                             }
 
-                            ListAdapter adapter = new SimpleAdapter(
-                                    getActivity().getApplication(), mArrayList, R.layout.list_items,
-                                    new String[]{"with_cnt","content", "date"},
+                            ListAdapter adapter = new SimpleAdapter(getActivity().getApplicationContext(), mArrayList, R.layout.list_items,
+                                    new String[]{"content", "with_cnt", "date"},
                                     new int[]{R.id.textViewContent, R.id.textViewWith_cnt, R.id.textViewDate}
                             );
 
                             listView.setAdapter(adapter);
+
+
+
+
 
 
                         } catch (JSONException e) {
@@ -211,31 +221,11 @@ public class MyPage_Fragment extends Fragment{
         requestQueue.add(stringRequest);
 
 
+
+
         return rootView;
     }
 
-    public Bitmap rotate(Bitmap src, float degree) {
-
-        // Matrix 객체 생성
-        Matrix matrix = new Matrix();
-        // 회전 각도 셋팅
-        matrix.postRotate(degree);
-        // 이미지와 Matrix 를 셋팅해서 Bitmap 객체 생성
-        return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
-                src.getHeight(), matrix, true);
-    }
-
-
-    public int exifOrientationToDegrees(int exifOrientation) {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
-        }
-        return 0;
-    }
 
     //디비에서 유저이미지 가져오기 메소드
     public void ReceiveImg(){
