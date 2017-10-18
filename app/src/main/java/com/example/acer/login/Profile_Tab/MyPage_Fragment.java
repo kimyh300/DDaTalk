@@ -106,7 +106,7 @@ public class MyPage_Fragment extends Fragment{
             int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
             int exifDegree = exifOrientationToDegrees(exifOrientation);
 
-            Bitmap bitmap = BitmapFactory.decodeFile(user_imagePath);//경로를 통해 비트맵으로 전환
+            Bitmap bitmap = BitmapFactory.decodeFile(user_imagePath);
 
             try {
                 user_profile.setImageBitmap(rotate(bitmap, exifDegree));

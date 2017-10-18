@@ -93,6 +93,14 @@ public class SharedPrefManager {
         return sharedPreferences.getString(KEY_USER_LEVEL,null);
     }
 
+    public void setKeyUserImg(String userimg){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_USER_IMG, userimg);
+        editor.commit();
+
+    }
+
     public String getKeyUserImg(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_USER_IMG,null);
