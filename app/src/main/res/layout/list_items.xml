@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:padding="5dp"
-            android:text="dddd"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="16sp" />
     </LinearLayout>
@@ -53,10 +52,11 @@
 
                 <ImageView
                     android:id="@+id/imageView5"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="14dp"
+                    android:layout_weight="0.20"
                     android:contentDescription="@string/with"
-                    android:visibility="visible"
+                    android:scaleType="fitCenter"
                     app:srcCompat="@drawable/with_small" />
             </LinearLayout>
 
@@ -74,8 +74,7 @@
                     android:layout_margin="2dp"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:padding="2dp"
-                    android:text="22" />
+                    android:padding="2dp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -93,8 +92,7 @@
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:padding="2dp"
-                android:text="1992-06-09" />
+                android:padding="2dp" />
         </LinearLayout>
 
     </LinearLayout>

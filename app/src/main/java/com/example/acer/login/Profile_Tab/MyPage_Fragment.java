@@ -177,7 +177,7 @@ public class MyPage_Fragment extends Fragment{
 
                             ListAdapter adapter = new SimpleAdapter(
                                     getActivity().getApplication(), mArrayList, R.layout.list_items,
-                                    new String[]{"with_cnt","content", "date"},
+                                    new String[]{"content", "with_cnt", "date"},
                                     new int[]{R.id.textViewContent, R.id.textViewWith_cnt, R.id.textViewDate}
                             );
 
