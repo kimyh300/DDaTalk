@@ -170,14 +170,14 @@ public class ProfileActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"누군가 함께타요 버튼이나 댓글을 달았습니다!",Toast.LENGTH_LONG).show();
                             }else if(original2==original){
                                 imageViewAlarm_set = (ImageView)actionBar.getCustomView().findViewById(R.id.imageViewAlarm);
-                                imageViewAlarm_set.setImageResource(R.drawable.actionbar_new_notice);
+                                imageViewAlarm_set.setImageResource(R.drawable.actionbar_notice);
                             }
                             original = original2;
                         }
                     }
                 });
             }
-        }, 1000/*1000 = 액티비티 onCreate 호출 후 1초후에*/, 1000*5/*1000 = 1초마다 작업 실행, 현재는 5분마다 실행*/);
+        }, 0/*1000 = 액티비티 onCreate 호출 후 1초후에*/, 10000/*1000 = 1초마다 작업 실행, 현재는 5분마다 실행*/);
 
 
         homeFragment = new Home_Fragment();
