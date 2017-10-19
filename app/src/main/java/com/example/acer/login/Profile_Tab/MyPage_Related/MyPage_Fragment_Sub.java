@@ -76,6 +76,7 @@ public class MyPage_Fragment_Sub extends Fragment {
 
     String HttpUrl = "http://104.198.211.126/insertUserimgUri.php";
     String HttpUrl2 = "http://104.198.211.126/getUserimgUri.php";
+    String HttpUrl3 = "http://104.198.211.126/deleteuser.php";
 
     ImageView user_profile;
     ImageButton photo_btn;
@@ -186,6 +187,7 @@ public class MyPage_Fragment_Sub extends Fragment {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                delete();
                 Toast.makeText(rootView.getContext(), "회원탈퇴에 성공했습니다.", Toast.LENGTH_LONG).show();
                 SharedPrefManager.getInstance(getActivity().getApplicationContext()).logout();
                 startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
@@ -499,6 +501,34 @@ public class MyPage_Fragment_Sub extends Fragment {
             return 270;
         }
         return 0;
+    }
+
+
+    //디비에 유저이미지 저장하기 메소드
+    public void delete() {
+
+        requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest request = new StringRequest(Request.Method.POST, HttpUrl3, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("email",email);
+                return parameters;
+            }
+        };
+        requestQueue.add(request);
+
+
     }
 
 
