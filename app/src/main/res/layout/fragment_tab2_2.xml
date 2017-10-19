@@ -21,15 +21,20 @@
         android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="@string/second"
+        android:text="대처행동"
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/textView43"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_marginStart="15dp"
-        android:text="자신과 상대방의 상태를 확인한다" />
+        android:layout_marginTop="50dp"
+        android:text="3.상대가 어린이인 경우 \n\n경미한 사고라고 해서 어린이가 괜찮다며 간다고 그냥 보내면 안됩니다. 반드시 병원치료 등 조치 완료후 보호자에게 인계하여야 합니다. \n(자동차의 경우 특가법처벌 될 수 있으나 자전거는 도로교통법상 미신고로 처벌)" />
+
+
 </LinearLayout>

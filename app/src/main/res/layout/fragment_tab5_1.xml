@@ -20,6 +20,7 @@
         android:id="@+id/textView35"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="타이어"
@@ -29,8 +30,10 @@
         android:id="@+id/textView23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:text="타이어의 바람은 충분한지?" />
+        android:layout_marginTop="50dp"
+        android:text="타이어 적절한 공기압 \n\n타이어의 측면을 보면 타이어의 공기압과 자전거 사이즈에 대한 정보가 적혀있습니다 \n\n예) MIN40 - MAX65 PSI(공기압 단위) 라고 적혀있다면 \n최소 타이어의 공기압이 40psi이고 최대 65psi입니다" />
 
 
 </LinearLayout>

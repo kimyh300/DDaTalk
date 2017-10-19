@@ -20,8 +20,9 @@
         android:id="@+id/textView27"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
 
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="기본안전유의사항"
         android:textSize="24sp" />
@@ -30,8 +31,10 @@
         android:id="@+id/textView15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:text="1.자전거도로가 없는 곳에서는 차도를 이용해 통행해야합니다 \n\n2.머리를 보호하기 위하여 반드시 헬멧을 착용합니다 \n\n3.밝은 색상의 옷을 입는 것이 안전합니다 \n\n4.자전거 정비가 제대로 되었는가를 항상 확인합니다 \n\n5.타기 전에 브레이크를 점검합니다 \n\n6.바퀴가 안전하게 고정되었는지 체크합니다" />
+        android:layout_marginTop="50dp"
+        android:text="1.머리를 보호하기 위하여 반드시 헬멧을 착용합니다 \n\n2.밝은 색상의 옷을 입는 것이 안전합니다 \n\n3.자전거 정비가 제대로 되었는가를 항상 확인합니다 \n\n4.타기 전에 브레이크를 점검합니다 \n\n5.바퀴가 안전하게 고정되었는지 체크합니다" />
 
 
 

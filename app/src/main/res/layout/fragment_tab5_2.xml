@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.acer.login.Profile_Tab.DD119_Related.Tab5">
+    tools:context="com.example.acer.login.Profile_Tab.DD119_Related.Tab5"
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/textView13"
@@ -31,5 +32,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:text="체인이 풀려있지 않은지?" />
+        android:layout_marginTop="50dp"
+        android:text="체인이 빠졌을 경우\n\n1.자전거 핸들 부분에 있는 변속레버를 2단에 맞춰줍니다 \n\n2.레버를 살짝 돌려 2단과 3단 사이에 걸쳐줍니다 \n\n3.그상태에서 페달을 밟아 2~3바퀴를 돌려줍니다" />
 </LinearLayout>
