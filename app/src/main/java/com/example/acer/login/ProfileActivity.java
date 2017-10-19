@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -39,6 +40,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.example.acer.login.R.id.imageViewAlarm;
+
 public class ProfileActivity extends AppCompatActivity {
 
     TabLayout tabs;
@@ -57,6 +60,9 @@ public class ProfileActivity extends AppCompatActivity {
     String email_param;
     int original =0;
     int original2=0;
+
+    ActionBar actionBar;
+    ImageView imageViewAlarm_set;
 
     @Override
     protected void onResume() {
@@ -159,14 +165,19 @@ public class ProfileActivity extends AppCompatActivity {
                             };
                             rq.add(stringRequest);
                             if(original2>original){
+                                imageViewAlarm_set = (ImageView)actionBar.getCustomView().findViewById(R.id.imageViewAlarm);
+                                imageViewAlarm_set.setImageResource(R.drawable.actionbar_new_notice);
                                 Toast.makeText(getApplicationContext(),"누군가 함께타요 버튼이나 댓글을 달았습니다!",Toast.LENGTH_LONG).show();
+                            }else if(original2==original){
+                                imageViewAlarm_set = (ImageView)actionBar.getCustomView().findViewById(R.id.imageViewAlarm);
+                                imageViewAlarm_set.setImageResource(R.drawable.actionbar_new_notice);
                             }
                             original = original2;
                         }
                     }
                 });
             }
-        }, 1000/*1000 = 액티비티 onCreate 호출 후 1초후에*/, 60000*5/*1000 = 1초마다 작업 실행, 현재는 5분마다 실행*/);
+        }, 1000/*1000 = 액티비티 onCreate 호출 후 1초후에*/, 1000*5/*1000 = 1초마다 작업 실행, 현재는 5분마다 실행*/);
 
 
         homeFragment = new Home_Fragment();
@@ -187,7 +198,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 //        getMenuInflater().inflate(R.menu.menu, menu);
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
 
         assert actionBar != null;
         actionBar.setDisplayShowCustomEnabled(true);
@@ -209,7 +220,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void clickEvent(View v){
-        if (v.getId() == R.id.imageViewAlarm) {
+        if (v.getId() == imageViewAlarm) {
             Toast.makeText(ProfileActivity.this, "알람을 눌렀쪄염",
                     Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ProfileActivity.this, AlarmActivity.class);
