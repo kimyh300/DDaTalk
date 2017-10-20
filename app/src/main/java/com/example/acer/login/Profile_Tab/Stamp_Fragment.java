@@ -104,7 +104,7 @@ public class Stamp_Fragment extends Fragment {
                             Ee = Integer.parseInt(E);
                             Ll = Integer.parseInt(L);
                             maxExp = 100 + 30 * (Integer.parseInt(L)- 1) * (Integer.parseInt(L) + 6);
-                            showExp = String.valueOf(maxExp - Integer.parseInt(E));
+                            showExp = String.valueOf(maxExp - Ee);
 
                             progressBar.setMax(maxExp);
                             progressBar.setProgress(Ee);
@@ -114,6 +114,24 @@ public class Stamp_Fragment extends Fragment {
                                 Ee = Ee - maxExp;
                                 progressBar.setProgress(Ee);
                                 updateLevelUp(sharedPrefManager,getActivity().getApplication());
+                            }
+
+                            switch (Ll) {
+                                case 2:
+                                    progressBar.setProgress(Ee-100);
+                                    break;
+                                case 3:
+                                    progressBar.setProgress(Ee-340);
+                                    break;
+                                case 4:
+                                    progressBar.setProgress(Ee-640);
+                                    break;
+                                case 5:
+                                    progressBar.setProgress(Ee-1000);
+                                    break;
+                                case 6:
+                                    progressBar.setProgress(Ee-1420);
+                                   break;
                             }
 
                             switch (Ll){
@@ -143,6 +161,7 @@ public class Stamp_Fragment extends Fragment {
                                 } else if(Ee > maxExp*0.66 && Ee <= maxExp * 1.0) {
                                     setProgressBarColor(progressBar, Color.parseColor("#7c7c7c"));
                                 }
+                                    showExp = String.valueOf(maxExp-Ee+100);
                                     showLevel.setText("현재레벨은  " + L +"이며, " + "다음레벨까지 " + (showExp) +"남았습니다.");
                                 break;
                                 case 3:
