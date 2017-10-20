@@ -258,13 +258,13 @@ public class MyPage_Fragment_Sub extends Fragment {
         {
             case PICK_FROM_ALBUM:
             {
-                    try{
+                try{
                     mImageCaptureUri = data.getData();
                     Log.d("ddaTalk", mImageCaptureUri.getPath().toString());
-                        }
-                        catch (Exception e) {
-                            Toast.makeText(getActivity().getApplicationContext(), "앨범선택시에러", Toast.LENGTH_LONG).show();
-                        }
+                }
+                catch (Exception e) {
+                    Toast.makeText(getActivity().getApplicationContext(), "앨범선택시에러", Toast.LENGTH_LONG).show();
+                }
 
             }
             case PICK_FROM_CAMERA:
@@ -326,16 +326,16 @@ public class MyPage_Fragment_Sub extends Fragment {
             File copyFile = new File(filePath);
             BufferedOutputStream out = null;
 
-        try{
-            copyFile.createNewFile();
-            out = new BufferedOutputStream(new FileOutputStream(copyFile));
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            try{
+                copyFile.createNewFile();
+                out = new BufferedOutputStream(new FileOutputStream(copyFile));
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
-            getActivity().getApplicationContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
+                getActivity().getApplicationContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
 
-            out.flush();
-            out.close();
-        }catch(Exception e){
+                out.flush();
+                out.close();
+            }catch(Exception e){
                 e.printStackTrace();
             }
         }
@@ -455,8 +455,8 @@ public class MyPage_Fragment_Sub extends Fragment {
                     String userimg = data.getString("userimg");
 
                     //서버에서 가져온 이미지 셋팅
-                        Bitmap myBitmap = BitmapFactory.decodeFile(userimg);
-                        user_profile.setImageBitmap(myBitmap);
+                    Bitmap myBitmap = BitmapFactory.decodeFile(userimg);
+                    user_profile.setImageBitmap(myBitmap);
 
 
                 } catch (JSONException e) {
@@ -527,16 +527,5 @@ public class MyPage_Fragment_Sub extends Fragment {
             }
         };
         requestQueue.add(request);
-
-
     }
-
-
-
-
-
-
-
-
-
 }

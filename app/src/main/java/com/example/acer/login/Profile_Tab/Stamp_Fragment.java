@@ -60,6 +60,17 @@ public class Stamp_Fragment extends Fragment {
 
     @Nullable
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+
+    }
+
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_stamp, container, false);
 
@@ -102,12 +113,8 @@ public class Stamp_Fragment extends Fragment {
                             L=obj.getString("level");
                             E=obj.getString("exp");
 
-
                             Ee = Integer.parseInt(E);
                             Ll = Integer.parseInt(L);
-
-
-
 
                             maxExp = 100 + 30 * (Integer.parseInt(L)- 1) * (Integer.parseInt(L) + 6);
                             showExp = String.valueOf(maxExp - Ee);
@@ -121,9 +128,7 @@ public class Stamp_Fragment extends Fragment {
                             }
 
 
-                            if(Ll == 2){
-                                progressBar.setProgress(Ee -100);
-                            }
+
 
 
                             switch (Ll){
@@ -155,9 +160,9 @@ public class Stamp_Fragment extends Fragment {
                                     setProgressBarColor(progressBar, Color.parseColor("#7c7c7c"));
                                 }
 
-                                    showExp = String.valueOf(maxExp - Ee + 100);
+
                                     showLevel.setText("현재레벨은  " + L +"이며, " + "다음레벨까지 " + (showExp) +"남았습니다.");
-                                break;
+                                    break;
                                 case 3:
                                     wheel.setImageResource(R.drawable.tirewheel);
                                     levelname.setImageResource(R.drawable.tirename);

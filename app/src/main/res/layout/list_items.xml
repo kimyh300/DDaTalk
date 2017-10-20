@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_weight="3"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -52,18 +52,12 @@
                 android:orientation="horizontal">
 
                 <ImageView
-<<<<<<< HEAD
-                    android:id="@+id/with_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-=======
                     android:id="@+id/imageView5"
                     android:layout_width="0dp"
                     android:layout_height="14dp"
                     android:layout_weight="0.10"
                     android:contentDescription="@string/with"
                     android:scaleType="fitCenter" />
->>>>>>> 62428635e53fd3b64177ce438adeef55237a468c
             </LinearLayout>
 
             <LinearLayout
