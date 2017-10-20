@@ -17,19 +17,4 @@
         android:background="@drawable/break_handle" />
 
 
-    <TextView
-        android:id="@+id/textView34"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/second"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="핸들과 바퀴가 제대로 움직이는지?" />
 </LinearLayout>

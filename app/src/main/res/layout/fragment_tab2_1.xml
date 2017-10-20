@@ -20,6 +20,7 @@
         android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="대처행동"
@@ -29,24 +30,19 @@
         android:id="@+id/textView17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
         android:text="1.자전거와 자전거(자동차 등) \n\n차 대 차 사고로 사람이 다치지 않고 물피만 있을시 \n경찰 사건처리 불필요, 당사자끼리 합의하고 보험사등에 연락(합의 안될시 경찰에 신고)" />
 
     <TextView
         android:id="@+id/textView42"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:text="2.자전거와 사람 \n\nㄱ.상대방이 다쳤을 경우 즉시 구호조치 및 119와 112에 신고 \n\nㄴ.사고현장을 사고발생 상태로 보존 \n\nㄷ.사고목격자 확보(연락처와 이름 등)" />
-
-    <TextView
-        android:id="@+id/textView43"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="25dp"
-        android:text="3.상대가 어린이인 경우 \n\n경미한 사고라고 해서 어린이가 괜찮다며 간다고 그냥 보내면 안됩니다. 반드시 병원치료 등 조치 완료후 보호자에게 인계하여야 합니다. \n(자동차의 경우 특가법처벌 될 수 있으나 자전거는 도로교통법상 미신고로 처벌)" />
 
 
 </LinearLayout>

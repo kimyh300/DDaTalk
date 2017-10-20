@@ -3,6 +3,7 @@ package com.example.acer.login.Profile_Tab;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -30,6 +31,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Home_Fragment extends Fragment {
 
 
@@ -41,6 +45,10 @@ public class Home_Fragment extends Fragment {
 
     EditText editTextSearch;
     ProgressDialog progressDialog;
+
+    //real time
+    Handler handler;
+    Timer timerMTimer;
 
     @Nullable
     @Override
@@ -62,41 +70,55 @@ public class Home_Fragment extends Fragment {
 
         progressDialog.setMessage("로딩중.. 좀만 기둘려주떼염");
         progressDialog.show();
-        final JsonArrayRequest jsonArrayRequest;
-        jsonArrayRequest = new JsonArrayRequest(Constants.URL_WRITING_INFO, new Response.Listener<JSONArray>() {
+        handler = new Handler();
+        timerMTimer = new Timer(true);
+        timerMTimer.schedule(new TimerTask() {
             @Override
-            public void onResponse(JSONArray response) {
-                progressDialog.dismiss();
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        JSONObject obj = response.getJSONObject(i);
-                        content = obj.getString("content");
-                        date = obj.getString("date");
-                        email = obj.getString("email");
-                        reply_cnt = obj.getInt("reply_cnt");
-                        with_cnt = obj.getInt("with_cnt");
-                        writing_no = obj.getInt("writing_no");
-                        rental_spot = obj.getString("rental_spot");
-                        Writing w = new Writing(content, reply_cnt, with_cnt, date, writing_no, email,rental_spot);
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.clear();
+                        final JsonArrayRequest jsonArrayRequest;
+                        jsonArrayRequest = new JsonArrayRequest(Constants.URL_WRITING_INFO, new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                progressDialog.dismiss();
+                                for (int i = 0; i < response.length(); i++) {
+                                    try {
+                                        JSONObject obj = response.getJSONObject(i);
+                                        content = obj.getString("content");
+                                        date = obj.getString("date");
+                                        email = obj.getString("email");
+                                        reply_cnt = obj.getInt("reply_cnt");
+                                        with_cnt = obj.getInt("with_cnt");
+                                        writing_no = obj.getInt("writing_no");
+                                        rental_spot = obj.getString("rental_spot");
+                                        Writing w = new Writing(content, reply_cnt, with_cnt, date, writing_no, email,rental_spot);
 
 
-                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(), w.getEmail(), w.getContent(), w.getDate(), R.drawable.user,
-                                w.getWith_cnt(), w.getReply_cnt(), w.getRental_spot());
+                                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(), w.getEmail(), w.getContent(), w.getDate(), R.drawable.user,
+                                                w.getWith_cnt(), w.getReply_cnt(), w.getRental_spot());
 
-                        adapter.addItem(togetherItem);
-                        together2.setAdapter(adapter);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                                        adapter.addItem(togetherItem);
+                                        together2.setAdapter(adapter);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+                        rq.add(jsonArrayRequest);
                     }
-                }
+                });
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        },0,60000*3);
 
-            }
-        });
-        rq.add(jsonArrayRequest);
         Bundle extra = getArguments();
         if(extra != null) {
             get_writing_no = extra.getInt("writing_no");

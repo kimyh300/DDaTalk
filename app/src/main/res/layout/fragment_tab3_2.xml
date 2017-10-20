@@ -17,19 +17,4 @@
         android:background="@drawable/lost_damage" />
 
 
-    <TextView
-        android:id="@+id/textView32"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="파손"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="근처에 대여소가 있는지?" />
 </LinearLayout>

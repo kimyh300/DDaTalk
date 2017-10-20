@@ -33,33 +33,42 @@
         android:layout_height="match_parent"
         android:layout_marginRight="15dp"
         android:layout_weight="7"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="RtlHardcoded">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:baselineAligned="false"
+            android:gravity="end"
             android:orientation="horizontal"
             tools:ignore="NestedWeights">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
                 android:gravity="center_vertical|end"
                 android:orientation="horizontal">
 
                 <ImageView
+<<<<<<< HEAD
                     android:id="@+id/with_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+=======
+                    android:id="@+id/imageView5"
+                    android:layout_width="0dp"
+                    android:layout_height="14dp"
+                    android:layout_weight="0.10"
+                    android:contentDescription="@string/with"
+                    android:scaleType="fitCenter" />
+>>>>>>> 62428635e53fd3b64177ce438adeef55237a468c
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
                 android:orientation="horizontal"
                 tools:ignore="RtlHardcoded">
 
