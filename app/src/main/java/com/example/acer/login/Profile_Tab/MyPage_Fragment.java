@@ -11,15 +11,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +30,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.SharedPrefManager;
-import com.example.acer.login.Profile_Tab.Home_Related.Writing;
+import com.example.acer.login.Profile_Tab.MyPage_Related.ListView_Adapter;
+import com.example.acer.login.Profile_Tab.MyPage_Related.List_writing;
 import com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_Fragment_Sub;
 import com.example.acer.login.R;
 
@@ -46,7 +46,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MyPage_Fragment extends Fragment{
@@ -57,7 +56,7 @@ public class MyPage_Fragment extends Fragment{
     String HttpUrl2 = "http://104.198.211.126/getUserimgUri.php";
 
     ListView listView;
-    List<Writing> writingList;
+    private ListView_Adapter adapter;
 
     ArrayList<HashMap<String, String>> mArrayList;
 
@@ -69,16 +68,21 @@ public class MyPage_Fragment extends Fragment{
     ProgressDialog progressDialog;
     RequestQueue requestQueue;
 
-    String username, userbirth, useremail, user_imagePath;
+    String username, userbirth, useremail;
+
+
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_mypage,container,false);
 
+
+        // Adapter 생성
+        adapter = new ListView_Adapter(rootView.getContext());
         listView = (ListView) rootView.findViewById(R.id.listview);
 
-        writingList = new ArrayList<>();
         mArrayList = new ArrayList<>();
 
         user_profile = (ImageView)rootView.findViewById(R.id.user_profile);
@@ -95,7 +99,6 @@ public class MyPage_Fragment extends Fragment{
         useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
 
         ReceiveImg();
-
 
         textView.setText(username);
 
@@ -163,24 +166,12 @@ public class MyPage_Fragment extends Fragment{
                                 Date tr1 = trans.parse(date);
                                 date = format.format(tr1);
 
-                                HashMap<String,String> hashMap = new HashMap<>();
 
-                                hashMap.put("content", content);
-                                hashMap.put("with_cnt", with_cnt);
-                                hashMap.put("date", date);
+                                List_writing writing = new List_writing(ContextCompat.getDrawable(rootView.getContext(), R.drawable.with_small), content, with_cnt, date);
+                                adapter.add(writing);
 
-
-                                try{ mArrayList.add(hashMap);}
-                                catch (Exception e){e.printStackTrace(); Toast.makeText(rootView.getContext(), e.toString(), Toast.LENGTH_LONG).show();}
 
                             }
-
-                            ListAdapter adapter = new SimpleAdapter(
-                                    getActivity().getApplication(), mArrayList, R.layout.list_items,
-                                    new String[]{"with_cnt","content", "date"},
-                                    new int[]{R.id.textViewContent, R.id.textViewWith_cnt, R.id.textViewDate}
-                            );
-
                             listView.setAdapter(adapter);
 
 
