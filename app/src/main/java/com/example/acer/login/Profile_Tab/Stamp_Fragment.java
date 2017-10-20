@@ -116,24 +116,6 @@ public class Stamp_Fragment extends Fragment {
                                 updateLevelUp(sharedPrefManager,getActivity().getApplication());
                             }
 
-                            switch (Ll) {
-                                case 2:
-                                    progressBar.setProgress(Ee-100);
-                                    break;
-                                case 3:
-                                    progressBar.setProgress(Ee-340);
-                                    break;
-                                case 4:
-                                    progressBar.setProgress(Ee-640);
-                                    break;
-                                case 5:
-                                    progressBar.setProgress(Ee-1000);
-                                    break;
-                                case 6:
-                                    progressBar.setProgress(Ee-1420);
-                                   break;
-                            }
-
                             switch (Ll){
 
                                 case 1:
