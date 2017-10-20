@@ -148,7 +148,6 @@ public class Stamp_Fragment extends Fragment {
                                         setProgressBarColor(progressBar, Color.parseColor("#7a520a"));
                                     }
                                     showLevel.setText("현재레벨은  " + L +"이며, " + "다음레벨까지 " + (showExp) +"남았습니다.");
-
                                     break;
                                 case 2:
                                     wheel.setImageResource(R.drawable.stonewheel);
@@ -162,7 +161,7 @@ public class Stamp_Fragment extends Fragment {
                                     setProgressBarColor(progressBar, Color.parseColor("#7c7c7c"));
                                 }
                                     showLevel.setText("현재레벨은  " + L +"이며, " + "다음레벨까지 " + (showExp) +"남았습니다.");
-                                break;
+                                    break;
                                 case 3:
                                     wheel.setImageResource(R.drawable.tirewheel);
                                     levelname.setImageResource(R.drawable.tirename);
