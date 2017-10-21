@@ -48,8 +48,8 @@ public class Stamp_Fragment extends Fragment {
     ImageView levelbar;
     ImageButton stampcollect;
 
-    String L,E;
-    int maxExp;
+    String L,E,showExp;
+    int maxExp,Ll,Ee ;
 
 
     public void setProgressBarColor(ProgressBar progressBar, int newColor){
@@ -101,25 +101,20 @@ public class Stamp_Fragment extends Fragment {
                             JSONObject obj =  arr.getJSONObject(i);
                             L=obj.getString("level");
                             E=obj.getString("exp");
-                            int Ee = Integer.parseInt(E);
-                            int Ll = Integer.parseInt(L);
+                            Ee = Integer.parseInt(E);
+                            Ll = Integer.parseInt(L);
                             maxExp = 100 + 30 * (Integer.parseInt(L)- 1) * (Integer.parseInt(L) + 6);
-                            String showExp = String.valueOf(maxExp - Integer.parseInt(E));
-
-
-
-
+                            showExp = String.valueOf(maxExp - Ee);
 
                             progressBar.setMax(maxExp);
                             progressBar.setProgress(Ee);
 
                             if (Ee >= maxExp ){
                                 Ll++;
+                                Ee = Ee - maxExp;
+                                progressBar.setProgress(Ee);
                                 updateLevelUp(sharedPrefManager,getActivity().getApplication());
                             }
-
-
-
 
                             switch (Ll){
 
@@ -135,7 +130,6 @@ public class Stamp_Fragment extends Fragment {
                                         setProgressBarColor(progressBar, Color.parseColor("#7a520a"));
                                     }
                                     showLevel.setText("현재레벨은  " + L +"이며, " + "다음레벨까지 " + (showExp) +"남았습니다.");
-
                                     break;
                                 case 2:
                                     wheel.setImageResource(R.drawable.stonewheel);
@@ -149,7 +143,7 @@ public class Stamp_Fragment extends Fragment {
                                     setProgressBarColor(progressBar, Color.parseColor("#7c7c7c"));
                                 }
                                     showLevel.setText("현재레벨은  " + L +"이며, " + "다음레벨까지 " + (showExp) +"남았습니다.");
-                                break;
+                                    break;
                                 case 3:
                                     wheel.setImageResource(R.drawable.tirewheel);
                                     levelname.setImageResource(R.drawable.tirename);
