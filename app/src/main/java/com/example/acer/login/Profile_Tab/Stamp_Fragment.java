@@ -48,13 +48,8 @@ public class Stamp_Fragment extends Fragment {
     ImageView levelbar;
     ImageButton stampcollect;
 
-<<<<<<< HEAD
-    String L,E, showExp;
-    int maxExp, Ll, Ee;
-=======
     String L,E,showExp;
     int maxExp,Ll,Ee ;
->>>>>>> 85d51010f312c505bfdc012cf59487d0484ef2fc
 
 
     public void setProgressBarColor(ProgressBar progressBar, int newColor){
@@ -64,17 +59,6 @@ public class Stamp_Fragment extends Fragment {
     }
 
     @Nullable
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(this).attach(this).commit();
-
-    }
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_stamp, container, false);
@@ -117,15 +101,8 @@ public class Stamp_Fragment extends Fragment {
                             JSONObject obj =  arr.getJSONObject(i);
                             L=obj.getString("level");
                             E=obj.getString("exp");
-<<<<<<< HEAD
-
                             Ee = Integer.parseInt(E);
                             Ll = Integer.parseInt(L);
-
-=======
-                            Ee = Integer.parseInt(E);
-                            Ll = Integer.parseInt(L);
->>>>>>> 85d51010f312c505bfdc012cf59487d0484ef2fc
                             maxExp = 100 + 30 * (Integer.parseInt(L)- 1) * (Integer.parseInt(L) + 6);
                             showExp = String.valueOf(maxExp - Ee);
 
@@ -139,13 +116,6 @@ public class Stamp_Fragment extends Fragment {
                                 updateLevelUp(sharedPrefManager,getActivity().getApplication());
                             }
 
-<<<<<<< HEAD
-
-
-
-
-=======
->>>>>>> 85d51010f312c505bfdc012cf59487d0484ef2fc
                             switch (Ll){
 
                                 case 1:
@@ -159,7 +129,6 @@ public class Stamp_Fragment extends Fragment {
                                     } else if(Ee > maxExp*0.66 && Ee <= maxExp * 1.0) {
                                         setProgressBarColor(progressBar, Color.parseColor("#7a520a"));
                                     }
-
                                     showLevel.setText("현재레벨은  " + L +"이며, " + "다음레벨까지 " + (showExp) +"남았습니다.");
                                     break;
                                 case 2:
@@ -167,14 +136,12 @@ public class Stamp_Fragment extends Fragment {
                                     levelname.setImageResource(R.drawable.stonename);
                                     levelbar.setImageResource(R.drawable.stonebar);
                                     if(Ee > maxExp * 0.0 && Ee <=maxExp * 0.33) {
-                                    setProgressBarColor(progressBar, Color.parseColor("#e5e5e5"));
-                                } else if(Ee > maxExp*0.33 && Ee <= maxExp * 0.66) {
-                                    setProgressBarColor(progressBar, Color.parseColor("#bababa"));
-                                } else if(Ee > maxExp*0.66 && Ee <= maxExp * 1.0) {
-                                    setProgressBarColor(progressBar, Color.parseColor("#7c7c7c"));
-                                }
-
-
+                                        setProgressBarColor(progressBar, Color.parseColor("#e5e5e5"));
+                                    } else if(Ee > maxExp*0.33 && Ee <= maxExp * 0.66) {
+                                        setProgressBarColor(progressBar, Color.parseColor("#bababa"));
+                                    } else if(Ee > maxExp*0.66 && Ee <= maxExp * 1.0) {
+                                        setProgressBarColor(progressBar, Color.parseColor("#7c7c7c"));
+                                    }
                                     showLevel.setText("현재레벨은  " + L +"이며, " + "다음레벨까지 " + (showExp) +"남았습니다.");
                                     break;
                                 case 3:
