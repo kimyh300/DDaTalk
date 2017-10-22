@@ -48,8 +48,13 @@ public class Stamp_Fragment extends Fragment {
     ImageView levelbar;
     ImageButton stampcollect;
 
+<<<<<<< HEAD
     String L,E, showExp;
     int maxExp, Ll, Ee;
+=======
+    String L,E,showExp;
+    int maxExp,Ll,Ee ;
+>>>>>>> 85d51010f312c505bfdc012cf59487d0484ef2fc
 
 
     public void setProgressBarColor(ProgressBar progressBar, int newColor){
@@ -112,10 +117,15 @@ public class Stamp_Fragment extends Fragment {
                             JSONObject obj =  arr.getJSONObject(i);
                             L=obj.getString("level");
                             E=obj.getString("exp");
+<<<<<<< HEAD
 
                             Ee = Integer.parseInt(E);
                             Ll = Integer.parseInt(L);
 
+=======
+                            Ee = Integer.parseInt(E);
+                            Ll = Integer.parseInt(L);
+>>>>>>> 85d51010f312c505bfdc012cf59487d0484ef2fc
                             maxExp = 100 + 30 * (Integer.parseInt(L)- 1) * (Integer.parseInt(L) + 6);
                             showExp = String.valueOf(maxExp - Ee);
 
@@ -124,13 +134,18 @@ public class Stamp_Fragment extends Fragment {
 
                             if (Ee >= maxExp ){
                                 Ll++;
+                                Ee = Ee - maxExp;
+                                progressBar.setProgress(Ee);
                                 updateLevelUp(sharedPrefManager,getActivity().getApplication());
                             }
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 85d51010f312c505bfdc012cf59487d0484ef2fc
                             switch (Ll){
 
                                 case 1:
@@ -146,7 +161,6 @@ public class Stamp_Fragment extends Fragment {
                                     }
 
                                     showLevel.setText("현재레벨은  " + L +"이며, " + "다음레벨까지 " + (showExp) +"남았습니다.");
-
                                     break;
                                 case 2:
                                     wheel.setImageResource(R.drawable.stonewheel);
