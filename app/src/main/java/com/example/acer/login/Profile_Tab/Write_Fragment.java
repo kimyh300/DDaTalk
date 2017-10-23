@@ -49,7 +49,7 @@ public class Write_Fragment extends Fragment{
 
     ImageButton x_mark;
 
-    String ContentHolder, Rental_spot_Holder, receive_spot, receive_gu, useremail;
+    String ContentHolder, Rental_spot_Holder, receive_spot, receive_gu, useremail, userLevel, userExp;
 
     ProgressDialog progressDialog;
 
@@ -68,8 +68,10 @@ public class Write_Fragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 로그인한놈 유저메일 가져오기
+        // 로그인한놈 정보 가져오기
         useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
+        userLevel = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserLevel();
+        userExp = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEXP();
 
         if (getArguments() != null) {
             receive_spot = getArguments().getString("rental_spot");
@@ -259,6 +261,8 @@ public class Write_Fragment extends Fragment{
                         params.put("content", ContentHolder);
                         params.put("rental_spot", Rental_spot_Holder);
                         params.put("email", useremail);
+                        params.put("level", userLevel);
+                        params.put("exp", userExp);
 
                         return params;
                     }
@@ -280,8 +284,6 @@ public class Write_Fragment extends Fragment{
         Log.i(TAG, "onCreate()");
         return rootView;
     }
-
-    //x버튼 클릭시 종료
 
 
 

@@ -103,18 +103,33 @@ public class Stamp_Fragment extends Fragment {
                             E=obj.getString("exp");
                             Ee = Integer.parseInt(E);
                             Ll = Integer.parseInt(L);
-                            maxExp = 100 + 30 * (Integer.parseInt(L)- 1) * (Integer.parseInt(L) + 6);
-                            showExp = String.valueOf(maxExp - Ee);
+                            maxExp = 100;
+                            switch (Ll){
+                                case 2:
+                                    maxExp = 340;
+                                    break;
+                                case 3:
+                                    maxExp = 640;
+                                    break;
+                                case 4:
+                                    maxExp = 1000;
+                                    break;
+                                case 5:
+                                    maxExp = 1420;
+                                    break;
+                            }
 
+                            /*maxExp = 100 + 30 * (Integer.parseInt(L)- 1) * (Integer.parseInt(L) + 6);*/
+                            showExp = String.valueOf(maxExp - Ee);
                             progressBar.setMax(maxExp);
                             progressBar.setProgress(Ee);
 
-                            if (Ee >= maxExp ){
+                            /*if (Ee >= maxExp ){
                                 Ll++;
                                 Ee = Ee - maxExp;
                                 progressBar.setProgress(Ee);
                                 updateLevelUp(sharedPrefManager,getActivity().getApplication());
-                            }
+                            }*/
 
                             switch (Ll){
 
