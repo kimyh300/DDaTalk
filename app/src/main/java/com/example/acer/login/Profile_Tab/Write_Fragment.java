@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,6 +31,10 @@ import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.ProfileActivity;
 import com.example.acer.login.Profile_Tab.Write_Related.FindSpot_Fragment;
 import com.example.acer.login.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +54,7 @@ public class Write_Fragment extends Fragment{
 
     ImageButton x_mark;
 
-    String ContentHolder, Rental_spot_Holder, receive_spot, receive_gu, useremail;
+    String ContentHolder, Rental_spot_Holder, receive_spot, receive_gu, useremail, userLevel, userExp;
 
     ProgressDialog progressDialog;
 
@@ -68,8 +73,9 @@ public class Write_Fragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 로그인한놈 유저메일 가져오기
+        // 로그인한놈 정보 가져오기
         useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
+        receive_level_exp();
 
         if (getArguments() != null) {
             receive_spot = getArguments().getString("rental_spot");
@@ -81,9 +87,13 @@ public class Write_Fragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_write,container,false);
 
+
+
         //글쓰기 화면으로 오면 키보드 내리기
         InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(rootView.getWindowToken(),0);
+
+
 
         //x버튼 클릭시 이벤트 처리
         x_mark = (ImageButton)rootView.findViewById(R.id.x_Button);
@@ -217,7 +227,6 @@ public class Write_Fragment extends Fragment{
                             @Override
                             public void onResponse(String ServerResponse) {
 
-                                // Hiding the progress dialog after all task complete.
                                 progressDialog.dismiss();
 
                                 // Showing response message coming from server.
@@ -252,13 +261,13 @@ public class Write_Fragment extends Fragment{
                     @Override
                     protected Map<String, String> getParams() {
 
-                        // Creating Map String Params.
                         Map<String, String> params = new HashMap<String, String>();
 
-                        // Adding All values to Params.
                         params.put("content", ContentHolder);
                         params.put("rental_spot", Rental_spot_Holder);
                         params.put("email", useremail);
+                        params.put("level", userLevel);
+                        params.put("exp", userExp);
 
                         return params;
                     }
@@ -280,8 +289,6 @@ public class Write_Fragment extends Fragment{
         Log.i(TAG, "onCreate()");
         return rootView;
     }
-
-    //x버튼 클릭시 종료
 
 
 
@@ -348,6 +355,40 @@ public class Write_Fragment extends Fragment{
 
     }
 
+    //디비에서 유저 레벨 경험치 가져오기 메소드
+    public void receive_level_exp() {
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://104.198.211.126/getExp.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray arr = new JSONArray(response);
+                    for(int i =0; i<arr.length(); i++){
+                        JSONObject data =  arr.getJSONObject(i);
+                        userLevel = data.getString("level");
+                        userExp = data.getString("exp");
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("email", useremail);
+                return parameters;
+            }
+        };
+        queue.add(stringRequest);
+    }
 
 
 }

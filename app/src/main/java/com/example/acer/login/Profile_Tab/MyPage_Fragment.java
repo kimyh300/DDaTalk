@@ -274,5 +274,4 @@ public class MyPage_Fragment extends Fragment{
     }
 
 
-
 }

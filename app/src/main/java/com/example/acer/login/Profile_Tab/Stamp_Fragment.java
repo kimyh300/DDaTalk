@@ -103,18 +103,27 @@ public class Stamp_Fragment extends Fragment {
                             E=obj.getString("exp");
                             Ee = Integer.parseInt(E);
                             Ll = Integer.parseInt(L);
-                            maxExp = 100 + 30 * (Integer.parseInt(L)- 1) * (Integer.parseInt(L) + 6);
-                            showExp = String.valueOf(maxExp - Ee);
+                            maxExp = 100;
+                            switch (Ll){
+                                case 2:
+                                    maxExp = 340;
+                                    break;
+                                case 3:
+                                    maxExp = 640;
+                                    break;
+                                case 4:
+                                    maxExp = 1000;
+                                    break;
+                                case 5:
+                                    maxExp = 1420;
+                                    break;
+                                case 6:
+                                    maxExp = 0;
+                            }
 
+                            showExp = String.valueOf(maxExp - Ee);
                             progressBar.setMax(maxExp);
                             progressBar.setProgress(Ee);
-
-                            if (Ee >= maxExp ){
-                                Ll++;
-                                Ee = Ee - maxExp;
-                                progressBar.setProgress(Ee);
-                                updateLevelUp(sharedPrefManager,getActivity().getApplication());
-                            }
 
                             switch (Ll){
 
@@ -136,12 +145,12 @@ public class Stamp_Fragment extends Fragment {
                                     levelname.setImageResource(R.drawable.stonename);
                                     levelbar.setImageResource(R.drawable.stonebar);
                                     if(Ee > maxExp * 0.0 && Ee <=maxExp * 0.33) {
-                                    setProgressBarColor(progressBar, Color.parseColor("#e5e5e5"));
-                                } else if(Ee > maxExp*0.33 && Ee <= maxExp * 0.66) {
-                                    setProgressBarColor(progressBar, Color.parseColor("#bababa"));
-                                } else if(Ee > maxExp*0.66 && Ee <= maxExp * 1.0) {
-                                    setProgressBarColor(progressBar, Color.parseColor("#7c7c7c"));
-                                }
+                                        setProgressBarColor(progressBar, Color.parseColor("#e5e5e5"));
+                                    } else if(Ee > maxExp*0.33 && Ee <= maxExp * 0.66) {
+                                        setProgressBarColor(progressBar, Color.parseColor("#bababa"));
+                                    } else if(Ee > maxExp*0.66 && Ee <= maxExp * 1.0) {
+                                        setProgressBarColor(progressBar, Color.parseColor("#7c7c7c"));
+                                    }
                                     showLevel.setText("현재레벨은  " + L +"이며, " + "다음레벨까지 " + (showExp) +"남았습니다.");
                                     break;
                                 case 3:
