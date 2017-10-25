@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="1.차도에서 자전거 두대가 나란히 주행하는 병렬주행은 불법입니다 \n병렬 주행 가능 표시가 있는 곳에서는 가능합니다  \n\n2.자전거 전용 도로에서는 자전거를 끌고가는 행위는 도로교통법 위반입니다  \n\n3.자전거 도로가 없는 경우 자전거는 차도로 다녀야 합니다  \n\n4.횡단보도에서는 자전거에서 내려 자전거를 끌고 걸어가야 합니다" />
 
     <TextView
