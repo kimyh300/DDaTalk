@@ -33,7 +33,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="50dp"
-        android:text="남성의 경우 \n\n한쪽발로 페달을 밟고 오른쪽 발의 반정도가 땅에 닿을 정도 \n\n여성의 경우 \n\n편안한 자세로 안장에 앉아 양쪽발의 반정도가 땅을 밟을 수 \n있을 정도" />
+        android:text="남성의 경우 \n\n한쪽발로 페달을 밟고 오른쪽 발의 반정도가 땅에 닿을 정도 \n\n\n\n여성의 경우 \n\n편안한 자세로 안장에 앉아 양쪽발의 반정도가 땅을 밟을 수 \n있을 정도" />
 
 
 
