@@ -38,27 +38,27 @@
         <activity android:name=".Profile_Tab.Alarm_Related.AlarmActivity" />
         <activity
             android:name=".Profile_Tab.DD119_Related.Tab1"
-            android:label="@string/title_activity_tab1"
+            android:label="@string/tab_name4"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Profile_Tab.DD119_Related.Tab2"
-            android:label="@string/title_activity_tab2"
+            android:label="@string/tab_name4"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Profile_Tab.DD119_Related.Tab3"
-            android:label="@string/title_activity_tab3"
+            android:label="@string/tab_name4"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Profile_Tab.DD119_Related.Tab4"
-            android:label="@string/title_activity_tab4"
+            android:label="@string/tab_name4"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Profile_Tab.DD119_Related.Tab5"
-            android:label="@string/title_activity_tab5"
+            android:label="@string/tab_name4"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Profile_Tab.DD119_Related.Tab6"
-            android:label="@string/title_activity_tab6"
+            android:label="@string/tab_name4"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <provider

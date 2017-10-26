@@ -34,7 +34,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="50dp"
-        android:text="1.머리를 보호하기 위하여 반드시 헬멧을 착용합니다 \n\n2.밝은 색상의 옷을 입는 것이 안전합니다 \n\n3.자전거 정비가 제대로 되었는가를 항상 확인합니다 \n\n4.타기 전에 브레이크를 점검합니다 \n\n5.바퀴가 안전하게 고정되었는지 체크합니다" />
+        android:text="1.머리를 보호하기 위하여 반드시 헬멧을 착용합니다 \n\n\n2.밝은 색상의 옷을 입는 것이 안전합니다 \n\n\n3.자전거 정비가 제대로 되었는가를 항상 확인합니다 \n\n\n4.타기 전에 브레이크를 점검합니다 \n\n\n5.바퀴가 안전하게 고정되었는지 체크합니다" />
 
 
 

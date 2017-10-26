@@ -35,7 +35,7 @@
             android:id="@+id/tabs"
             android:background="#2BB66F"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
     </android.support.design.widget.AppBarLayout>
 
